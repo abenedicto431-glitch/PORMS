@@ -22,10 +22,10 @@
 // ============================================================
 // CONFIGURATION — EDIT THIS
 // ============================================================
-const SPREADSHEET_ID = 'YOUR_GOOGLE_SHEET_ID_HERE'; // Replace with your Sheet ID
+const SPREADSHEET_ID = '1k3sFNzBv1SiPohhSkuEdf-Tr7XAMNMsUwdyXg_vKdpM'; // Replace with your Sheet ID
 const SUBMISSIONS_SHEET = 'Submissions';
 const UPDATES_SHEET = 'Updates';
-const ADMIN_EMAIL = 'your-dost-email@dost.gov.ph'; // Replace with your email
+const ADMIN_EMAIL = 'abenedicto431@gmail.com'; // Replace with your email
 
 // ============================================================
 // COLUMN HEADERS FOR SUBMISSIONS SHEET
