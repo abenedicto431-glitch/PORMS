@@ -177,7 +177,7 @@ function doGet(e) {
       ).setMimeType(ContentService.MimeType.JSON);
     }
 
-    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    const ss = SpreadsheetApp.openById(1k3sFNzBv1SiPohhSkuEdf-Tr7XAMNMsUwdyXg_vKdpM);
     const sheet = ss.getSheetByName(SUBMISSIONS_SHEET);
     if (!sheet) {
       return ContentService.createTextOutput(
