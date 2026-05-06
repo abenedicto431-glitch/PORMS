@@ -18,23 +18,20 @@
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Source Sans 3',sans-serif;background:#dde4ef;color:var(--gray-800);min-height:100vh;font-size:14px;line-height:1.5;}
-
 .topbar{background:var(--navy-dark);color:white;display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:46px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.3);}
 .topbar-left{display:flex;align-items:center;gap:12px;}
 .topbar-title{font-size:13px;font-weight:600;letter-spacing:.03em;opacity:.9;}
 .staff-badge{background:var(--orange);color:white;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;letter-spacing:.06em;text-transform:uppercase;}
 .topbar-actions{display:flex;gap:8px;}
-.tbtn{border:none;padding:6px 14px;font-weight:700;font-size:12.5px;cursor:pointer;border-radius:4px;transition:all .15s;font-family:inherit;}
+.tbtn{border:none;padding:6px 14px;font-weight:700;font-size:12.5px;cursor:pointer;border-radius:4px;font-family:inherit;transition:all .15s;}
 .tbtn-print{background:rgba(255,255,255,.15);color:white;}
 .tbtn-print:hover{background:rgba(255,255,255,.25);}
 .tbtn-save{background:var(--gold);color:var(--navy-dark);}
 .tbtn-save:hover{background:var(--gold-light);}
 .tbtn-approve{background:var(--green);color:white;}
 .tbtn-approve:hover{background:#15803d;}
-
 .paper-wrap{max-width:940px;margin:28px auto;padding:0 12px 60px;}
 .paper{background:white;box-shadow:0 2px 20px rgba(0,0,0,.12);border-radius:2px;overflow:hidden;}
-
 /* BANNER */
 .banner{background:linear-gradient(135deg,var(--navy-dark) 0%,var(--navy-mid) 100%);padding:18px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
 .banner-left h1{color:white;font-size:16px;font-weight:700;}
@@ -48,16 +45,13 @@ body{font-family:'Source Sans 3',sans-serif;background:#dde4ef;color:var(--gray-
 .ref-chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:6px;padding:8px 16px;text-align:right;}
 .ref-chip-lbl{color:#8fa5c8;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;}
 .ref-chip-val{color:white;font-size:15px;font-weight:700;font-family:monospace;letter-spacing:.08em;margin-top:2px;}
-
-/* PROG TAGS */
 .prog-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;}
 .prog-tag{font-size:10.5px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:.05em;}
 .tag-app{background:var(--app);color:white;}
 .tag-mpp{background:var(--mpp);color:white;}
 .tag-emp{background:var(--emp);color:white;}
 .tag-fs{background:var(--fs);color:white;}
-
-/* STAFF NOTES */
+/* STAFF PANEL */
 .staff-panel{background:#fff8f0;border:1.5px solid #fec89a;border-radius:6px;padding:16px;margin:20px 28px 0;}
 .staff-panel-title{font-size:12px;font-weight:700;color:var(--orange);letter-spacing:.06em;text-transform:uppercase;margin-bottom:12px;}
 .status-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;}
@@ -70,26 +64,20 @@ body{font-family:'Source Sans 3',sans-serif;background:#dde4ef;color:var(--gray-
 .sbtn-approved.active,.sbtn-approved:hover{background:#93c5fd;}
 .sbtn-declined{background:#fee2e2;color:#991b1b;border-color:#fca5a5;}
 .sbtn-declined.active,.sbtn-declined:hover{background:#fca5a5;}
-
-/* FORM BODY */
-.fbody{padding:0 28px 28px;}
-
 /* SECTIONS */
+.fbody{padding:0 28px 28px;}
 .section{margin-top:24px;}
 .sec-head{color:white;padding:8px 16px;font-weight:700;font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;display:flex;align-items:center;gap:8px;border-radius:3px 3px 0 0;}
-.sec-head.shared{background:var(--navy);}
 .sec-head.app{background:var(--app);}
 .sec-head.mpp{background:var(--mpp);}
 .sec-head.emp{background:var(--emp);}
 .sec-head.fs{background:var(--fs);}
-.sec-head.staff-only{background:var(--orange);}
 .sec-num{background:rgba(255,255,255,.2);width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;}
-.prog-badge-sm{background:rgba(255,255,255,.18);color:#d0e4ff;font-size:10px;font-weight:700;padding:2px 10px;border-radius:20px;margin-left:auto;letter-spacing:.03em;}
+.prog-only-badge{background:rgba(255,255,255,.18);color:#d0e4ff;font-size:10px;font-weight:700;padding:2px 10px;border-radius:20px;margin-left:auto;letter-spacing:.03em;}
 .sec-body{border:1px solid var(--border);border-top:none;padding:18px;border-radius:0 0 3px 3px;}
-
 .stitle{font-weight:700;color:var(--navy);font-size:12px;margin:18px 0 8px;padding-bottom:4px;border-bottom:1px solid var(--blue-mid);text-transform:uppercase;letter-spacing:.04em;}
 .stitle:first-child{margin-top:0;}
-
+.group-lbl{font-weight:700;color:var(--navy);font-size:12px;margin:12px 0 5px;padding:4px 10px;background:var(--blue-light);border-left:3px solid var(--navy);border-radius:0 3px 3px 0;}
 /* FIELDS */
 .fg{display:grid;gap:12px;margin-bottom:10px;}
 .fg.c1{grid-template-columns:1fr;}
@@ -103,40 +91,46 @@ body{font-family:'Source Sans 3',sans-serif;background:#dde4ef;color:var(--gray-
 .f input[type=number],.f input[type=date],.f select,.f textarea{
   border:1px solid var(--border);border-radius:3px;padding:6px 9px;
   font-size:13px;color:var(--gray-800);background:var(--input-bg);
-  font-family:inherit;width:100%;transition:border-color .15s;
-}
+  font-family:inherit;width:100%;transition:border-color .15s;}
 .f input:focus,.f select:focus,.f textarea:focus{outline:none;border-color:var(--navy-mid);box-shadow:0 0 0 2px rgba(36,58,98,.12);background:white;}
 .f textarea{resize:vertical;min-height:60px;}
-
-/* READ-ONLY display */
-.ro-val{border:1px solid var(--gray-200);border-radius:3px;padding:6px 9px;font-size:13px;color:var(--gray-800);background:var(--gray-50);min-height:34px;}
-.ro-label{font-size:11.5px;font-weight:600;color:var(--gray-400);margin-bottom:3px;}
-
+.hint{font-size:11px;color:var(--gray-400);font-style:italic;margin-top:2px;}
+/* CHECKBOXES / RADIOS */
+.cg{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:4px;}
+.ci{display:flex;align-items:center;gap:5px;cursor:pointer;font-size:13px;color:var(--gray-700);}
+.ci input{cursor:pointer;width:14px;height:14px;}
 /* TABLES */
 .tbl{width:100%;border-collapse:collapse;font-size:12.5px;margin:8px 0;}
-.tbl th{background:var(--navy);color:white;padding:7px 10px;text-align:left;font-size:11px;font-weight:700;}
+.tbl th{background:var(--navy);color:white;padding:7px 10px;text-align:left;font-size:11px;font-weight:700;letter-spacing:.03em;}
 .tbl td{padding:5px 8px;border:1px solid var(--border);vertical-align:middle;}
-.tbl td input,.tbl td select,.tbl td textarea{width:100%;border:none;background:transparent;font-size:12.5px;padding:2px 4px;font-family:inherit;color:var(--gray-800);}
+.tbl td input[type=text],.tbl td input[type=number],.tbl td input[type=date],.tbl td select{width:100%;border:none;background:transparent;font-size:12.5px;padding:2px 4px;font-family:inherit;color:var(--gray-800);}
+.tbl td input:focus,.tbl td select:focus{outline:1px solid var(--navy-mid);}
 .tbl tr:nth-child(even) td{background:var(--gray-50);}
-
-/* FS TABLES */
+.add-row{font-size:11.5px;color:var(--navy);background:none;border:1px dashed var(--navy-mid);border-radius:3px;padding:4px 12px;cursor:pointer;margin-top:6px;font-weight:600;transition:all .15s;}
+.add-row:hover{background:var(--blue-light);}
+/* CONCERN TABLES */
+.ctbl{width:100%;border-collapse:collapse;font-size:12px;margin:4px 0;}
+.ctbl th{background:var(--navy-mid);color:white;padding:6px 10px;font-size:11px;font-weight:700;text-align:left;}
+.ctbl td{padding:6px 10px;border:1px solid var(--border);vertical-align:middle;}
+.ctbl tr:nth-child(even) td{background:var(--gray-50);}
+.ctbl td.area{font-weight:600;color:var(--gray-700);font-size:12.5px;width:36%;}
+.sub-cg{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:3px;}
+.sub-ci{display:flex;align-items:center;gap:4px;font-size:11.5px;color:var(--gray-600);cursor:pointer;}
+.sub-ci input{width:13px;height:13px;cursor:pointer;}
+/* QUAL BOX */
+.qual-box{background:#fffbe6;border:1px solid #f5d070;border-radius:4px;padding:12px 16px;margin:10px 0;font-size:12.5px;}
+.qi{display:flex;align-items:flex-start;gap:8px;margin:7px 0;}
+.qi input{margin-top:2px;cursor:pointer;}
+/* FS */
 .fs-lvl{background:var(--teal);color:white;padding:5px 12px;font-size:11.5px;font-weight:700;letter-spacing:.05em;border-radius:3px;margin:12px 0 6px;}
 .ftbl{width:100%;border-collapse:collapse;font-size:12px;}
 .ftbl th{background:var(--teal);color:white;padding:6px 10px;text-align:left;font-size:11px;font-weight:700;}
 .ftbl td{border:1px solid var(--border);padding:5px 8px;vertical-align:middle;}
 .ftbl tr:nth-child(even) td{background:var(--gray-50);}
 .ftbl td input,.ftbl td select{width:100%;border:none;background:transparent;font-size:12px;font-family:inherit;padding:2px 4px;}
-
-.cg{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:4px;}
-.ci{display:flex;align-items:center;gap:5px;cursor:pointer;font-size:13px;color:var(--gray-700);}
-.ci input{cursor:pointer;width:14px;height:14px;}
-
-/* CONCERN READ-ONLY */
-.concern-display{background:var(--gray-50);border:1px solid var(--border);border-radius:4px;padding:10px 14px;font-size:12.5px;color:var(--gray-700);margin:6px 0;}
-
-/* QUAL BOX */
-.qual-box{background:#fffbe6;border:1px solid #f5d070;border-radius:4px;padding:12px 16px;margin:10px 0;font-size:12.5px;}
-
+.ftbl td input:focus,.ftbl td select:focus{outline:1px solid var(--teal);}
+/* SHARED INFO */
+.shared-info{background:var(--blue-light);border:1px solid var(--blue-mid);border-radius:4px;padding:8px 14px;font-size:12px;color:var(--gray-700);margin:8px 0;}
 /* ACTIONS */
 .form-actions{display:flex;gap:12px;justify-content:flex-end;padding:18px 28px 26px;border-top:1px solid var(--gray-200);background:var(--gray-50);}
 .btn{display:inline-flex;align-items:center;gap:6px;padding:9px 22px;border-radius:4px;font-weight:700;font-size:13px;cursor:pointer;border:none;transition:all .15s;font-family:inherit;}
@@ -146,20 +140,17 @@ body{font-family:'Source Sans 3',sans-serif;background:#dde4ef;color:var(--gray-
 .btn-orange:hover{background:#c2410c;}
 .btn-green{background:var(--green);color:white;}
 .btn-green:hover{background:#15803d;}
-
 /* TOAST */
-.toast{position:fixed;bottom:24px;right:24px;background:var(--navy-dark);color:white;padding:12px 20px;border-radius:6px;font-size:13px;font-weight:600;z-index:500;display:none;box-shadow:0 4px 20px rgba(0,0,0,.3);}
+.toast{position:fixed;bottom:24px;right:24px;color:white;padding:12px 20px;border-radius:6px;font-size:13px;font-weight:600;z-index:500;display:none;box-shadow:0 4px 20px rgba(0,0,0,.3);}
 .toast.show{display:block;animation:slideup .3s ease;}
+.toast.success{background:#16a34a;}
+.toast.error{background:#dc2626;}
 @keyframes slideup{from{transform:translateY(20px);opacity:0;}to{transform:translateY(0);opacity:1;}}
-
-.div{height:1px;background:var(--gray-200);margin:14px 0;}
-.hint{font-size:11px;color:var(--gray-400);font-style:italic;margin-top:2px;}
-.group-lbl{font-weight:700;color:var(--navy);font-size:12px;margin:12px 0 5px;padding:4px 10px;background:var(--blue-light);border-left:3px solid var(--navy);border-radius:0 3px 3px 0;}
-
 @media(max-width:640px){
   .fg.c2,.fg.c3,.fg.c4,.fg.c21{grid-template-columns:1fr;}
   .paper-wrap{padding:0 6px 40px;}
   .fbody{padding:14px 16px;}
+  .staff-panel{margin:16px 12px 0;}
 }
 @media print{
   .topbar,.form-actions,.staff-panel{display:none!important;}
@@ -202,7 +193,7 @@ body{font-family:'Source Sans 3',sans-serif;background:#dde4ef;color:var(--gray-
   </div>
 </div>
 
-<!-- STAFF NOTES -->
+<!-- STAFF ASSESSMENT PANEL -->
 <div class="staff-panel">
   <div class="staff-panel-title">⚙ Staff Assessment Notes</div>
   <div class="fg c1">
@@ -218,7 +209,7 @@ body{font-family:'Source Sans 3',sans-serif;background:#dde4ef;color:var(--gray-
   </div>
   <div class="fg c2" style="margin-top:10px">
     <div class="f"><label>Assigned PSTO Staff</label><input type="text" id="staff-assigned" placeholder="Name of assigned staff"></div>
-    <div class="f"><label>Date of Initial Assessment</label><input type="date" id="staff-date"></div>
+    <div class="f"><label>Date of Assessment</label><input type="date" id="staff-date"></div>
   </div>
   <div class="fg c1">
     <div class="f"><label>Internal Remarks / Observations</label><textarea id="staff-remarks" rows="3" placeholder="Internal notes for DOST staff only — not visible to applicant..."></textarea></div>
@@ -227,17 +218,19 @@ body{font-family:'Source Sans 3',sans-serif;background:#dde4ef;color:var(--gray-
     <div class="f"><label>Reason for Decline (if applicable)</label><input type="text" id="staff-decline" placeholder="Reason for declining this application"></div>
   </div>
   <div class="fg c2">
-    <div class="f"><label>Assisted by (DOST-III PSTO Staff)</label><input type="text" id="sig-assisted" placeholder="Name and signature"></div>
-    <div class="f"><label>Noted by (Provincial S&amp;T Director)</label><input type="text" id="sig-noted" placeholder="Name and signature"></div>
+    <div class="f"><label>Assisted by (DOST-III PSTO Staff)</label><input type="text" id="sig-assisted" placeholder="Name"></div>
+    <div class="f"><label>Noted by (Provincial S&amp;T Director)</label><input type="text" id="sig-noted" placeholder="Name"></div>
   </div>
 </div>
 
-<div class="fbody" id="form-sections">
-  <!-- Sections injected by JS based on which programs were selected -->
-</div>
+<!-- FORM BODY — injected by JS -->
+<div class="fbody" id="form-body"></div>
 
 <div class="form-actions">
-  <button class="btn btn-outline" onclick="window.print()">Print</button>
+  <button class="btn btn-outline" onclick="window.print()">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    Print
+  </button>
   <button class="btn btn-orange" onclick="saveChanges()">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
     Save Changes
@@ -249,514 +242,800 @@ body{font-family:'Source Sans 3',sans-serif;background:#dde4ef;color:var(--gray-
 </div>
 
 </div></div>
-
 <div class="toast" id="toast"></div>
 
 <script>
-// ── READ URL PARAMS ───────────────────────────────────────────
+// ─── READ URL PARAMS ────────────────────────────────────────────────────────────
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID_HERE/exec';
 const p = new URLSearchParams(window.location.search);
-function gp(key){ return decodeURIComponent(p.get(key)||''); }
+function gp(k){ return decodeURIComponent(p.get(k)||''); }
 
-const ref = gp('ref') || '—';
-const programs = gp('programs'); // e.g. "APP,MPP" or "EMP" or "APP,EMP,FS"
+const ref      = gp('referenceNumber') || gp('ref') || '—';
+const programs = gp('programs');
 const hasApp = programs.includes('APP');
 const hasMpp = programs.includes('MPP');
 const hasEmp = programs.includes('EMP');
 const hasFs  = programs.includes('FS');
 
-// Display ref and date
+// Banner
 document.getElementById('ref-display').textContent = ref;
-const dateStr = gp('date');
-if (dateStr) {
-  const d = new Date(dateStr);
-  document.getElementById('date-display').textContent = 'Submitted: ' + d.toLocaleDateString('en-PH',{year:'numeric',month:'long',day:'numeric',hour:'2-digit',minute:'2-digit'});
-}
-
-// Program tags
-const tagColors = {APP:'tag-app',MPP:'tag-mpp',EMP:'tag-emp',FS:'tag-fs'};
-programs.split(',').forEach(function(prog){
-  prog = prog.trim();
-  if (!prog) return;
-  const span = document.createElement('span');
-  span.className = 'prog-tag ' + (tagColors[prog]||'');
-  span.textContent = prog;
-  document.getElementById('prog-tags').appendChild(span);
+const ds = gp('submissionDate')||gp('date');
+if(ds){ try{ const d=new Date(ds); document.getElementById('date-display').textContent='Submitted: '+d.toLocaleDateString('en-PH',{year:'numeric',month:'long',day:'numeric',hour:'2-digit',minute:'2-digit'}); }catch(e){} }
+const tagMap={APP:'tag-app',MPP:'tag-mpp',EMP:'tag-emp',FS:'tag-fs'};
+programs.split(',').forEach(prog=>{
+  prog=prog.trim(); if(!prog)return;
+  const s=document.createElement('span'); s.className='prog-tag '+(tagMap[prog]||''); s.textContent=prog;
+  document.getElementById('prog-tags').appendChild(s);
 });
 
-// ── STATUS ────────────────────────────────────────────────────
-let currentStatus = 'pending';
-function setStatus(s) {
-  currentStatus = s;
-  ['pending','reviewed','approved','declined'].forEach(function(x){
-    document.getElementById('sbtn-'+x).classList.toggle('active', x===s);
+// ─── STATUS ─────────────────────────────────────────────────────────────────────
+let currentStatus='pending';
+function setStatus(s){
+  currentStatus=s;
+  ['pending','reviewed','approved','declined'].forEach(x=>document.getElementById('sbtn-'+x).classList.toggle('active',x===s));
+  const chip=document.getElementById('status-chip');
+  const labels={pending:'● PENDING REVIEW',reviewed:'● REVIEWED',approved:'● APPROVED',declined:'● DECLINED'};
+  const cls={pending:'s-pending',reviewed:'s-reviewed',approved:'s-approved',declined:'s-declined'};
+  chip.textContent=labels[s]; chip.className='status-chip '+cls[s];
+}
+
+// ─── HELPERS ────────────────────────────────────────────────────────────────────
+function esc(v){return String(v||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function toRoman(n){return['I','II','III','IV','V','VI','VII','VIII','IX','X'][n-1]||n;}
+function parseRows(str){ if(!str)return[]; return str.split(';;').map(r=>r.split('||')); }
+
+// Field builders
+function inp(id,val,type='text'){
+  return `<input type="${type}" id="${esc(id)}" value="${esc(val)}" placeholder="">`;
+}
+function fieldEl(label,id,val,type='text'){
+  return `<div class="f"><label>${esc(label)}</label><input type="${type}" id="${esc(id)}" value="${esc(val)}"></div>`;
+}
+function selectEl(label,id,val,opts){
+  let o=`<option value="">Select</option>`; opts.forEach(v=>{ o+=`<option value="${esc(v)}"${val===v?' selected':''}>${esc(v)}</option>`; });
+  return `<div class="f"><label>${esc(label)}</label><select id="${esc(id)}">${o}</select></div>`;
+}
+function textareaEl(label,id,val,rows=2){
+  return `<div class="f"><label>${esc(label)}</label><textarea id="${esc(id)}" rows="${rows}">${esc(val)}</textarea></div>`;
+}
+function fg(cols,html){ return `<div class="fg ${cols}">${html}</div>`; }
+
+// Radio group — pre-selects the matching option
+function radioGroup(name,selected,options){
+  return '<div class="cg">'+options.map(o=>{
+    const v=typeof o==='object'?o.value:o; const l=typeof o==='object'?o.label:o;
+    return `<label class="ci"><input type="radio" name="${esc(name)}" value="${esc(v)}"${selected===v?' checked':''}> ${esc(l)}</label>`;
+  }).join('')+'</div>';
+}
+// Checkbox — pre-checked if value found in storedStr
+function chk(name,label,storedStr){
+  const checked = storedStr && storedStr.includes(label);
+  return `<label class="ci"><input type="checkbox" name="${esc(name)}"${checked?' checked':''}> ${esc(label)}</label>`;
+}
+function secHead(cls,num,title,badge){
+  return `<div class="sec-head ${cls}"><span class="sec-num">${toRoman(num)}</span> ${title} <span class="prog-only-badge">${badge}</span></div>`;
+}
+
+// Build editable table from stored rows (serialized as "a||b||c;;d||e||f")
+function buildTable(headers,rows,minRows,tbodyId){
+  let h=`<table class="tbl"><thead><tr>${headers.map(hh=>`<th>${esc(hh)}</th>`).join('')}</tr></thead><tbody id="${esc(tbodyId)}">`;
+  const all=[...rows]; while(all.length<minRows) all.push([]);
+  all.forEach(row=>{
+    h+=`<tr>`; headers.forEach((_,i)=>{ h+=`<td><input type="text" value="${esc(row[i]||'')}"></td>`; }); h+=`</tr>`;
   });
-  const chip = document.getElementById('status-chip');
-  const labels = {pending:'● PENDING REVIEW',reviewed:'● REVIEWED',approved:'● APPROVED',declined:'● DECLINED'};
-  const cls = {pending:'s-pending',reviewed:'s-reviewed',approved:'s-approved',declined:'s-declined'};
-  chip.textContent = labels[s];
-  chip.className = 'status-chip '+cls[s];
+  return h+`</tbody></table><button class="add-row" onclick="addRow('${esc(tbodyId)}',${headers.length})">+ Add Row</button>`;
 }
 
-// ── HELPERS ───────────────────────────────────────────────────
-function field(label, value, editable, inputId, type) {
-  type = type || 'text';
-  if (editable) {
-    return '<div class="f"><label>'+label+'</label><input type="'+type+'" id="'+inputId+'" value="'+esc(value)+'" placeholder="'+label+'"></div>';
-  }
-  return '<div class="f"><div class="ro-label">'+label+'</div><div class="ro-val">'+esc(value||'—')+'</div></div>';
-}
-function textarea(label, value, inputId) {
-  return '<div class="f"><label>'+label+'</label><textarea id="'+inputId+'" rows="2">'+esc(value)+'</textarea></div>';
-}
-function esc(v){ return String(v||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-function roField(label, value) {
-  return '<div class="f"><div class="ro-label">'+label+'</div><div class="ro-val">'+(value||'—')+'</div></div>';
-}
-function secHead(cls, num, title, badge) {
-  return '<div class="sec-head '+cls+'"><span class="sec-num">'+num+'</span> '+title+' <span class="prog-badge-sm">'+badge+'</span></div>';
-}
-function fg(cols, html) { return '<div class="fg '+cols+'">'+html+'</div>'; }
-
-// Rebuild consult table from stored rows string: "a||b||c;;d||e||f"
-function buildConsultTable(rowsStr) {
-  if (!rowsStr) return '';
-  var rows = rowsStr.split(';;');
-  var html = '<table class="tbl"><thead><tr><th style="width:33%">Agency / Company</th><th style="width:20%">Date of Assistance</th><th>Type of Assistance / Consultancy</th></tr></thead><tbody>';
-  rows.forEach(function(row){
-    var cells = row.split('||');
-    html += '<tr>';
-    [0,1,2].forEach(function(i){ html += '<td><input type="text" value="'+esc(cells[i]||'')+'"></td>'; });
-    html += '</tr>';
+// Build 12-row monthly table (month col is readonly, 2 data cols)
+function buildMonthTable(rows,col1,col2,id1,id2){
+  const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  let h=`<table class="tbl"><thead><tr><th style="width:18%;text-align:center">Month</th><th style="text-align:center">${esc(col1)}</th><th style="text-align:center">${esc(col2)}</th></tr></thead><tbody>`;
+  months.forEach((m,i)=>{
+    const row=rows[i]||[]; // row[0]=col1 val, row[1]=col2 val
+    h+=`<tr><td style="text-align:center;font-weight:600">${m}</td><td><input type="number" min="0" value="${esc(row[0]||'')}"></td><td><input type="number" min="0" value="${esc(row[1]||'')}"></td></tr>`;
   });
-  html += '</tbody></table>';
-  return html;
+  h+=`<tr style="background:var(--blue-light)"><td style="text-align:center;font-weight:700">TOTAL</td><td><input type="number" min="0" id="${id1}" value="${esc(gp(id1.replace('e-','').replace(/-/g,'_').replace('_','').replace(/-([a-z])/g,(_,c)=>c.toUpperCase())) )}" style="font-weight:700;"></td><td><input type="number" min="0" id="${id2}" value="${esc(gp(id2.replace('e-','').replace(/-/g,'_').replace('_','').replace(/-([a-z])/g,(_,c)=>c.toUpperCase())))}" style="font-weight:700;"></td></tr>`;
+  return h+`</tbody></table>`;
 }
 
-// Rebuild equipment table
-function buildEquipTable(rowsStr) {
-  if (!rowsStr) return '';
-  var rows = rowsStr.split(';;');
-  var html = '<table class="tbl"><thead><tr>'
-    + '<th style="width:30%">Equipment &amp; Description</th><th style="width:10%">Qty</th>'
-    + '<th style="width:15%">Rated HP</th><th style="width:15%">Rated kW</th><th>Hours/Day</th>'
-    + '</tr></thead><tbody>';
-  rows.forEach(function(row){
-    var cells = row.split('||');
-    html += '<tr>';
-    [0,1,2,3,4].forEach(function(i){ html += '<td><input type="text" value="'+esc(cells[i]||'')+'"></td>'; });
-    html += '</tr>';
-  });
-  html += '</tbody></table>';
-  return html;
+function addRow(tbodyId,cols){
+  const tb=document.getElementById(tbodyId); if(!tb)return;
+  const tr=document.createElement('tr');
+  let h=''; for(let i=0;i<cols;i++) h+=`<td><input type="text"></td>`;
+  tr.innerHTML=h; tb.appendChild(tr);
 }
 
-// Rebuild farm data table
-function buildFarmTable(rowsStr) {
-  if (!rowsStr) return '';
-  var rows = rowsStr.split(';;');
-  var headers = ['Commodity','Variety/Breed','Area','Avg Yield/Cropping','Avg Income/Cropping','No. of Croppings/Yr','Other Info'];
-  var html = '<table class="tbl"><thead><tr>'+headers.map(function(h){return '<th>'+h+'</th>';}).join('')+'</tr></thead><tbody>';
-  rows.forEach(function(row){
-    var cells = row.split('||');
-    html += '<tr>';
-    headers.forEach(function(h,i){ html += '<td><input type="text" value="'+esc(cells[i]||'')+'"></td>'; });
-    html += '</tr>';
-  });
-  html += '</tbody></table>';
-  return html;
-}
+// ─── BUILD ALL SECTIONS ─────────────────────────────────────────────────────────
+let html=''; let secN=1;
 
-// Rebuild pre-assessment table
-function buildPreAssessTable(rowsStr) {
-  if (!rowsStr) return '';
-  var rows = rowsStr.split(';;');
-  var headers = ['Possible Areas of Interventions','Technical Needs / Problems','Initial Recommendations / Remarks'];
-  var html = '<table class="tbl"><thead><tr>'+headers.map(function(h){return '<th>'+h+'</th>';}).join('')+'</tr></thead><tbody>';
-  rows.forEach(function(row){
-    var cells = row.split('||');
-    html += '<tr>';
-    headers.forEach(function(h,i){ html += '<td><input type="text" value="'+esc(cells[i]||'')+'"></td>'; });
-    html += '</tr>';
-  });
-  html += '<tr><td><input type="text" placeholder="Add row..."></td><td><input type="text"></td><td><input type="text"></td></tr>';
-  html += '</tbody></table>';
-  return html;
-}
+// ══════════════════════════════ APP ═══════════════════════════════════════════════
+if(hasApp){
+  const farmRows    = parseRows(gp('appFarmRows'));
+  const preRows     = parseRows(gp('appPreAssessRows'));
+  const consultRows = parseRows(gp('appConsultRows'));
+  const consultAns  = gp('consultAns');
+  const consultNoReason = gp('consultNoReason');
 
-// ── BUILD SECTIONS ────────────────────────────────────────────
-let html = '';
-let secNum = 1;
-function roman(n){ return ['I','II','III','IV','V','VI','VII','VIII','IX','X'][n-1]||n; }
+  html += `<div class="section">`;
+  html += secHead('app',secN++,'Agricultural Productivity Program (APP) — Farm Profile','APP');
+  html += `<div class="sec-body">`;
 
-// Determine owner source
-const ownerName     = hasApp ? gp('ownerName')     : (hasMpp ? gp('firmOwnerName')     : gp('empOwnerName'));
-const ownerSex      = hasApp ? gp('ownerSex')      : (hasMpp ? gp('firmOwnerSex')      : gp('empOwnerSex'));
-const ownerAge      = hasApp ? gp('ownerAge')      : (hasMpp ? gp('firmOwnerAge')      : gp('empOwnerAge'));
-const ownerPosition = hasApp ? gp('ownerPosition') : (hasMpp ? gp('firmOwnerPosition') : gp('empOwnerPosition'));
-const contactPerson = hasApp ? gp('contactPerson') : (hasMpp ? gp('firmContactPerson') : gp('empContactPerson'));
-const contactSex    = hasApp ? gp('contactSex')    : (hasMpp ? gp('firmContactSex')    : gp('empContactSex'));
-const ownerEmail    = hasApp ? gp('ownerEmail')    : (hasMpp ? gp('firmEmail')         : gp('empEmail'));
-const contactNum    = hasMpp ? gp('firmContactNum'): gp('empContactNum');
-
-// ── APP ──────────────────────────────────────────────────────
-if (hasApp) {
-  html += '<div class="section">';
-  html += secHead('app', roman(secNum++), 'Agricultural Productivity Program (APP) — Farm Profile', 'APP');
-  html += '<div class="sec-body">';
-  html += '<div class="stitle">Farm Details</div>';
-  html += fg('c2', field('Name of Farm','',true,'e-app-farm-name') + field('Province','',true,'e-app-province'));
-  html += fg('c1', field('Farm Complete Address','',true,'e-app-farm-address'));
+  html += `<div class="stitle">Farm Details</div>`;
+  html += fg('c2', fieldEl('Name of Farm','app-farm-name',gp('appFarmName')) + fieldEl('Farm Complete Address','app-farm-address',gp('appFarmAddress')));
   html += fg('c4',
-    field('Area of Farm',gp('appArea'),true,'e-app-area') +
-    field('Year Established',gp('appYearEst'),true,'e-app-year-est') +
-    field('No. of Workers',gp('appWorkers'),true,'e-app-workers') +
-    roField('Province', gp('appProvince'))
+    fieldEl('Area of Farm','app-area',gp('appArea')) +
+    fieldEl('Year Established','app-year-est',gp('appYearEst')) +
+    fieldEl('No. of Workers','app-workers',gp('appWorkers'),'number') +
+    selectEl('Province','app-province',gp('appProvince'),['Aurora','Bataan','Bulacan','Nueva Ecija','Pampanga','Tarlac','Zambales'])
   );
-  html += '<div class="stitle">Owner / Representative</div>';
-  html += fg('c2', field('Owner Name',ownerName,true,'e-owner-name') + field('Contact Person',contactPerson,true,'e-contact-person'));
+
+  const ownerSharedNote = (hasMpp||hasEmp) ? ' <span style="font-size:10px;font-weight:400;color:var(--green)">(shared with other programs)</span>' : '';
+  html += `<div class="stitle">Owner / Representative${ownerSharedNote}</div>`;
+  html += fg('c2', fieldEl('Owner','owner-name',gp('ownerName')) + fieldEl('Contact Person','contact-person',gp('contactPerson')));
   html += fg('c4',
-    field('Sex (Owner)',ownerSex,true,'e-owner-sex') +
-    field('Age',ownerAge,true,'e-owner-age','number') +
-    field('Position / Mobile No.',ownerPosition,true,'e-owner-position') +
-    field('Sex (Contact)',contactSex,true,'e-contact-sex')
+    selectEl('Sex (Owner)','owner-sex',gp('ownerSex'),['Male','Female']) +
+    fieldEl('Age','owner-age',gp('ownerAge'),'number') +
+    fieldEl('Position / Mobile No.','owner-position',gp('ownerPosition')) +
+    selectEl('Sex (Contact)','contact-sex',gp('contactSex'),['Male','Female'])
   );
-  html += fg('c1', field('E-mail Address',ownerEmail,true,'e-owner-email','email'));
-  html += '<div class="stitle">A. Brief Farm Background</div>';
-  html += fg('c1', field('Background',gp('appBackground'),true,'e-app-background'));
-  html += '<div class="stitle">Commodity(ies)</div>';
-  html += fg('c3',
-    field('Commodity 1',gp('appC1'),true,'e-app-c1') +
-    field('Commodity 2',gp('appC2'),true,'e-app-c2') +
-    field('Commodity 3',gp('appC3'),true,'e-app-c3')
+  html += `<div class="cg" style="margin-bottom:10px">
+    <label class="ci"><input type="checkbox" id="owner-pwd"${gp('ownerPwd')?' checked':''}> PWD</label>
+    <label class="ci"><input type="checkbox" id="owner-senior"${gp('ownerSenior')?' checked':''}> Senior Citizen</label>
+  </div>`;
+  html += fg('c2', fieldEl('E-mail Address','owner-email',gp('ownerEmail'),'email'));
+
+  html += `<div class="stitle">A. Brief Farm Background</div>`;
+  html += fg('c1', fieldEl('Farm Background','app-background',gp('appBackground')));
+
+  html += `<div class="stitle">Commodity(ies)</div>`;
+  html += fg('c3', fieldEl('Commodity 1','app-commodity-1',gp('appC1')) + fieldEl('Commodity 2','app-commodity-2',gp('appC2')) + fieldEl('Commodity 3','app-commodity-3',gp('appC3')));
+
+  const consultSharedNote = (hasMpp||hasEmp) ? ' <span style="font-size:10px;font-weight:400;color:var(--green)">(also applies to other programs)</span>' : '';
+  html += `<div class="stitle">C. Previous Consultations with DOST or Other Organizations${consultSharedNote}</div>`;
+  html += radioGroup('prev-consult', consultAns, [{value:'yes',label:'Yes — please specify the type of assistance sought and from what company / agency'},{value:'no',label:'No'}]);
+
+  html += `<div id="blk-consult-yes"${consultAns!=='yes'?' style="display:none"':''} style="margin-top:10px">`;
+  html += buildTable(['Agency / Company','Date of Assistance','Type of Assistance'], consultRows, 3, 'consult-tbody');
+  html += `</div>`;
+  html += `<div id="blk-consult-no"${consultAns!=='no'?' style="display:none"':''} style="margin-top:8px">`;
+  html += fg('c1', fieldEl('Why not?','consult-no-reason',consultNoReason));
+  html += `</div>`;
+
+  // Hook radio toggle
+  html += `<script>
+    document.querySelectorAll('input[name="prev-consult"]').forEach(r=>r.addEventListener('change',function(){
+      document.getElementById('blk-consult-yes').style.display=this.value==='yes'?'':'none';
+      document.getElementById('blk-consult-no').style.display=this.value==='no'?'':'none';
+    }));
+  <\/script>`;
+
+  html += `<div class="stitle">D. Farm Data</div>`;
+  html += buildTable(
+    ['Commodity','Variety / Breed','Area','Avg Yield per Cropping Season','Avg Income per Cropping Season','No. of Croppings/Yr','Other Information'],
+    farmRows, 4, 'app-farm-tbody'
   );
 
-  // Consultations
-  const appConsultAns = gp('consultAns');
-  html += '<div class="stitle">C. Previous Consultations</div>';
-  html += roField('Consulted DOST / Other Organization?', appConsultAns);
-  if (appConsultAns === 'no') {
-    html += fg('c1', roField('Why not?', gp('consultNoReason')));
-  } else if (appConsultAns === 'yes') {
-    html += buildConsultTable(gp('appConsultRows')||'|||;;|||;;|||');
-  }
+  html += `<div class="stitle">E. Pre-Assessment <span style="font-weight:400;font-style:italic;font-size:11px">(to be filled out by DOST-III PSTO Staff)</span></div>`;
+  html += buildTable(
+    ['Possible Areas of Interventions','Technical Needs / Problems','Initial Recommendations / Remarks'],
+    preRows, 5, 'app-preassess-tbody'
+  );
 
-  // Farm Data Table
-  html += '<div class="stitle">D. Farm Data</div>';
-  const farmRows = gp('appFarmRows');
-  html += farmRows ? buildFarmTable(farmRows) : buildFarmTable('||||||;;||||||;;||||||;;||||||');
-
-  // Pre-Assessment Table
-  html += '<div class="stitle">E. Pre-Assessment <span style="font-weight:400;font-style:italic;font-size:11px">(to be filled out by DOST-III PSTO Staff)</span></div>';
-  const preAssessRows = gp('appPreAssessRows');
-  html += buildPreAssessTable(preAssessRows||'');
-
-  html += '</div></div>';
+  html += `</div></div>`;
 }
 
-// ── MPP ──────────────────────────────────────────────────────
-if (hasMpp) {
-  html += '<div class="section">';
-  html += secHead('mpp', roman(secNum++), 'Manufacturing Productivity Program (MPP) — Firm Profile &amp; Assessment', 'MPP');
-  html += '<div class="sec-body">';
+// ══════════════════════════════ MPP ═══════════════════════════════════════════════
+if(hasMpp){
+  const mppConsultAns    = hasApp ? gp('consultAns')        : gp('mppConsultAns');
+  const mppConsultNoReason = hasApp ? gp('consultNoReason') : gp('mppConsultNoReason');
+  const mppConsultRows   = parseRows(hasApp ? gp('appConsultRows') : gp('mppConsultRows'));
+  const mppConcerns      = gp('mppConcerns'); // stored as "Area [sub1, sub2] | Area2 ..."
 
-  if (!hasApp) {
-    html += '<div class="stitle">Firm Information</div>';
-    html += fg('c21', field('Firm Name',gp('firmName'),true,'e-firm-name') + field('Province',gp('firmProvince'),true,'e-firm-province'));
-    html += fg('c1', field('Firm Complete Address',gp('firmAddress'),true,'e-firm-address'));
-    html += '<div class="stitle">Owner / Representative</div>';
-    html += fg('c2', field('Owner Name',ownerName,true,'e-mpp-owner-name') + field('Contact Person',contactPerson,true,'e-mpp-contact-person'));
+  html += `<div class="section">`;
+  html += secHead('mpp',secN++,'Manufacturing Productivity Program (MPP) — Firm Profile &amp; Assessment','MPP');
+  html += `<div class="sec-body">`;
+
+  html += `<div class="stitle">Firm Information</div>`;
+  html += fg('c21', fieldEl('Name of Firm','firm-name',gp('firmName')) + selectEl('Province','firm-province',gp('firmProvince'),['Aurora','Bataan','Bulacan','Nueva Ecija','Pampanga','Tarlac','Zambales']));
+  html += fg('c1', fieldEl('Firm Complete Address','firm-address',gp('firmAddress')));
+
+  if(hasApp){
+    html += `<div class="shared-info">ℹ️ Owner / representative details are in the APP section above — editable there.</div>`;
+  } else {
+    html += `<div class="stitle">Owner / Representative</div>`;
+    html += fg('c2', fieldEl('Owner','firm-owner-name',gp('firmOwnerName')) + fieldEl('Contact Person','firm-contact-person',gp('firmContactPerson')));
     html += fg('c4',
-      field('Sex (Owner)',ownerSex,true,'e-mpp-owner-sex') +
-      field('Age',ownerAge,true,'e-mpp-owner-age','number') +
-      field('Position',ownerPosition,true,'e-mpp-owner-position') +
-      field('Sex (Contact)',contactSex,true,'e-mpp-contact-sex')
+      selectEl('Sex (Owner)','firm-owner-sex',gp('firmOwnerSex'),['Male','Female']) +
+      fieldEl('Age','firm-owner-age',gp('firmOwnerAge'),'number') +
+      fieldEl('Position','firm-owner-position',gp('firmOwnerPosition')) +
+      selectEl('Sex (Contact)','firm-contact-sex',gp('firmContactSex'),['Male','Female'])
     );
-    html += fg('c2', field('Contact Number',contactNum,true,'e-mpp-contact-num','tel') + field('E-mail',ownerEmail,true,'e-mpp-email','email'));
-  } else {
-    html += '<div style="background:var(--blue-light);border:1px solid var(--blue-mid);border-radius:4px;padding:8px 14px;font-size:12px;color:var(--gray-700);margin-bottom:12px">ℹ️ Firm information and owner details are shown in the APP section above.</div>';
-    html += fg('c21', field('Firm Name',gp('firmName'),true,'e-firm-name') + field('Province',gp('firmProvince'),true,'e-firm-province'));
-    html += fg('c1', field('Firm Complete Address',gp('firmAddress'),true,'e-firm-address'));
+    html += `<div class="cg" style="margin-bottom:10px">
+      <label class="ci"><input type="checkbox" id="firm-owner-pwd"${gp('firmOwnerPwd')?' checked':''}> PWD</label>
+      <label class="ci"><input type="checkbox" id="firm-owner-senior"${gp('firmOwnerSenior')?' checked':''}> Senior Citizen</label>
+    </div>`;
+    html += fg('c2', fieldEl('Contact Number','firm-contact-num',gp('firmContactNum'),'tel') + fieldEl('E-mail Address','firm-email',gp('firmEmail'),'email'));
   }
 
-  html += '<div class="stitle">Firm Profile</div>';
-  html += fg('c1', field('Brief Firm Background',gp('mppBackground'),true,'e-mpp-background'));
+  html += `<div class="stitle">Firm Profile</div>`;
+  html += fg('c1', fieldEl('Brief Firm Background','mpp-background',gp('mppBackground')));
 
-  // Consultations
-  const mppConsultAns = hasApp ? gp('consultAns') : gp('mppConsultAns');
-  html += '<div class="stitle">Previous Consultations</div>';
-  if (hasApp) {
-    html += '<div style="background:var(--blue-light);border:1px solid var(--blue-mid);border-radius:4px;padding:8px 14px;font-size:12px;color:var(--gray-700)">ℹ️ Consultations already recorded in the APP section above.</div>';
+  html += `<div class="stitle">Previous Consultations with DOST or Other Organizations</div>`;
+  if(hasApp){
+    html += `<div class="shared-info">ℹ️ Consultations answered in the APP section above.</div>`;
   } else {
-    html += roField('Consulted DOST / Other Organization?', mppConsultAns);
-    if (mppConsultAns === 'yes') html += buildConsultTable(gp('mppConsultRows')||'');
-    if (mppConsultAns === 'no') html += fg('c1', roField('Why not?', gp('mppConsultNoReason')));
+    html += radioGroup('mpp-consult', mppConsultAns, [{value:'yes',label:'Yes — please specify'},{value:'no',label:'No'}]);
+    html += `<div id="blk-mpp-yes"${mppConsultAns!=='yes'?' style="display:none"':''} style="margin-top:10px">`;
+    html += buildTable(['Agency / Company','Date of Assistance','Type of Assistance / Consultancy'], mppConsultRows, 3, 'mpp-consult-tbody');
+    html += `</div>`;
+    html += `<div id="blk-mpp-no"${mppConsultAns!=='no'?' style="display:none"':''} style="margin-top:8px">`;
+    html += fg('c1', fieldEl('Why not?','mpp-consult-no-reason',mppConsultNoReason));
+    html += `</div>`;
+    html += `<script>
+      document.querySelectorAll('input[name="mpp-consult"]').forEach(r=>r.addEventListener('change',function(){
+        document.getElementById('blk-mpp-yes').style.display=this.value==='yes'?'':'none';
+        document.getElementById('blk-mpp-no').style.display=this.value==='no'?'':'none';
+      }));
+    <\/script>`;
   }
 
-  html += '<div class="stitle">Pre-Assessment Checklist</div>';
+  html += `<div class="stitle">Pre-Assessment Checklist</div>`;
   html += fg('c3',
-    field('Year Established',gp('mppPaYear'),true,'e-mpp-pa-year') +
-    field('Initial Capital (PHP)',gp('mppPaCapital'),true,'e-mpp-pa-capital') +
-    field('Company Registration No.',gp('mppPaRegnum'),true,'e-mpp-pa-regnum')
+    fieldEl('Year Established','mpp-pa-year',gp('mppPaYear')) +
+    fieldEl('Initial Capital (PHP)','mpp-pa-capital',gp('mppPaCapital')) +
+    fieldEl('Company Registration No.','mpp-pa-regnum',gp('mppPaRegnum'))
   );
-  html += fg('c2', field('Year Registered',gp('mppPaRegyear'),true,'e-mpp-pa-regyear'));
-  html += fg('c2', roField('Type of Organization', gp('mppOrg')) + roField('Capital Classification', gp('mppCap')));
-  html += fg('c2', roField('Employment Classification', gp('mppEmp')));
+  html += fg('c2', fieldEl('Year Registered','mpp-pa-regyear',gp('mppPaRegyear')));
+
+  html += `<div class="stitle">Type of Organization</div>`;
+  html += radioGroup('mpp-org', gp('mppOrg'), ['Single Proprietorship','Partnership','Corporation','Cooperative','Profit','Non-profit']);
+
+  html += `<div class="stitle">Classification According to Capital</div>`;
+  html += radioGroup('mpp-cap', gp('mppCap'), ['Micro — less than P 1.5 M','Small — P 1.5–15 M','Medium — P 15–100 M']);
+
+  html += `<div class="stitle">Classification According to Employment (Number of Employees)</div>`;
+  html += radioGroup('mpp-emp', gp('mppEmp'), ['Micro (1–9)','Small (10–99)','Medium (100–199)']);
+
+  html += `<div class="stitle">Number of Employees</div>`;
   html += fg('c4',
-    field('Direct Workers — Production',gp('mppEmpProd'),true,'e-mpp-emp-prod','number') +
-    field('Direct — Non-production',gp('mppEmpNonprod'),true,'e-mpp-emp-nonprod','number') +
-    field('Indirect / On-call',gp('mppEmpIndirect'),true,'e-mpp-emp-indirect','number') +
-    field('Total',gp('mppEmpTotal'),true,'e-mpp-emp-total','number')
+    fieldEl('Direct Workers — Production','mpp-emp-prod',gp('mppEmpProd'),'number') +
+    fieldEl('Direct Workers — Non-production','mpp-emp-nonprod',gp('mppEmpNonprod'),'number') +
+    fieldEl('Indirect / On-call Workers','mpp-emp-indirect',gp('mppEmpIndirect'),'number') +
+    fieldEl('Total','mpp-emp-total',gp('mppEmpTotal'),'number')
   );
+
+  html += `<div class="stitle">Production</div>`;
   html += fg('c2',
-    field('Annual Volume of Production',gp('mppProdVol'),true,'e-mpp-prod-vol') +
-    field('Estimated Value (PHP)',gp('mppProdVal'),true,'e-mpp-prod-val')
+    fieldEl('Annual Volume of Production','mpp-prod-vol',gp('mppProdVol')) +
+    fieldEl('Estimated Value (PHP)','mpp-prod-val',gp('mppProdVal'))
   );
-  html += fg('c1', field('Other Business Activity',gp('mppBizOthers'),true,'e-mpp-biz-others'));
-  html += '<div class="stitle">Products / Services &amp; Org Chart</div>';
-  html += fg('c1', field('Specific Products / Services',gp('mppProducts'),true,'e-mpp-products'));
-  html += fg('c1', roField('Organizational Chart', gp('mppOrgchart')));
 
-  // MPP Concerns — read-only display
-  const mppConcerns = gp('mppConcerns');
-  if (mppConcerns) {
-    html += '<div class="stitle">Technical Assistance Needed / Productivity Improvement Concerns</div>';
-    html += '<div class="concern-display">'
-      + mppConcerns.split(' | ').map(function(c){ return '• ' + c; }).join('<br>')
-      + '</div>';
-  }
+  html += `<div class="stitle">Market</div>`;
+  html += `<div class="cg" style="margin-bottom:8px">
+    ${chk('mpp-market','Direct Export',mppConcerns)}
+    ${chk('mpp-market','Sub-contractor',mppConcerns)}
+    ${chk('mpp-market','Potential for Export',mppConcerns)}
+  </div>`;
 
-  html += '</div></div>';
+  html += `<div class="stitle">Business Activity</div>`;
+  const bizActivities=['Food Processing','Furniture','Gifts, Decors & Housewares','Metals & Engineering','Metal Casting','Machining','Welding & Fabrication','Electroplating','Forging','Tool, Die & Mould Fabrication','Aquaculture & Marine Resources','Horticulture'];
+  html += `<div class="cg">${bizActivities.map(a=>chk('mpp-biz',a,mppConcerns)).join('')}</div>`;
+  html += fg('c2', fieldEl('Others — please specify','mpp-biz-others',gp('mppBizOthers')));
+
+  html += `<div class="stitle">1. Specific Products or Services the Enterprise Offers its Customers</div>`;
+  html += fg('c1', fieldEl('Products / Services','mpp-products',gp('mppProducts')));
+
+  html += `<div class="stitle">3. Organizational Chart</div>`;
+  html += radioGroup('mpp-orgchart', gp('mppOrgchart'), ['Available','Not available (PSTO can assist in drafting)']);
+
+  html += `<div class="stitle">6. Technical Assistance Needed / Productivity Improvement Concerns</div>`;
+  html += `<div class="hint" style="margin-bottom:10px">Please select your top 3–4 major areas of concern:</div>`;
+
+  html += `<div class="group-lbl">▸ Production</div>`;
+  html += `<table class="ctbl"><thead><tr><th style="width:36px">✓</th><th>Area of Concern</th><th>Sub Areas</th></tr></thead><tbody>`;
+  const prodAreas = [
+    {area:'Material Management System', subs:['Procurement','Inventory','Warehousing']},
+    {area:'Production Planning and Control', subs:['Delivery','Demand Problem','Line Balancing']},
+    {area:'Capacity Utilization', subs:['Under or Over Capacity','Time & Motion Study']},
+    {area:'Machine & Equipment Utilization', subs:['Capacity','Appropriate Machine & Equipment','Upgrading']},
+    {area:'Process & Operations', subs:['Production Issues','Procedures (SOP)']},
+    {area:'Quality Control Assurance System', subs:['Products/Services Issues','Rejects/Reworks','Customer\'s Complaint']},
+    {area:'Wastage Levels', subs:['Rejects','High Cost','Compliance to Regulatory Bodies']},
+    {area:'Product Packaging', subs:['Appropriate Packaging','Loading Issues']},
+    {area:'Layout', subs:['Disorganised Process/Product','Limited Space']},
+    {area:'Safety & Housekeeping Practices / Facilities', subs:['OSH / 5S']},
+  ];
+  prodAreas.forEach(({area,subs})=>{
+    const areaChecked = mppConcerns.includes(area);
+    html += `<tr>
+      <td><input type="checkbox"${areaChecked?' checked':''}></td>
+      <td class="area">${esc(area)}</td>
+      <td><div class="sub-cg">${subs.map(s=>`<label class="sub-ci"><input type="checkbox"${mppConcerns.includes(s)?' checked':''}> ${esc(s)}</label>`).join('')}</div></td>
+    </tr>`;
+  });
+  html += `</tbody></table>`;
+
+  html += `<div class="group-lbl">▸ Finance</div>`;
+  html += `<table class="ctbl"><tbody>
+    <tr>
+      <td style="width:36px"><input type="checkbox"${mppConcerns.includes('Financial System')?' checked':''}></td>
+      <td class="area">Financial System &amp; Controls</td>
+      <td><div class="sub-cg">
+        <label class="sub-ci"><input type="checkbox"${mppConcerns.includes('Accounting')?' checked':''}> Accounting, Product Costing</label>
+        <label class="sub-ci"><input type="checkbox"${mppConcerns.includes('Sales & Income')?' checked':''}> Sales &amp; Income</label>
+      </div></td>
+    </tr>
+  </tbody></table>`;
+
+  html += `<div class="group-lbl">▸ Administrative</div>`;
+  html += `<table class="ctbl"><tbody>
+    <tr>
+      <td style="width:36px"><input type="checkbox"${mppConcerns.includes('Work Organization')?' checked':''}></td>
+      <td class="area">Work Organization</td>
+      <td><div class="sub-cg">
+        <label class="sub-ci"><input type="checkbox"${mppConcerns.includes('Duties and Responsibilities')?' checked':''}> Duties and Responsibilities</label>
+        <label class="sub-ci"><input type="checkbox"${mppConcerns.includes('Issues on Employees')?' checked':''}> Issues on Employees/Workers</label>
+        <label class="sub-ci"><input type="checkbox"${mppConcerns.includes('Leadership')?' checked':''}> Leadership</label>
+      </div></td>
+    </tr>
+    <tr>
+      <td><input type="checkbox"${mppConcerns.includes('Human Resource')?' checked':''}></td>
+      <td class="area">Human Resource</td>
+      <td><div class="sub-cg">
+        <label class="sub-ci"><input type="checkbox"${mppConcerns.includes('Management-Worker')?' checked':''}> Management-Worker Issues</label>
+        <label class="sub-ci"><input type="checkbox"${mppConcerns.includes('DOLE')?' checked':''}> DOLE Requirements</label>
+      </div></td>
+    </tr>
+    <tr>
+      <td><input type="checkbox"${mppConcerns.includes('Plant Maintenance')?' checked':''}></td>
+      <td class="area">Plant Maintenance</td>
+      <td><div class="sub-cg">
+        <label class="sub-ci"><input type="checkbox"${mppConcerns.includes('Equipment Maintenance')?' checked':''}> Machine &amp; Equipment Maintenance</label>
+        <label class="sub-ci"><input type="checkbox"${mppConcerns.includes('Preventive')?' checked':''}> Preventive Maintenance</label>
+      </div></td>
+    </tr>
+  </tbody></table>`;
+
+  html += `</div></div>`;
 }
 
-// ── EMP ──────────────────────────────────────────────────────
-if (hasEmp) {
-  html += '<div class="section">';
-  html += secHead('emp', roman(secNum++), 'Energy Management Program (EMP) — Firm Profile &amp; Energy Assessment', 'EMP');
-  html += '<div class="sec-body">';
+// ══════════════════════════════ EMP ═══════════════════════════════════════════════
+if(hasEmp){
+  const empConsultAns    = (hasApp||hasMpp) ? (hasApp?gp('consultAns'):gp('mppConsultAns')) : gp('empConsultAns');
+  const empConsultNoReason = gp('empConsultNoReason');
+  const empConsultRows   = parseRows((hasApp||hasMpp) ? (hasApp?gp('appConsultRows'):gp('mppConsultRows')) : gp('empConsultRows'));
+  const empQual          = gp('empQual');
+  const elecRows         = parseRows(gp('empElecRows'));
+  const lpgRows          = parseRows(gp('empLpgRows'));
+  const dieselRows       = parseRows(gp('empDieselRows'));
+  const equipRows        = parseRows(gp('empEquipRows'));
 
-  if (!hasApp && !hasMpp) {
-    html += '<div class="stitle">Firm Information</div>';
-    html += fg('c21', field('Firm Name',gp('empFirmName'),true,'e-emp-firm-name') + field('Province',gp('empFirmProvince'),true,'e-emp-firm-province'));
-    html += fg('c1', field('Firm Complete Address',gp('empFirmAddress'),true,'e-emp-firm-address'));
-    html += '<div class="stitle">Owner / Representative</div>';
-    html += fg('c2', field('Owner Name',ownerName,true,'e-emp-owner-name') + field('Contact Person',contactPerson,true,'e-emp-contact-person'));
+  html += `<div class="section">`;
+  html += secHead('emp',secN++,'Energy Management Program (EMP) — Firm Profile &amp; Energy Assessment','EMP');
+  html += `<div class="sec-body">`;
+
+  if(hasMpp){
+    html += `<div class="shared-info">ℹ️ Firm information and owner details are in the MPP section above — editable there.</div>`;
+  } else if(hasApp){
+    html += `<div class="stitle">Firm Information</div>`;
+    html += fg('c21',
+      fieldEl('Name of Firm','emp-firm-name',gp('empFirmName')||gp('firmName')) +
+      selectEl('Province','emp-firm-province',gp('empFirmProvince')||gp('firmProvince'),['Aurora','Bataan','Bulacan','Nueva Ecija','Pampanga','Tarlac','Zambales'])
+    );
+    html += fg('c1', fieldEl('Firm Complete Address','emp-firm-address',gp('empFirmAddress')||gp('firmAddress')));
+    html += `<div class="shared-info">ℹ️ Owner / representative details are in the APP section above — editable there.</div>`;
+  } else {
+    html += `<div class="stitle">Firm Information</div>`;
+    html += fg('c21',
+      fieldEl('Name of Firm','emp-firm-name',gp('empFirmName')) +
+      selectEl('Province','emp-firm-province',gp('empFirmProvince'),['Aurora','Bataan','Bulacan','Nueva Ecija','Pampanga','Tarlac','Zambales'])
+    );
+    html += fg('c1', fieldEl('Firm Complete Address','emp-firm-address',gp('empFirmAddress')));
+    html += `<div class="stitle">Owner / Representative</div>`;
+    html += fg('c2', fieldEl('Owner','emp-owner-name',gp('empOwnerName')) + fieldEl('Contact Person','emp-contact-person',gp('empContactPerson')));
     html += fg('c4',
-      field('Sex (Owner)',ownerSex,true,'e-emp-owner-sex') +
-      field('Age',ownerAge,true,'e-emp-owner-age','number') +
-      field('Position',ownerPosition,true,'e-emp-owner-position') +
-      field('Sex (Contact)',contactSex,true,'e-emp-contact-sex')
+      selectEl('Sex (Owner)','emp-owner-sex',gp('empOwnerSex'),['Male','Female']) +
+      fieldEl('Age','emp-owner-age',gp('empOwnerAge'),'number') +
+      fieldEl('Position','emp-owner-position',gp('empOwnerPosition')) +
+      selectEl('Sex (Contact)','emp-contact-sex',gp('empContactSex'),['Male','Female'])
     );
-    html += fg('c2', field('Contact Number',contactNum,true,'e-emp-contact-num','tel') + field('E-mail',ownerEmail,true,'e-emp-email','email'));
-  } else {
-    html += '<div style="background:var(--blue-light);border:1px solid var(--blue-mid);border-radius:4px;padding:8px 14px;font-size:12px;color:var(--gray-700);margin-bottom:12px">ℹ️ Firm information and owner details are shown in the '+(hasMpp?'MPP':'APP')+' section above.</div>';
+    html += `<div class="cg" style="margin-bottom:10px">
+      <label class="ci"><input type="checkbox" id="emp-owner-pwd"${gp('empOwnerPwd')?' checked':''}> PWD</label>
+      <label class="ci"><input type="checkbox" id="emp-owner-senior"${gp('empOwnerSenior')?' checked':''}> Senior Citizen</label>
+    </div>`;
+    html += fg('c2', fieldEl('Contact Number','emp-contact-num',gp('empContactNum'),'tel') + fieldEl('E-mail Address','emp-email',gp('empEmail'),'email'));
   }
 
-  html += '<div class="stitle">Firm Profile</div>';
-  html += fg('c1', field('Brief Firm Background',gp('empBackground'),true,'e-emp-background'));
+  html += `<div class="stitle">Firm Profile</div>`;
+  html += fg('c1', fieldEl('Brief Firm Background','emp-background',gp('empBackground')));
 
-  // Consultations
-  const empConsultAns = (hasApp||hasMpp) ? (hasApp?gp('consultAns'):gp('mppConsultAns')) : gp('empConsultAns');
-  html += '<div class="stitle">Previous Consultations</div>';
-  if (hasApp || hasMpp) {
-    html += '<div style="background:var(--blue-light);border:1px solid var(--blue-mid);border-radius:4px;padding:8px 14px;font-size:12px;color:var(--gray-700)">ℹ️ Consultations already recorded in the '+(hasApp?'APP':'MPP')+' section above.</div>';
+  html += `<div class="stitle">Previous Consultations</div>`;
+  if(hasApp||hasMpp){
+    html += `<div class="shared-info">ℹ️ Consultations already answered in the ${hasApp?'APP':'MPP'} section above.</div>`;
   } else {
-    html += roField('Consulted DOST / Other Organization?', empConsultAns);
-    if (empConsultAns === 'yes') html += buildConsultTable(gp('empConsultRows')||'');
-    if (empConsultAns === 'no') html += fg('c1', roField('Why not?', gp('empConsultNoReason')));
+    html += radioGroup('emp-consult', empConsultAns, [{value:'yes',label:'Yes — please specify'},{value:'no',label:'No'}]);
+    html += `<div id="blk-emp-yes"${empConsultAns!=='yes'?' style="display:none"':''} style="margin-top:10px">`;
+    html += buildTable(['Agency / Company','Date','Type of Assistance'], empConsultRows, 3, 'emp-consult-tbody');
+    html += `</div>`;
+    html += `<div id="blk-emp-no"${empConsultAns!=='no'?' style="display:none"':''} style="margin-top:8px">`;
+    html += fg('c1', fieldEl('Why not?','emp-consult-no-reason',empConsultNoReason));
+    html += `</div>`;
+    html += `<script>
+      document.querySelectorAll('input[name="emp-consult"]').forEach(r=>r.addEventListener('change',function(){
+        document.getElementById('blk-emp-yes').style.display=this.value==='yes'?'':'none';
+        document.getElementById('blk-emp-no').style.display=this.value==='no'?'':'none';
+      }));
+    <\/script>`;
   }
 
-  html += '<div class="stitle">Pre-Assessment Checklist</div>';
+  html += `<div class="stitle">Pre-Assessment Checklist</div>`;
   html += fg('c3',
-    field('Year Established',gp('empPaYear'),true,'e-emp-pa-year') +
-    field('Initial Capital (PHP)',gp('empPaCapital'),true,'e-emp-pa-capital') +
-    field('Company Registration No.',gp('empPaRegnum'),true,'e-emp-pa-regnum')
+    fieldEl('Year Established','emp-pa-year',gp('empPaYear')) +
+    fieldEl('Initial Capital (PHP)','emp-pa-capital',gp('empPaCapital')) +
+    fieldEl('Company Registration No.','emp-pa-regnum',gp('empPaRegnum'))
   );
-  html += fg('c2', field('Year Registered',gp('empPaRegyear'),true,'e-emp-pa-regyear'));
-  html += fg('c2', roField('Type of Organization', gp('empOrg')) + roField('Capital Classification', gp('empCap')));
-  html += fg('c1', roField('Employment Classification', gp('empEmpcl')));
+  html += fg('c2', fieldEl('Year Registered','emp-pa-regyear',gp('empPaRegyear')));
+
+  html += `<div class="stitle">Type of Organization</div>`;
+  html += radioGroup('emp-org', gp('empOrg'), ['Single Proprietorship','Partnership','Corporation','Cooperative','Profit','Non-profit']);
+  html += `<div class="stitle">Classification According to Capital</div>`;
+  html += radioGroup('emp-cap', gp('empCap'), ['Micro — less than P 1.5 M','Small — P 1.5–15 M','Medium — P 15–100 M']);
+  html += `<div class="stitle">Classification According to Employment (Number of Employees)</div>`;
+  html += radioGroup('emp-empcl', gp('empEmpcl'), ['Micro (1–9)','Small (10–99)','Medium (100–199)']);
+
+  html += `<div class="stitle">Number of Employees</div>`;
   html += fg('c4',
-    field('Direct Workers — Production',gp('empEmpProd'),true,'e-emp-emp-prod','number') +
-    field('Direct — Non-production',gp('empEmpNonprod'),true,'e-emp-emp-nonprod','number') +
-    field('Indirect / On-call',gp('empEmpIndirect'),true,'e-emp-emp-indirect','number') +
-    field('Total',gp('empEmpTotal'),true,'e-emp-emp-total','number')
+    fieldEl('Direct Workers — Production','emp-emp-prod',gp('empEmpProd'),'number') +
+    fieldEl('Direct Workers — Non-production','emp-emp-nonprod',gp('empEmpNonprod'),'number') +
+    fieldEl('Indirect / On-call Workers','emp-emp-indirect',gp('empEmpIndirect'),'number') +
+    fieldEl('Total','emp-emp-total',gp('empEmpTotal'),'number')
   );
+
+  html += `<div class="stitle">Production</div>`;
   html += fg('c2',
-    field('Annual Volume of Production',gp('empProdVol'),true,'e-emp-prod-vol') +
-    field('Estimated Value (PHP)',gp('empProdVal'),true,'e-emp-prod-val')
-  );
-  html += fg('c1', field('Other Business Activity',gp('empBizOthers'),true,'e-emp-biz-others'));
-  html += '<div class="stitle">Specific Products / Services</div>';
-  html += fg('c1', field('Products / Services',gp('empProducts'),true,'e-emp-products'));
-
-  // Energy Consumption
-  html += '<div class="stitle">Technical Problems / Needs — Energy Consumption (Past 12 Months)</div>';
-  html += fg('c3',
-    roField('Electricity Total (kWh)', gp('empElecTotalKwh')) +
-    roField('1 Year Electric Bill (PHP)', gp('empElecTotalPhp')) +
-    roField('LPG Total — TOTAL A (kg)', gp('empLpgTotalKg'))
-  );
-  html += fg('c3',
-    roField('LPG Fuel Bill (PHP)', gp('empLpgTotalPhp')) +
-    roField('Diesel/Bunker — TOTAL B (liters)', gp('empDieselTotalLiters')) +
-    roField('Diesel Fuel Bill (PHP)', gp('empDieselTotalPhp'))
-  );
-  html += fg('c3',
-    roField('Total Production Fuel Bill (PHP)', gp('empFuelTotal')) +
-    roField('Grand Total (PHP)', gp('empGrandTotal'))
+    fieldEl('Annual Volume of Production','emp-prod-vol',gp('empProdVol')) +
+    fieldEl('Estimated Value (PHP)','emp-prod-val',gp('empProdVal'))
   );
 
-  // Equipment Table
-  const equipRows = gp('empEquipRows');
-  if (equipRows) {
-    html += '<div class="stitle">Detailed Inventory of Energy Consuming Equipment</div>';
-    html += buildEquipTable(equipRows);
-  }
+  html += `<div class="stitle">Specific Products or Services</div>`;
+  html += fg('c1', fieldEl('Products / Services','emp-products',gp('empProducts')));
 
-  // Qualification Criteria
-  const empQual = gp('empQual');
-  if (empQual) {
-    html += '<div class="stitle">Qualification Criteria Met</div>';
-    html += '<div class="concern-display">'
-      + empQual.split(' | ').map(function(c){ return '• ' + c; }).join('<br>')
-      + '</div>';
-  }
+  // ELECTRICITY TABLE
+  html += `<div style="font-weight:700;font-size:13px;color:var(--gray-800);margin:10px 0 6px;">1. Electricity Consumption for the past 12 months:</div>`;
+  const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  html += `<table class="tbl"><thead><tr><th style="width:18%;text-align:center">Month</th><th style="text-align:center">Electrical Consumption (kWh)</th><th style="text-align:center">Electric Bill (Pesos)</th></tr></thead><tbody>`;
+  months.forEach((m,i)=>{
+    const row=elecRows[i]||[];
+    html+=`<tr><td style="text-align:center;font-weight:600">${m}</td><td><input type="number" min="0" value="${esc(row[0]||'')}"></td><td><input type="number" min="0" value="${esc(row[1]||'')}"></td></tr>`;
+  });
+  html+=`<tr style="background:var(--blue-light)"><td style="text-align:center;font-weight:700">TOTAL</td><td><input type="number" min="0" id="emp-elec-total-kwh" value="${esc(gp('empElecTotalKwh'))}" style="font-weight:700;"></td><td><input type="number" min="0" id="emp-elec-total-php" value="${esc(gp('empElecTotalPhp'))}" style="font-weight:700;"></td></tr>`;
+  html+=`</tbody></table>`;
 
-  // EMP Concerns
-  const empConcerns = gp('empConcerns');
-  if (empConcerns) {
-    html += '<div class="stitle">Technical Needs / Concerns</div>';
-    html += '<div class="concern-display">'
-      + empConcerns.split(' | ').map(function(c){ return '• ' + c; }).join('<br>')
-      + '</div>';
-  }
+  // FUEL TABLES SIDE BY SIDE
+  html += `<div style="font-weight:700;font-size:13px;color:var(--gray-800);margin:18px 0 4px;">2. Fuel Consumption for the past 12 months:</div>`;
+  html += `<div style="font-size:11.5px;color:var(--gray-600);font-style:italic;margin-bottom:8px;">(Note: For production fuel only; do <strong>not</strong> include fuel for transportation)</div>`;
+  html += `<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">`;
 
-  html += '</div></div>';
+  // LPG
+  html += `<table class="tbl"><thead><tr><th style="width:22%;text-align:center">Month</th><th style="text-align:center">LPG (kg)</th><th style="text-align:center">Fuel Bill (Pesos)</th></tr></thead><tbody>`;
+  months.forEach((m,i)=>{ const row=lpgRows[i]||[]; html+=`<tr><td style="text-align:center;font-weight:600">${m}</td><td><input type="number" min="0" value="${esc(row[0]||'')}"></td><td><input type="number" min="0" value="${esc(row[1]||'')}"></td></tr>`; });
+  html+=`<tr style="background:var(--blue-light)"><td style="text-align:center;font-weight:700">TOTAL (A)</td><td><input type="number" min="0" id="emp-lpg-total-kg" value="${esc(gp('empLpgTotalKg'))}" style="font-weight:700;"></td><td><input type="number" min="0" id="emp-lpg-total-php" value="${esc(gp('empLpgTotalPhp'))}" style="font-weight:700;"></td></tr></tbody></table>`;
+
+  // Diesel
+  html += `<table class="tbl"><thead><tr><th style="width:22%;text-align:center">Month</th><th style="text-align:center">Diesel / Bunker (liters)</th><th style="text-align:center">Fuel Bill (Pesos)</th></tr></thead><tbody>`;
+  months.forEach((m,i)=>{ const row=dieselRows[i]||[]; html+=`<tr><td style="text-align:center;font-weight:600">${m}</td><td><input type="number" min="0" value="${esc(row[0]||'')}"></td><td><input type="number" min="0" value="${esc(row[1]||'')}"></td></tr>`; });
+  html+=`<tr style="background:var(--blue-light)"><td style="text-align:center;font-weight:700">TOTAL (B)</td><td><input type="number" min="0" id="emp-diesel-total-liters" value="${esc(gp('empDieselTotalLiters'))}" style="font-weight:700;"></td><td><input type="number" min="0" id="emp-diesel-total-php" value="${esc(gp('empDieselTotalPhp'))}" style="font-weight:700;"></td></tr></tbody></table>`;
+
+  html += `</div>`;
+  html += `<table class="tbl" style="margin-top:6px"><tbody><tr style="background:var(--blue-light)"><td style="font-weight:700;padding:7px 10px">TOTAL Production Fuel Bill (Pesos)</td><td style="width:40%"><input type="number" min="0" id="emp-fuel-total" value="${esc(gp('empFuelTotal'))}" style="font-weight:700;"></td></tr></tbody></table>`;
+
+  html += `<div style="font-weight:700;font-size:13px;color:var(--gray-800);margin:18px 0 6px;">Combination of Electricity and Fuel Consumption:</div>`;
+  html += `<table class="tbl"><tbody>
+    <tr><td style="width:6%;text-align:center;font-weight:700">+</td><td>1 Year Electric Bill (Pesos)</td><td style="width:38%"><input type="number" min="0" id="emp-combined-elec" value="${esc(gp('empCombinedElec'))}"></td></tr>
+    <tr><td style="text-align:center;font-weight:700">+</td><td>1 Year Fuel Bill (Pesos)</td><td><input type="number" min="0" id="emp-combined-fuel" value="${esc(gp('empCombinedFuel'))}"></td></tr>
+    <tr style="background:var(--blue-light)"><td colspan="2" style="font-weight:700;text-align:center;padding:7px 10px">GRAND TOTAL (Pesos)</td><td><input type="number" min="0" id="emp-grand-total" value="${esc(gp('empGrandTotal'))}" style="font-weight:700;"></td></tr>
+  </tbody></table>`;
+
+  html += `<div class="stitle">Detailed Inventory of Energy Consuming Equipment</div>`;
+  html += `<div class="hint" style="margin-bottom:8px">Lighting, Air Conditioning, Machines, Compressed Air, etc.</div>`;
+  html += buildTable(
+    ['Equipment and Basic Description','Qty','Rated Capacity — HP','Rated Capacity — kW','Hours of Operation per Day'],
+    equipRows, 4, 'emp-equip-tbody'
+  );
+
+  html += `<div class="stitle" style="margin-top:18px">Qualification Criteria</div>`;
+  html += `<div class="qual-box">
+    <div style="font-weight:700;color:var(--navy);margin-bottom:8px">For a firm to qualify, one of the following criteria should be met (put a checkmark where applicable):</div>
+    <div class="qi"><input type="checkbox"${empQual.includes('18,000 kWh')?' checked':''}> <label><strong>(A)</strong> Minimum Total kWh Electrical Consumption for 1 year: not less than <strong>18,000 kWh</strong></label></div>
+    <div style="margin:6px 0 2px 0;font-size:12px;color:var(--gray-600);font-weight:600">(B) Minimum Total Fuel Consumption for 1 year:</div>
+    <div class="qi" style="margin-left:14px"><input type="checkbox"${empQual.includes('2,500 kg')?' checked':''}> <label><strong>(a)</strong> LPG, kg/yr: not less than <strong>2,500 kg</strong></label></div>
+    <div class="qi" style="margin-left:14px"><input type="checkbox"${empQual.includes('5,000 liters')?' checked':''}> <label><strong>(b)</strong> Diesel/Bunker, liter/yr: not less than <strong>5,000 liters</strong></label></div>
+    <div class="qi" style="margin-left:14px"><input type="checkbox"${empQual.includes('PHP 220,000')?' checked':''}> <label><strong>(c)</strong> Combination of (a) and (b): not less than <strong>PHP 220,000.00/yr</strong></label></div>
+    <div class="qi"><input type="checkbox"${empQual.includes('Grand Total')?' checked':''}> <label><strong>(C)</strong> Minimum Total of A and B for 1 year = not less than <strong>PHP 220,000.00/yr</strong></label></div>
+  </div>`;
+
+  html += `</div></div>`;
 }
 
-// ── FS ───────────────────────────────────────────────────────
-if (hasFs) {
-  html += '<div class="section">';
-  html += secHead('fs', roman(secNum++), 'Food Safety (FS) Enrollment Form — Company Profile &amp; Assessment', 'FS');
-  html += '<div class="sec-body">';
-  html += '<div class="stitle">Company Profile</div>';
-  html += fg('c21', field('Firm Name',gp('fsFirmName'),true,'e-fs-firm-name') + field('Province',gp('fsProvince'),true,'e-fs-province'));
-  html += fg('c1', field('Company Address',gp('fsFirmAddress'),true,'e-fs-firm-address'));
+// ══════════════════════════════ FS ════════════════════════════════════════════════
+if(hasFs){
+  html += `<div class="section">`;
+  html += secHead('fs',secN++,'Food Safety (FS) Enrollment Form — Company Profile &amp; Assessment','FS');
+  html += `<div class="sec-body">`;
+
+  html += `<div class="stitle">Company Profile</div>`;
+  html += fg('c2', selectEl('Province','fs-province',gp('fsProvince'),['Aurora','Bataan','Bulacan','Nueva Ecija','Pampanga','Tarlac','Zambales']));
+  html += fg('c21', fieldEl('Name of Firm / Organization','fs-firm-name',gp('fsFirmName')));
+  html += fg('c1', fieldEl('Company Address','fs-firm-address',gp('fsFirmAddress')));
   html += fg('c2',
-    field('Owner / Chairman',gp('fsOwnerName'),true,'e-fs-owner-name') +
-    field('Age',gp('fsOwnerAge'),true,'e-fs-owner-age','number')
+    fieldEl('Name of Owner / Chairman','fs-owner-name',gp('fsOwnerName')) +
+    fieldEl('Age','fs-owner-age',gp('fsOwnerAge'),'number')
   );
   html += fg('c2',
-    field('Birth Date',gp('fsOwnerBirthdate'),true,'e-fs-owner-birthdate','date') +
-    roField('Sex', gp('fsOwnerSex'))
+    fieldEl('Birth Date','fs-owner-birthdate',gp('fsOwnerBirthdate'),'date') +
+    `<div class="f"><label>Sex</label>${radioGroup('fs-owner-sex',gp('fsOwnerSex'),['Male','Female'])}</div>`
   );
   html += fg('c2',
-    field('Contact No.',gp('fsContactNum'),true,'e-fs-contact-num','tel') +
-    field('E-mail',gp('fsEmail'),true,'e-fs-email','email')
+    fieldEl('Contact No.','fs-contact-num',gp('fsContactNum'),'tel') +
+    fieldEl('E-mail Address','fs-email',gp('fsEmail'),'email')
   );
   html += fg('c2',
-    field('Contact Person',gp('fsContactPerson'),true,'e-fs-contact-person') +
-    field('Contact Person No.',gp('fsContactPersonNum'),true,'e-fs-contact-person-num','tel')
+    fieldEl('Contact Person','fs-contact-person',gp('fsContactPerson')) +
+    fieldEl('Contact Person No.','fs-contact-person-num',gp('fsContactPersonNum'),'tel')
   );
   html += fg('c3',
-    roField('Product / Service 1', gp('fsProd1')) +
-    roField('Product / Service 2', gp('fsProd2')) +
-    roField('Product / Service 3', gp('fsProd3'))
+    fieldEl('Product / Service 1','fs-prod-1',gp('fsProd1')) +
+    fieldEl('Product / Service 2','fs-prod-2',gp('fsProd2')) +
+    fieldEl('Product / Service 3','fs-prod-3',gp('fsProd3'))
   );
-  html += fg('c1', field('Brief Firm Background',gp('fsBackground'),true,'e-fs-background'));
-  html += fg('c2', roField('Type of Organization', gp('fsOrg')) + roField('Capital Classification', gp('fsCap')));
-  html += fg('c3', roField('Employment Classification', gp('fsEmpcl')) + roField('Male Employees', gp('fsEmpM')) + roField('Female Employees', gp('fsEmpF')));
-  html += fg('c3',
-    roField('Local Market', gp('fsMktLocal')) +
-    roField('Foreign Market', gp('fsMktForeign')) +
-    roField('Target Market', gp('fsMktTarget'))
+  html += `<div class="stitle">Brief Firm Background</div>`;
+  html += fg('c1', fieldEl('Background','fs-background',gp('fsBackground')));
+
+  html += `<div class="stitle">Type of Organization</div>`;
+  html += radioGroup('fs-org', gp('fsOrg'), ['Single Proprietorship','Partnership','Corporation','Cooperative','Profit','Non-profit']);
+  html += `<div class="stitle">Classification According to Capital</div>`;
+  html += radioGroup('fs-cap', gp('fsCap'), ['Micro — less than P 3 M','Small — P 3–15 M','Medium — P 15–100 M']);
+  html += `<div class="stitle">Classification According to Employment (Number of Employees)</div>`;
+  html += radioGroup('fs-empcl', gp('fsEmpcl'), ['Micro (1–9)','Small (10–99)','Medium (100–199)']);
+  html += `<div class="stitle">Number of Employees</div>`;
+  html += fg('c2', fieldEl('Male','fs-emp-m',gp('fsEmpM'),'number') + fieldEl('Female','fs-emp-f',gp('fsEmpF'),'number'));
+
+  html += `<div class="stitle">Existing Market</div>`;
+  html += fg('c2',
+    `<div class="f"><label class="ci"><input type="checkbox"> Local Market</label><input type="text" id="fs-mkt-local" value="${esc(gp('fsMktLocal'))}" style="margin-top:6px;border:1px solid var(--border);border-radius:3px;padding:5px 8px;font-size:13px;background:var(--input-bg);width:100%;"></div>` +
+    `<div class="f"><label class="ci"><input type="checkbox"> Foreign Market</label><input type="text" id="fs-mkt-foreign" value="${esc(gp('fsMktForeign'))}" style="margin-top:6px;border:1px solid var(--border);border-radius:3px;padding:5px 8px;font-size:13px;background:var(--input-bg);width:100%;"></div>`
   );
+  html += fg('c1', fieldEl('Target Additional Market','fs-mkt-target',gp('fsMktTarget')));
 
-  // FS Levels — editable
-  html += '<div class="fs-lvl">Level 1 — Food Safety Awareness Training</div>';
-  html += '<table class="ftbl"><thead><tr><th style="width:38%">Training</th><th style="width:10%">Yes/No</th><th style="width:16%">Date</th><th style="width:20%">Provider</th><th>Remarks</th></tr></thead><tbody>';
-  ['5S of Good Housekeeping','Basic Food Hygiene (5 Keys)','Food Hazards','Food Laws','Principles of GMP / Sanitation Code of the Philippines'].forEach(function(t){
-    html += '<tr><td>'+t+'</td><td><select><option></option><option>Yes</option><option>No</option></select></td><td><input type="date"></td><td><input type="text"></td><td><input type="text"></td></tr>';
+  // FS LEVEL 1
+  html += `<div class="fs-lvl" style="margin-top:18px">Level 1 — Have you attended any of the following:</div>`;
+  html += `<table class="ftbl"><thead><tr><th style="width:38%">Training</th><th style="width:10%">Yes / No</th><th style="width:16%">Date Attended</th><th style="width:20%">Service Provider</th><th>Remarks</th></tr></thead><tbody>`;
+  ['5S of Good Housekeeping','Basic Food Hygiene (5 Keys)','Food Hazards','Food Laws','Principles of Good Manufacturing Practices (GMP) / Sanitation Code of the Philippines'].forEach(t=>{
+    html+=`<tr><td>${esc(t)}</td><td><select><option></option><option>Yes</option><option>No</option></select></td><td><input type="date"></td><td><input type="text"></td><td><input type="text"></td></tr>`;
   });
-  html += '</tbody></table>';
+  html+=`</tbody></table>`;
 
-  html += '<div class="fs-lvl" style="margin-top:12px">Level 2 — Food Safety Manuals &amp; Document Audit</div>';
-  html += '<table class="ftbl"><thead><tr><th style="width:38%">Manual</th><th style="width:12%">Yes/None</th><th style="width:16%">Date</th><th style="width:20%">Provider</th><th>Updated Records?</th></tr></thead><tbody>';
-  ['Good Manufacturing Practices (GMP) Manual','Sanitation Standard Operating Procedures (SSOPs)','Product Standard Operating Procedures (PSOPs)','Quality Standard Operating Procedures (QSOPs)'].forEach(function(t){
-    html += '<tr><td>'+t+'</td><td><select><option></option><option>Yes</option><option>None</option></select></td><td><input type="date"></td><td><input type="text"></td><td><select><option></option><option>Yes</option><option>No</option></select></td></tr>';
+  // FS LEVEL 2
+  html += `<div class="fs-lvl" style="margin-top:14px">Level 2 — Do you have any of the following Food Safety Manuals?</div>`;
+  html += `<table class="ftbl"><thead><tr><th style="width:38%">Manual</th><th style="width:12%">Yes / None</th><th style="width:16%">Date</th><th style="width:20%">Service Provider</th><th>With Updated Records? (Yes/No)</th></tr></thead><tbody>`;
+  ['Good Manufacturing Practices (GMP) Manual','Sanitation Standard Operating Policies, Programs and Procedures (SSOPs)','Product Standard Operating Policies, Programs and Procedures (PSOPs)','Quality Standard Operating Policies, Programs and Procedures (QSOPs)'].forEach(t=>{
+    html+=`<tr><td>${esc(t)}</td><td><select><option></option><option>Yes</option><option>None</option></select></td><td><input type="date"></td><td><input type="text"></td><td><select><option></option><option>Yes</option><option>No</option></select></td></tr>`;
   });
-  html += '</tbody></table>';
+  html+=`</tbody></table>`;
 
-  html += '<div class="fs-lvl" style="margin-top:12px">Level 3 — FDA Licensing &amp; Registration</div>';
-  html += '<table class="ftbl"><thead><tr><th style="width:70%">Question</th><th style="width:12%">Yes/No</th><th>Remarks</th></tr></thead><tbody>';
-  ['Do you need assistance in acquiring FDA License to Operate (LTO) / Certificate of Product Registration (CPR)?','If yes, is the company willing to shoulder expenses? (Application Fee, Facility Improvement, Lab Analysis, etc.)'].forEach(function(t){
-    html += '<tr><td>'+t+'</td><td><select><option></option><option>Yes</option><option>No</option></select></td><td><input type="text"></td></tr>';
+  // FS LEVEL 3
+  html += `<div class="fs-lvl" style="margin-top:14px">Level 3 — FDA Licensing &amp; Registration</div>`;
+  html += `<table class="ftbl"><thead><tr><th style="width:70%">Question</th><th style="width:12%">Yes / No</th><th>Remarks</th></tr></thead><tbody>
+    <tr><td>Do you need assistance in acquiring FDA License to Operate (LTO) / Certificate of Product Registration (CPR)?</td><td><select><option></option><option>Yes</option><option>No</option></select></td><td><input type="text"></td></tr>
+    <tr><td>If yes, is the company willing to shoulder expenses to be incurred during application for FDA-LTO/CPR? (Application Fee, Facility Improvement, Lab Analysis, etc.)</td><td><select><option></option><option>Yes</option><option>No</option></select></td><td><input type="text"></td></tr>
+  </tbody></table>`;
+
+  // SPECIALIZED TRAININGS
+  html += `<div class="fs-lvl" style="margin-top:14px">Specialized Trainings / Consultancy — Does the company need the following?</div>`;
+  html += `<table class="ftbl"><thead><tr><th style="width:58%">Training / Consultancy</th><th style="width:12%">Yes / No</th><th>Remarks</th></tr></thead><tbody>`;
+  ['Understanding Nutrition Facts and Packaging and Labeling','Systematic Plant Layout','Halal','HACCP','Product and Process Improvement','ISO 22000:2018','GMP Certification','US-FDA','Others'].forEach(t=>{
+    html+=`<tr><td>${esc(t)}</td><td><select><option></option><option>Yes</option><option>No</option></select></td><td><input type="text" placeholder="${t==='Others'?'Specify':''}"></td></tr>`;
   });
-  html += '</tbody></table>';
+  html+=`</tbody></table>`;
 
-  html += '<div class="fs-lvl" style="margin-top:12px">Specialized Trainings / Consultancy</div>';
-  html += '<table class="ftbl"><thead><tr><th style="width:58%">Training / Consultancy</th><th style="width:12%">Yes/No</th><th>Remarks</th></tr></thead><tbody>';
-  ['Understanding Nutrition Facts and Packaging and Labeling','Systematic Plant Layout','Halal','HACCP','Product and Process Improvement','ISO 22000:2018','GMP Certification','US-FDA','Others'].forEach(function(t){
-    html += '<tr><td>'+t+'</td><td><select><option></option><option>Yes</option><option>No</option></select></td><td><input type="text"></td></tr>';
+  // RECOMMENDATION
+  html += `<div class="stitle" style="margin-top:16px">Recommendation <span style="font-weight:400;font-style:italic;font-size:11px">(to be filled out by CLFST Member/s)</span></div>`;
+  html += `<table class="tbl"><thead><tr><th>To be enrolled in:</th><th style="width:55%">Specify</th></tr></thead><tbody>`;
+  ['Level 1','Level 2','Level 3','Specialized Training / Consultancy'].forEach(lvl=>{
+    html+=`<tr><td><label class="ci"><input type="checkbox"> ${esc(lvl)}</label></td><td><input type="text" placeholder="Specify"></td></tr>`;
   });
-  html += '</tbody></table>';
+  html+=`</tbody></table>`;
 
-  // Recommendation
-  html += '<div class="stitle" style="margin-top:16px">Recommendation <span style="font-weight:400;font-style:italic;font-size:11px">(to be filled out by CLFST Member/s)</span></div>';
-  html += '<table class="tbl"><thead><tr><th>To be enrolled in:</th><th style="width:55%">Specify</th></tr></thead><tbody>';
-  ['Level 1','Level 2','Level 3','Specialized Training / Consultancy'].forEach(function(lvl){
-    html += '<tr><td><label class="ci"><input type="checkbox"> '+lvl+'</label></td><td><input type="text" placeholder="Specify"></td></tr>';
-  });
-  html += '</tbody></table>';
-  html += fg('c1', '<div class="f"><label>Food Safety Consultancy to be handled by:</label><div class="cg" style="margin-top:5px"><label class="ci"><input type="radio" name="e-fs-handler"> Internal (Central Luzon Food Safety Team)</label><label class="ci"><input type="radio" name="e-fs-handler"> External (Food Safety Consultant)</label></div></div>');
-  html += fg('c1', field('Remarks',gp('fsRemarks'),true,'e-fs-remarks'));
-
-  html += '</div></div>';
+  html += fg('c1',
+    `<div class="f"><label>Food Safety Consultancy to be handled by:</label><div class="cg" style="margin-top:5px">
+      <label class="ci"><input type="radio" name="fs-handler"${gp('fsHandler').includes('Internal')?' checked':''}> Internal (Central Luzon Food Safety Team)</label>
+      <label class="ci"><input type="radio" name="fs-handler"${gp('fsHandler').includes('External')?' checked':''}> External (Food Safety Consultant)</label>
+    </div></div>`
+  );
+  html += fg('c1', fieldEl('Remarks','fs-remarks',gp('fsRemarks')));
+  html += `</div></div>`;
 }
 
-// Inject into page
-document.getElementById('form-sections').innerHTML = html;
+document.getElementById('form-body').innerHTML = html;
 
-// ── STATUS & SAVE ─────────────────────────────────────────────
-let currentStatus = 'pending';
-function setStatus(s) {
-  currentStatus = s;
-  ['pending','reviewed','approved','declined'].forEach(function(x){
-    document.getElementById('sbtn-'+x).classList.toggle('active', x===s);
+// ─── HELPERS TO READ CURRENT VALUES ────────────────────────────────────────────
+function gv(id){const e=document.getElementById(id);return e?e.value.trim():'';}
+function gr(name){const e=document.querySelector('input[name="'+name+'"]:checked');if(!e)return'';return(e.value&&e.value!=='on')?e.value:e.parentElement.textContent.trim();}
+function gc(id){const e=document.getElementById(id);return e&&e.checked?'Yes':'';}
+
+function getTableData(tbodyId){
+  const tb=document.getElementById(tbodyId); if(!tb)return'';
+  const rows=[]; tb.querySelectorAll('tr').forEach(tr=>{
+    const inputs=tr.querySelectorAll('input,select'); const row=[]; let has=false;
+    inputs.forEach(i=>{if((i.value||'').trim())has=true; row.push(i.value||'');});
+    if(has) rows.push(row.join('||'));
   });
-  const chip = document.getElementById('status-chip');
-  const labels = {pending:'● PENDING REVIEW',reviewed:'● REVIEWED',approved:'● APPROVED',declined:'● DECLINED'};
-  const cls = {pending:'s-pending',reviewed:'s-reviewed',approved:'s-approved',declined:'s-declined'};
-  chip.textContent = labels[s];
-  chip.className = 'status-chip '+cls[s];
+  return rows.join(';;');
 }
 
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(function(){ t.classList.remove('show'); }, 3000);
-}
-
-function saveChanges() {
-  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID_HERE/exec';
-  const data = {
-    action:'update', ref:ref, status:currentStatus,
-    staffAssigned: document.getElementById('staff-assigned').value,
-    staffRemarks:  document.getElementById('staff-remarks').value,
-    staffDate:     document.getElementById('staff-date').value,
-    staffDecline:  document.getElementById('staff-decline').value,
-    sigAssisted:   document.getElementById('sig-assisted').value,
-    sigNoted:      document.getElementById('sig-noted').value,
+// ─── SAVE ───────────────────────────────────────────────────────────────────────
+function saveChanges(){
+  const payload = {
+    action:'update',
+    referenceNumber: ref,
+    programs: programs,
+    status: currentStatus,
+    // Staff fields
+    staffAssigned: gv('staff-assigned'),
+    staffDate:     gv('staff-date'),
+    staffRemarks:  gv('staff-remarks'),
+    staffDecline:  gv('staff-decline'),
+    sigAssisted:   gv('sig-assisted'),
+    sigNoted:      gv('sig-noted'),
+    // APP
+    appFarmName:    gv('app-farm-name'),
+    appFarmAddress: gv('app-farm-address'),
+    appArea:        gv('app-area'),
+    appYearEst:     gv('app-year-est'),
+    appWorkers:     gv('app-workers'),
+    appProvince:    gv('app-province'),
+    appBackground:  gv('app-background'),
+    appC1:          gv('app-commodity-1'),
+    appC2:          gv('app-commodity-2'),
+    appC3:          gv('app-commodity-3'),
+    appFarmRows:    getTableData('app-farm-tbody'),
+    appPreAssessRows: getTableData('app-preassess-tbody'),
+    // Shared owner
+    ownerName:      gv('owner-name'),
+    contactPerson:  gv('contact-person'),
+    ownerSex:       gv('owner-sex'),
+    ownerAge:       gv('owner-age'),
+    ownerPosition:  gv('owner-position'),
+    contactSex:     gv('contact-sex'),
+    ownerPwd:       gc('owner-pwd'),
+    ownerSenior:    gc('owner-senior'),
+    ownerEmail:     gv('owner-email'),
+    consultAns:     gr('prev-consult'),
+    consultNoReason:gv('consult-no-reason'),
+    appConsultRows: getTableData('consult-tbody'),
+    // MPP
+    firmName:       gv('firm-name'),
+    firmProvince:   gv('firm-province'),
+    firmAddress:    gv('firm-address'),
+    firmOwnerName:  gv('firm-owner-name'),
+    firmContactPerson: gv('firm-contact-person'),
+    firmOwnerSex:   gv('firm-owner-sex'),
+    firmOwnerAge:   gv('firm-owner-age'),
+    firmOwnerPosition: gv('firm-owner-position'),
+    firmContactSex: gv('firm-contact-sex'),
+    firmOwnerPwd:   gc('firm-owner-pwd'),
+    firmOwnerSenior:gc('firm-owner-senior'),
+    firmContactNum: gv('firm-contact-num'),
+    firmEmail:      gv('firm-email'),
+    mppBackground:  gv('mpp-background'),
+    mppConsultAns:  gr('mpp-consult'),
+    mppConsultNoReason: gv('mpp-consult-no-reason'),
+    mppConsultRows: getTableData('mpp-consult-tbody'),
+    mppPaYear:      gv('mpp-pa-year'),
+    mppPaCapital:   gv('mpp-pa-capital'),
+    mppPaRegnum:    gv('mpp-pa-regnum'),
+    mppPaRegyear:   gv('mpp-pa-regyear'),
+    mppOrg:         gr('mpp-org'),
+    mppCap:         gr('mpp-cap'),
+    mppEmp:         gr('mpp-emp'),
+    mppEmpProd:     gv('mpp-emp-prod'),
+    mppEmpNonprod:  gv('mpp-emp-nonprod'),
+    mppEmpIndirect: gv('mpp-emp-indirect'),
+    mppEmpTotal:    gv('mpp-emp-total'),
+    mppProdVol:     gv('mpp-prod-vol'),
+    mppProdVal:     gv('mpp-prod-val'),
+    mppBizOthers:   gv('mpp-biz-others'),
+    mppProducts:    gv('mpp-products'),
+    mppOrgchart:    gr('mpp-orgchart'),
+    // EMP
+    empFirmName:    gv('emp-firm-name'),
+    empFirmProvince:gv('emp-firm-province'),
+    empFirmAddress: gv('emp-firm-address'),
+    empOwnerName:   gv('emp-owner-name'),
+    empContactPerson:gv('emp-contact-person'),
+    empOwnerSex:    gv('emp-owner-sex'),
+    empOwnerAge:    gv('emp-owner-age'),
+    empOwnerPosition:gv('emp-owner-position'),
+    empContactSex:  gv('emp-contact-sex'),
+    empOwnerPwd:    gc('emp-owner-pwd'),
+    empOwnerSenior: gc('emp-owner-senior'),
+    empContactNum:  gv('emp-contact-num'),
+    empEmail:       gv('emp-email'),
+    empBackground:  gv('emp-background'),
+    empConsultAns:  gr('emp-consult'),
+    empPaYear:      gv('emp-pa-year'),
+    empPaCapital:   gv('emp-pa-capital'),
+    empPaRegnum:    gv('emp-pa-regnum'),
+    empPaRegyear:   gv('emp-pa-regyear'),
+    empOrg:         gr('emp-org'),
+    empCap:         gr('emp-cap'),
+    empEmpcl:       gr('emp-empcl'),
+    empEmpProd:     gv('emp-emp-prod'),
+    empEmpNonprod:  gv('emp-emp-nonprod'),
+    empEmpIndirect: gv('emp-emp-indirect'),
+    empEmpTotal:    gv('emp-emp-total'),
+    empProdVol:     gv('emp-prod-vol'),
+    empProdVal:     gv('emp-prod-val'),
+    empProducts:    gv('emp-products'),
+    empElecTotalKwh:gv('emp-elec-total-kwh'),
+    empElecTotalPhp:gv('emp-elec-total-php'),
+    empLpgTotalKg:  gv('emp-lpg-total-kg'),
+    empLpgTotalPhp: gv('emp-lpg-total-php'),
+    empDieselTotalLiters:gv('emp-diesel-total-liters'),
+    empDieselTotalPhp:gv('emp-diesel-total-php'),
+    empFuelTotal:   gv('emp-fuel-total'),
+    empCombinedElec:gv('emp-combined-elec'),
+    empCombinedFuel:gv('emp-combined-fuel'),
+    empGrandTotal:  gv('emp-grand-total'),
+    empEquipRows:   getTableData('emp-equip-tbody'),
+    // FS
+    fsProvince:     gv('fs-province'),
+    fsFirmName:     gv('fs-firm-name'),
+    fsFirmAddress:  gv('fs-firm-address'),
+    fsOwnerName:    gv('fs-owner-name'),
+    fsOwnerAge:     gv('fs-owner-age'),
+    fsOwnerBirthdate:gv('fs-owner-birthdate'),
+    fsOwnerSex:     gr('fs-owner-sex'),
+    fsContactNum:   gv('fs-contact-num'),
+    fsEmail:        gv('fs-email'),
+    fsContactPerson:gv('fs-contact-person'),
+    fsContactPersonNum:gv('fs-contact-person-num'),
+    fsProd1:        gv('fs-prod-1'),
+    fsProd2:        gv('fs-prod-2'),
+    fsProd3:        gv('fs-prod-3'),
+    fsBackground:   gv('fs-background'),
+    fsOrg:          gr('fs-org'),
+    fsCap:          gr('fs-cap'),
+    fsEmpcl:        gr('fs-empcl'),
+    fsEmpM:         gv('fs-emp-m'),
+    fsEmpF:         gv('fs-emp-f'),
+    fsMktLocal:     gv('fs-mkt-local'),
+    fsMktForeign:   gv('fs-mkt-foreign'),
+    fsMktTarget:    gv('fs-mkt-target'),
+    fsHandler:      gr('fs-handler'),
+    fsRemarks:      gv('fs-remarks'),
   };
-  fetch(APPS_SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}).catch(function(){});
-  showToast('✓ Changes saved successfully');
+
+  fetch(APPS_SCRIPT_URL,{
+    method:'POST', mode:'no-cors',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(payload)
+  }).catch(()=>{}).finally(()=>{
+    showToast('✓ Changes saved successfully','success');
+  });
 }
 
-function markApproved() {
+function markApproved(){
   setStatus('approved');
   document.getElementById('staff-date').value = new Date().toISOString().split('T')[0];
   saveChanges();
-  showToast('✓ Submission marked as Approved');
+  showToast('✓ Submission marked as Approved','success');
+}
+
+function showToast(msg,type='success'){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.className='toast '+type+' show';
+  setTimeout(()=>t.classList.remove('show'),3500);
 }
 </script>
 </body>
