@@ -448,7 +448,7 @@ if(hasMpp){
       selectEl('Sex (Owner)','firm-owner-sex',gp('firmOwnerSex'),['Male','Female']) +
       fieldEl('Age','firm-owner-age',gp('firmOwnerAge'),'number') +
       fieldEl('Position','firm-owner-position',gp('firmOwnerPosition')) +
-      selectEl('Sex (Contact)','firm-contact-sex',gp('firmContactSex'),['Male','Female'])
+      selectEl('Mobile No.','firm-mobile',gp('firmMobileNo.'))
     );
     html += `<div class="cg" style="margin-bottom:10px">
       <label class="ci"><input type="checkbox" id="firm-owner-pwd"${gp('firmOwnerPwd')?' checked':''}> PWD</label>
@@ -637,7 +637,7 @@ if(hasEmp){
       selectEl('Sex (Owner)','emp-owner-sex',gp('empOwnerSex'),['Male','Female']) +
       fieldEl('Age','emp-owner-age',gp('empOwnerAge'),'number') +
       fieldEl('Position','emp-owner-position',gp('empOwnerPosition')) +
-      selectEl('Sex (Contact)','emp-contact-sex',gp('empContactSex'),['Male','Female'])
+      selectEl('Mobile No.','emp-mobile',gp('empMobile No.'))
     );
     html += `<div class="cg" style="margin-bottom:10px">
       <label class="ci"><input type="checkbox" id="emp-owner-pwd"${gp('empOwnerPwd')?' checked':''}> PWD</label>
