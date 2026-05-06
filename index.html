@@ -2098,9 +2098,21 @@ function submitForm() {
   const editLink = base+'edit.html?'+params.toString();
 
   // Also send to Google Apps Script
-  const APPS_SCRIPT_URL='https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID_HERE/exec';
-  const data = { referenceNumber:ref, submissionDate, programs:selectedProgs, editLink };
-  fetch(APPS_SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}).catch(()=>{});
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxjop3hnUQV1rzl87d3hFQSyWs_Xy9RuNhT01yAe7YCkfH4sWiJTIjH20ahGkoSKL4/exec';
+const allParams = Object.fromEntries(params.entries());
+const payload = {
+  ...allParams,
+  referenceNumber: ref,
+  submissionDate,
+  programs: selectedProgs,
+  editLink
+};
+fetch(APPS_SCRIPT_URL, {
+  method: 'POST',
+  mode: 'no-cors',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(payload)
+}).catch(() => {});
 
   closeReview();
   document.getElementById('suc-ref-num').textContent = ref;
