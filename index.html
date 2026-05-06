@@ -753,7 +753,7 @@ body{font-family:'Source Sans 3',sans-serif;background:#dde4ef;color:var(--gray-
 
     <!-- 1. ELECTRICITY CONSUMPTION -->
     <div style="font-weight:700;font-size:13px;color:var(--gray-800);margin:10px 0 6px;">1. Electricity Consumption for the past 12 months:</div>
-    <table class="tbl">
+    <table class="tbl" id="emp-elec-table">
       <thead>
         <tr>
           <th style="width:18%;text-align:center">Month</th>
@@ -786,7 +786,7 @@ body{font-family:'Source Sans 3',sans-serif;background:#dde4ef;color:var(--gray-
     <div style="font-weight:700;font-size:13px;color:var(--gray-800);margin:18px 0 4px;">2. Fuel Consumption for the past 12 months:</div>
     <div style="font-size:11.5px;color:var(--gray-600);font-style:italic;margin-bottom:8px;">(Note: For production fuel only; do <strong>not</strong> include fuel for transportation)</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-      <table class="tbl">
+      <table class="tbl" id="emp-lpg-table">
         <thead>
           <tr>
             <th style="width:22%;text-align:center">Month</th>
@@ -814,7 +814,7 @@ body{font-family:'Source Sans 3',sans-serif;background:#dde4ef;color:var(--gray-
           </tr>
         </tbody>
       </table>
-      <table class="tbl">
+      <table class="tbl" id="emp-diesel-table">
         <thead>
           <tr>
             <th style="width:22%;text-align:center">Month</th>
@@ -854,7 +854,7 @@ body{font-family:'Source Sans 3',sans-serif;background:#dde4ef;color:var(--gray-
 
     <!-- COMBINATION TABLE -->
     <div style="font-weight:700;font-size:13px;color:var(--gray-800);margin:18px 0 6px;">Combination of Electricity and Fuel Consumption:</div>
-    <table class="tbl">
+    <table class="tbl" id="emp-combo-table">
       <tbody>
         <tr>
           <td style="width:6%;text-align:center;font-weight:700">+</td>
@@ -1663,18 +1663,92 @@ function buildReview() {
       + (empConsultAns === 'no' ? rv('Why not?', val('emp-consult-no-reason'), true) : '')
       + '</div>' + consultTable(empConsultRows) + '</div>';
 
-    html += sec('EMP — Energy Consumption Totals',
-        rv('Electricity Total (kWh)', val('emp-elec-total-kwh'))
-      + rv('1 Year Electric Bill (PHP)', val('emp-elec-total-php'))
-      + rv('LPG Total (kg) — TOTAL A', val('emp-lpg-total-kg'))
-      + rv('LPG Fuel Bill (PHP)', val('emp-lpg-total-php'))
-      + rv('Diesel/Bunker Total (liters) — TOTAL B', val('emp-diesel-total-liters'))
-      + rv('Diesel Fuel Bill (PHP)', val('emp-diesel-total-php'))
-      + rv('Total Production Fuel Bill (PHP)', val('emp-fuel-total'), true)
-      + rv('1 Year Electric Bill (PHP)', val('emp-combined-elec'))
-      + rv('1 Year Fuel Bill (PHP)', val('emp-combined-fuel'))
-      + rv('GRAND TOTAL (PHP)', val('emp-grand-total'), true)
-    );
+    // Helper: read monthly rows from an energy table
+    function readEnergyTable(tableId, col1Header, col2Header, col3Header) {
+      var tbl = document.getElementById(tableId);
+      if (!tbl) return '';
+      var rows = '';
+      var dataRows = tbl.querySelectorAll('tbody tr');
+      dataRows.forEach(function(tr) {
+        var cells = tr.querySelectorAll('td');
+        var inputs = tr.querySelectorAll('input');
+        if (!cells.length) return;
+        var monthLabel = cells[0].textContent.trim();
+        var v1 = inputs[0] ? inputs[0].value : '';
+        var v2 = inputs[1] ? inputs[1].value : '';
+        if (!v1 && !v2 && monthLabel !== 'TOTAL' && monthLabel !== 'TOTAL (A)' && monthLabel !== 'TOTAL (B)') return;
+        var isTotal = monthLabel.includes('TOTAL');
+        var bg = isTotal ? 'background:#e8f0fa;font-weight:700;' : '';
+        rows += '<tr>'
+          + '<td style="padding:4px 8px;border:1px solid #ccd6e8;font-size:12px;text-align:center;' + bg + '">' + monthLabel + '</td>'
+          + '<td style="padding:4px 8px;border:1px solid #ccd6e8;font-size:12px;' + bg + '">' + (v1 || '—') + '</td>'
+          + '<td style="padding:4px 8px;border:1px solid #ccd6e8;font-size:12px;' + bg + '">' + (v2 || '—') + '</td>'
+          + '</tr>';
+      });
+      if (!rows) return '';
+      return '<table style="width:100%;border-collapse:collapse;margin-top:6px;font-size:12px">'
+        + '<thead><tr>'
+        + '<th style="background:#1a5c4a;color:white;padding:5px 8px;font-size:11px;width:18%;text-align:center">' + col1Header + '</th>'
+        + '<th style="background:#1a5c4a;color:white;padding:5px 8px;font-size:11px;text-align:center">' + col2Header + '</th>'
+        + '<th style="background:#1a5c4a;color:white;padding:5px 8px;font-size:11px;text-align:center">' + col3Header + '</th>'
+        + '</tr></thead><tbody>' + rows + '</tbody></table>';
+    }
+
+    // Helper: read the combination summary table
+    function readComboTable() {
+      var tbl = document.getElementById('emp-combo-table');
+      if (!tbl) return '';
+      var rows = '';
+      tbl.querySelectorAll('tbody tr').forEach(function(tr) {
+        var cells = tr.querySelectorAll('td');
+        var inp = tr.querySelector('input');
+        if (!cells.length) return;
+        var isGrand = cells.length >= 2 && cells[0].getAttribute('colspan');
+        var label = isGrand
+          ? (cells[0] ? cells[0].textContent.trim() : '')
+          : (cells[1] ? cells[1].textContent.trim() : '');
+        var prefix = isGrand ? '' : (cells[0] ? cells[0].textContent.trim() : '');
+        var value = inp ? inp.value : '';
+        var bg = isGrand ? 'background:#e8f0fa;font-weight:700;' : '';
+        rows += '<tr>'
+          + '<td style="padding:4px 8px;border:1px solid #ccd6e8;font-size:12px;width:10%;text-align:center;' + bg + '">' + prefix + '</td>'
+          + '<td style="padding:4px 8px;border:1px solid #ccd6e8;font-size:12px;' + bg + '">' + label + '</td>'
+          + '<td style="padding:4px 8px;border:1px solid #ccd6e8;font-size:12px;' + bg + '">' + (value || '—') + '</td>'
+          + '</tr>';
+      });
+      if (!rows) return '';
+      return '<table style="width:100%;border-collapse:collapse;margin-top:6px;font-size:12px">'
+        + '<thead><tr>'
+        + '<th style="background:#1a5c4a;color:white;padding:5px 8px;font-size:11px;width:10%"></th>'
+        + '<th style="background:#1a5c4a;color:white;padding:5px 8px;font-size:11px">Item</th>'
+        + '<th style="background:#1a5c4a;color:white;padding:5px 8px;font-size:11px">Amount (PHP)</th>'
+        + '</tr></thead><tbody>' + rows + '</tbody></table>';
+    }
+
+    // 1. Electricity table
+    var elecTableHtml = readEnergyTable('emp-elec-table', 'Month', 'Electrical Consumption (kWh)', 'Electric Bill (Pesos)');
+    if (elecTableHtml) {
+      html += '<div class="rev-sec"><div class="rev-sec-title">EMP — 1. Electricity Consumption (Past 12 Months)</div>' + elecTableHtml + '</div>';
+    }
+
+    // 2. Fuel tables side by side
+    var lpgHtml  = readEnergyTable('emp-lpg-table',    'Month', 'LPG (kg)', 'Fuel Bill (Pesos)');
+    var dieselHtml = readEnergyTable('emp-diesel-table', 'Month', 'Diesel/Bunker (liters)', 'Fuel Bill (Pesos)');
+    if (lpgHtml || dieselHtml) {
+      html += '<div class="rev-sec"><div class="rev-sec-title">EMP — 2. Fuel Consumption (Past 12 Months)</div>'
+        + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px">'
+        + '<div>' + (lpgHtml || '<p style="color:var(--gray-400);font-size:12px;padding:8px">No LPG data entered.</p>') + '</div>'
+        + '<div>' + (dieselHtml || '<p style="color:var(--gray-400);font-size:12px;padding:8px">No diesel data entered.</p>') + '</div>'
+        + '</div>'
+        + rv('Total Production Fuel Bill (PHP)', val('emp-fuel-total'), true)
+        + '</div>';
+    }
+
+    // 3. Combination table
+    var comboHtml = readComboTable();
+    if (comboHtml) {
+      html += '<div class="rev-sec"><div class="rev-sec-title">EMP — Combination of Electricity &amp; Fuel Consumption</div>' + comboHtml + '</div>';
+    }
 
     // EMP energy consuming equipment table
     var empEquipHtml = buildTableReview('emp-equip-tbody',
@@ -1970,6 +2044,39 @@ function submitForm() {
     empDieselTotalLiters:gv('emp-diesel-total-liters'), empDieselTotalPhp:gv('emp-diesel-total-php'),
     empFuelTotal:gv('emp-fuel-total'), empCombinedElec:gv('emp-combined-elec'),
     empCombinedFuel:gv('emp-combined-fuel'), empGrandTotal:gv('emp-grand-total'),
+    // Monthly electricity rows
+    empElecRows:(function(){
+      var rows=[];
+      var tbl=document.getElementById('emp-elec-table');
+      if(tbl){tbl.querySelectorAll('tbody tr').forEach(function(tr){
+        var inp=tr.querySelectorAll('input');
+        var v1=inp[0]?inp[0].value:'', v2=inp[1]?inp[1].value:'';
+        rows.push(v1+'|'+v2);
+      });}
+      return rows.join(';');
+    })(),
+    // Monthly LPG rows
+    empLpgRows:(function(){
+      var rows=[];
+      var tbl=document.getElementById('emp-lpg-table');
+      if(tbl){tbl.querySelectorAll('tbody tr').forEach(function(tr){
+        var inp=tr.querySelectorAll('input');
+        var v1=inp[0]?inp[0].value:'', v2=inp[1]?inp[1].value:'';
+        rows.push(v1+'|'+v2);
+      });}
+      return rows.join(';');
+    })(),
+    // Monthly diesel rows
+    empDieselRows:(function(){
+      var rows=[];
+      var tbl=document.getElementById('emp-diesel-table');
+      if(tbl){tbl.querySelectorAll('tbody tr').forEach(function(tr){
+        var inp=tr.querySelectorAll('input');
+        var v1=inp[0]?inp[0].value:'', v2=inp[1]?inp[1].value:'';
+        rows.push(v1+'|'+v2);
+      });}
+      return rows.join(';');
+    })(),
     empEquipRows:getEquipRows(), empQual:getEmpQual(), empConcerns:getEmpConcerns(),
     empConsultAns:gr('emp-consult'), empConsultNoReason:gv('emp-consult-no-reason'),
     // FS
