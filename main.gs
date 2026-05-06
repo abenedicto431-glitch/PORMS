@@ -214,7 +214,7 @@ function doGet(e) {
 // HANDLE NEW SUBMISSION
 // ============================================================
 function handleSubmit(data, corsHeaders) {
-  const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+  const ss = SpreadsheetApp.openById(1k3sFNzBv1SiPohhSkuEdf-Tr7XAMNMsUwdyXg_vKdpM);
   let sheet = ss.getSheetByName(SUBMISSIONS_SHEET);
 
   // Create sheet with headers if it doesn't exist
