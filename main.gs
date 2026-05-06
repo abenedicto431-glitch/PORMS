@@ -9,23 +9,17 @@
  *    - Execute as: Me
  *    - Who has access: Anyone
  * 5. Copy the deployment URL and paste it into index.html and edit.html
- *    where it says: 'https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycbxjop3hnUQV1rzl87d3hFQSyWs_Xy9RuNhT01yAe7YCkfH4sWiJTIjH20ahGkoSKL4/exec'
- *
- * SPREADSHEET SETUP:
- * - Create a Google Sheet with these sheet tabs (exact names):
- *   "Submissions" — main data table
- *   "Updates"     — staff edit log
- *
- * The script will auto-create headers on first run.
+ *    where it says: 'https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID_HERE/exec'
+ * 6. IMPORTANT: Run the "authorizeScript" function ONCE manually to grant Gmail permission!
  */
 
 // ============================================================
 // CONFIGURATION — EDIT THIS
 // ============================================================
-const SPREADSHEET_ID = '1k3sFNzBv1SiPohhSkuEdf-Tr7XAMNMsUwdyXg_vKdpM'; // Replace with your Sheet ID
+const SPREADSHEET_ID = '1k3sFNzBv1SiPohhSkuEdf-Tr7XAMNMsUwdyXg_vKdpM';
 const SUBMISSIONS_SHEET = 'Submissions';
 const UPDATES_SHEET = 'Updates';
-const ADMIN_EMAIL = 'abenedicto431@gmail.com'; // Replace with your email
+const ADMIN_EMAIL = 'abenedicto431@gmail.com';
 
 // ============================================================
 // COLUMN HEADERS FOR SUBMISSIONS SHEET
@@ -49,25 +43,19 @@ const SUBMISSION_HEADERS = [
   'Contact Number',
   'Email Address',
   'Birth Date',
-  // FS Products
   'Product/Service 1',
   'Product/Service 2',
   'Product/Service 3',
-  // FS Facility
   'Dedicated Production Facility',
   'Facility Location',
-  // SETUP iFund
   'SETUP iFund Beneficiary',
   'iFund Year Granted',
   'iFund Amount',
   'iFund Equipment',
-  // Firm Profile
   'Firm Background',
   'Reasons for TA',
-  // Previous Consultations
   'Previously Consulted',
   'No Consult Reason',
-  // Pre-Assessment
   'Year Established',
   'Initial Capital',
   'Company Reg No',
@@ -91,23 +79,18 @@ const SUBMISSION_HEADERS = [
   'Target Additional Market',
   'Business Activity',
   'Business Activity Others',
-  // APP
   'APP Products/Crops/Livestock',
   'APP Farm Plan',
-  // MPP
   'MPP Products/Services',
   'MPP Firm Plan',
   'MPP Org Chart Available',
   'MPP Strategies and Problems',
-  // EMP
   'EMP Electricity Consumption',
   'EMP Fuel Consumption',
   'EMP Combined Consumption',
-  // Signatures
   'Accomplished By',
   'Accomplished Date',
   'Edit Link',
-  // Staff fields (updated later)
   'Staff Status',
   'Staff Assigned',
   'Staff Remarks',
@@ -133,15 +116,27 @@ const UPDATE_HEADERS = [
 ];
 
 // ============================================================
+// RUN THIS FUNCTION ONCE MANUALLY TO AUTHORIZE GMAIL
+// ============================================================
+function authorizeScript() {
+  // This forces Gmail and Spreadsheet authorization
+  try {
+    GmailApp.sendEmail(
+      ADMIN_EMAIL,
+      '[DOST-3] Authorization Test',
+      'This is a test email to authorize the DOST-3 form script. Gmail is now authorized!\n\nYou can delete this email.'
+    );
+    SpreadsheetApp.openById(SPREADSHEET_ID);
+    Logger.log('Authorization successful! Gmail and Sheets are now authorized.');
+  } catch (e) {
+    Logger.log('Authorization error: ' + e.toString());
+  }
+}
+
+// ============================================================
 // MAIN ENTRY POINT
 // ============================================================
 function doPost(e) {
-  const corsHeaders = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type',
-  };
-
   try {
     let data;
     try {
@@ -155,9 +150,9 @@ function doPost(e) {
     const action = data.action || 'submit';
 
     if (action === 'update') {
-      return handleUpdate(data, corsHeaders);
+      return handleUpdate(data);
     } else {
-      return handleSubmit(data, corsHeaders);
+      return handleSubmit(data);
     }
   } catch (err) {
     Logger.log('doPost error: ' + err.toString());
@@ -168,7 +163,6 @@ function doPost(e) {
 }
 
 function doGet(e) {
-  // Allow fetching a single submission by ref (for edit page pre-fill)
   try {
     const ref = e.parameter.ref;
     if (!ref) {
@@ -177,8 +171,8 @@ function doGet(e) {
       ).setMimeType(ContentService.MimeType.JSON);
     }
 
-    const ss = SpreadsheetApp.openById('1k3sFNzBv1SiPohhSkuEdf-Tr7XAMNMsUwdyXg_vKdpM');
-    const sheet = ss.getSheetByName(Submissions);
+    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    const sheet = ss.getSheetByName(SUBMISSIONS_SHEET);
     if (!sheet) {
       return ContentService.createTextOutput(
         JSON.stringify({ success: false, error: 'Submissions sheet not found' })
@@ -213,11 +207,10 @@ function doGet(e) {
 // ============================================================
 // HANDLE NEW SUBMISSION
 // ============================================================
-function handleSubmit(data, corsHeaders) {
-  const ss = SpreadsheetApp.openById('1k3sFNzBv1SiPohhSkuEdf-Tr7XAMNMsUwdyXg_vKdpM');
-  let sheet = ss.getSheetByName(Submissions);
+function handleSubmit(data) {
+  const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+  let sheet = ss.getSheetByName(SUBMISSIONS_SHEET);
 
-  // Create sheet with headers if it doesn't exist
   if (!sheet) {
     sheet = ss.insertSheet(SUBMISSIONS_SHEET);
     sheet.appendRow(SUBMISSION_HEADERS);
@@ -229,88 +222,86 @@ function handleSubmit(data, corsHeaders) {
     formatHeaderRow(sheet);
   }
 
-  // Build row values matching SUBMISSION_HEADERS
   const row = [
     data.referenceNumber || '',
     data.submissionDate || new Date().toISOString(),
     data.programs || '',
-    'Pending',                         // Status — default
-    data.firmName || '',
-    data.province || '',
-    data.ownerName || '',
-    data.contactPerson || '',
-    data.ownerSex || '',
-    data.ownerAge || '',
-    data.ownerPosition || '',
-    data.contactSex || '',
-    data.ownerPwd || '',
-    data.ownerSenior || '',
-    data.address || '',
-    data.contactNumber || '',
-    data.email || '',
-    data.ownerBirthdate || '',
+    'Pending',
+    data.firmName || data.appFarmName || '',
+    data.appProvince || data.firmProvince || data.fsProvince || '',
+    data.ownerName || data.firmOwnerName || data.fsOwnerName || '',
+    data.contactPerson || data.firmContactPerson || data.fsContactPerson || '',
+    data.ownerSex || data.firmOwnerSex || '',
+    data.ownerAge || data.firmOwnerAge || '',
+    data.ownerPosition || data.firmOwnerPosition || '',
+    data.contactSex || data.firmContactSex || '',
+    data.ownerPwd || data.firmOwnerPwd || '',
+    data.ownerSenior || data.firmOwnerSenior || '',
+    data.appFarmAddress || data.firmAddress || data.fsFirmAddress || '',
+    data.firmContactNum || data.empContactNum || data.fsContactNum || '',
+    data.ownerEmail || data.firmEmail || data.fsEmail || '',
+    data.fsOwnerBirthdate || '',
     data.fsProd1 || '',
     data.fsProd2 || '',
     data.fsProd3 || '',
-    data.fsFacility || '',
-    data.fsFacilityLoc || '',
-    data.setupFund || '',
-    data.setupYear || '',
-    data.setupAmount || '',
-    data.setupEquipment || '',
-    data.firmBackground || '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    data.appBackground || data.mppBackground || data.empBackground || data.fsBackground || '',
     data.reasonsForTA || '',
-    data.prevConsult || '',
-    data.consultNoReason || '',
-    data.yearEstablished || '',
-    data.initialCapital || '',
-    data.regNumber || '',
-    data.yearRegistered || '',
-    data.orgType || '',
-    data.capClass || '',
-    data.empClass || '',
-    data.empProduction || '',
-    data.empNonprod || '',
-    data.empIndirect || '',
-    data.empTotal || '',
-    data.prodVolume || '',
-    data.prodValue || '',
-    data.mktDirectExport || '',
-    data.mktSubcontractor || '',
-    data.mktPotentialExport || '',
-    data.mktLocal || '',
-    data.mktForeign || '',
-    data.existingForeignMarket || '',
-    data.existingLocalMarket || '',
-    data.targetMarket || '',
-    data.businessActivity || '',
-    data.businessOthers || '',
-    data.appProducts || '',
-    data.appPlan || '',
-    data.mppProducts || '',
+    data.consultAns || data.mppConsultAns || data.empConsultAns || '',
+    data.consultNoReason || data.mppConsultNoReason || data.empConsultNoReason || '',
+    data.appYearEst || data.mppPaYear || data.empPaYear || '',
+    data.mppPaCapital || data.empPaCapital || '',
+    data.mppPaRegnum || data.empPaRegnum || '',
+    data.mppPaRegyear || data.empPaRegyear || '',
+    data.mppOrg || data.empOrg || data.fsOrg || '',
+    data.mppCap || data.empCap || data.fsCap || '',
+    data.mppEmp || data.empEmpcl || data.fsEmpcl || '',
+    data.mppEmpProd || data.empEmpProd || '',
+    data.mppEmpNonprod || data.empEmpNonprod || '',
+    data.mppEmpIndirect || data.empEmpIndirect || '',
+    data.mppEmpTotal || data.empEmpTotal || '',
+    data.mppProdVol || data.empProdVol || '',
+    data.mppProdVal || data.empProdVal || '',
+    '',
+    '',
+    '',
+    data.fsMktLocal || data.mppMktLocal || data.empMktLocal || '',
+    data.fsMktForeign || data.mppMktForeign || data.empMktForeign || '',
+    data.mppMktForeign || data.empMktForeign || '',
+    data.mppMktLocal || data.empMktLocal || '',
+    data.fsMktTarget || data.mppMktTarget || data.empMktTarget || '',
+    data.mppConcerns || data.empConcerns || '',
+    data.mppBizOthers || data.empBizOthers || '',
+    data.appC1 || '',
+    data.appFarmRows || '',
+    data.mppProducts || data.empProducts || '',
     data.mppPlan || '',
-    data.mppOrgChart || '',
-    data.mppStrategies || '',
-    data.empElectricity || '',
-    data.empFuel || '',
-    data.empCombined || '',
-    data.accomplishedBy || '',
+    data.mppOrgchart || '',
+    data.mppConcerns || '',
+    data.empElecTotalKwh || '',
+    data.empLpgTotalKg || '',
+    data.empGrandTotal || '',
+    data.accomplishedBy || data.ownerName || '',
     data.accomplishedDate || '',
     data.editLink || '',
-    '',  // Staff Status (filled later)
-    '',  // Staff Assigned
-    '',  // Staff Remarks
-    '',  // Staff Assessment Date
-    '',  // Staff Decline Reason
-    '',  // Assisted By
-    '',  // Noted By
-    '',  // Noted Date
-    new Date().toISOString(),  // Last Updated
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    new Date().toISOString(),
   ];
 
   sheet.appendRow(row);
 
-  // Color-code new row
   const lastRow = sheet.getLastRow();
   sheet.getRange(lastRow, 1, 1, sheet.getLastColumn())
     .setBackground('#e8f5e9');
@@ -319,7 +310,7 @@ function handleSubmit(data, corsHeaders) {
   try {
     sendNotificationEmail(data);
   } catch (emailErr) {
-    Logger.log('Email error: ' + emailErr);
+    Logger.log('Email error: ' + emailErr.toString());
   }
 
   return ContentService.createTextOutput(
@@ -334,7 +325,7 @@ function handleSubmit(data, corsHeaders) {
 // ============================================================
 // HANDLE STAFF UPDATE
 // ============================================================
-function handleUpdate(data, corsHeaders) {
+function handleUpdate(data) {
   const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
   const sheet = ss.getSheetByName(SUBMISSIONS_SHEET);
 
@@ -350,7 +341,6 @@ function handleUpdate(data, corsHeaders) {
 
   for (let i = 1; i < allData.length; i++) {
     if (allData[i][refIdx] === data.ref) {
-      // Update staff fields
       const fieldUpdates = {
         'Staff Status': data.status || '',
         'Staff Assigned': data.staffAssigned || '',
@@ -361,7 +351,6 @@ function handleUpdate(data, corsHeaders) {
         'Noted By': data.sigNoted || '',
         'Noted Date': data.sigNotedDate || '',
         'Last Updated': new Date().toISOString(),
-        // Also allow updating core fields
         'Status': data.status || '',
         'Firm / Farm Name': data.firmName || allData[i][headers.indexOf('Firm / Farm Name')],
         'Owner Name': data.ownerName || allData[i][headers.indexOf('Owner Name')],
@@ -374,7 +363,6 @@ function handleUpdate(data, corsHeaders) {
         }
       });
 
-      // Update row color based on status
       const statusColors = {
         pending: '#fff8e1',
         reviewed: '#e8f5e9',
@@ -384,7 +372,6 @@ function handleUpdate(data, corsHeaders) {
       const color = statusColors[data.status] || '#ffffff';
       sheet.getRange(i + 1, 1, 1, sheet.getLastColumn()).setBackground(color);
 
-      // Log to updates sheet
       logUpdate(ss, data);
 
       return ContentService.createTextOutput(
@@ -423,27 +410,101 @@ function logUpdate(ss, data) {
 // SEND EMAIL NOTIFICATION
 // ============================================================
 function sendNotificationEmail(data) {
-  const subject = `[DOST-3] New Submission: ${data.referenceNumber} — ${data.firmName || 'Unknown Firm'}`;
+  const ref = data.referenceNumber || 'N/A';
+  const programs = data.programs || 'N/A';
+  const firmName = data.firmName || data.appFarmName || data.fsFirmName || 'N/A';
+  const province = data.appProvince || data.firmProvince || data.fsProvince || 'N/A';
+  const ownerName = data.ownerName || data.firmOwnerName || data.fsOwnerName || 'N/A';
+  const contactNum = data.firmContactNum || data.empContactNum || data.fsContactNum || 'N/A';
+  const email = data.ownerEmail || data.firmEmail || data.fsEmail || 'N/A';
+  const address = data.appFarmAddress || data.firmAddress || data.fsFirmAddress || 'N/A';
+  const submittedDate = data.submissionDate ? new Date(data.submissionDate).toLocaleString('en-PH') : new Date().toLocaleString('en-PH');
+
+  const subject = `[DOST-3] New Submission: ${ref} — ${firmName}`;
+
   const body = `
-A new DOST-3 application has been submitted.
+==============================================
+  DOST-3 NEW APPLICATION SUBMISSION
+==============================================
 
-Reference Number: ${data.referenceNumber}
-Programs: ${data.programs}
-Firm/Farm: ${data.firmName}
-Province: ${data.province}
-Owner: ${data.ownerName}
-Contact: ${data.contactNumber}
-Email: ${data.email}
-Submitted: ${new Date(data.submissionDate).toLocaleString('en-PH')}
+Reference Number : ${ref}
+Programs Applied : ${programs}
+Submission Date  : ${submittedDate}
 
-Staff Edit Link:
-${data.editLink}
+----------------------------------------------
+APPLICANT INFORMATION
+----------------------------------------------
+Firm / Farm Name : ${firmName}
+Province         : ${province}
+Owner Name       : ${ownerName}
+Contact Number   : ${contactNum}
+Email Address    : ${email}
+Address          : ${address}
 
----
-This is an automated notification from the DOST-3 Online Form System.
+----------------------------------------------
+PROGRAM-SPECIFIC DETAILS
+----------------------------------------------
+${programs.includes('APP') ? `
+[APP - Agricultural Productivity Program]
+Farm Name        : ${data.appFarmName || 'N/A'}
+Farm Address     : ${data.appFarmAddress || 'N/A'}
+Farm Area        : ${data.appArea || 'N/A'}
+Year Established : ${data.appYearEst || 'N/A'}
+No. of Workers   : ${data.appWorkers || 'N/A'}
+Commodity 1      : ${data.appC1 || 'N/A'}
+Commodity 2      : ${data.appC2 || 'N/A'}
+Commodity 3      : ${data.appC3 || 'N/A'}
+Farm Background  : ${data.appBackground || 'N/A'}
+` : ''}
+${programs.includes('MPP') ? `
+[MPP - Manufacturing Productivity Program]
+Firm Name        : ${data.firmName || 'N/A'}
+Firm Address     : ${data.firmAddress || 'N/A'}
+Year Established : ${data.mppPaYear || 'N/A'}
+Initial Capital  : ${data.mppPaCapital || 'N/A'}
+Reg. Number      : ${data.mppPaRegnum || 'N/A'}
+Organization     : ${data.mppOrg || 'N/A'}
+Capital Class    : ${data.mppCap || 'N/A'}
+Employment Class : ${data.mppEmp || 'N/A'}
+Total Employees  : ${data.mppEmpTotal || 'N/A'}
+Products/Services: ${data.mppProducts || 'N/A'}
+Org Chart        : ${data.mppOrgchart || 'N/A'}
+Concerns         : ${data.mppConcerns || 'N/A'}
+` : ''}
+${programs.includes('EMP') ? `
+[EMP - Energy Management Program]
+Firm Name        : ${data.empFirmName || data.firmName || 'N/A'}
+Year Established : ${data.empPaYear || 'N/A'}
+Total Employees  : ${data.empEmpTotal || 'N/A'}
+Elec Total kWh   : ${data.empElecTotalKwh || 'N/A'}
+Elec Total PHP   : ${data.empElecTotalPhp || 'N/A'}
+LPG Total kg     : ${data.empLpgTotalKg || 'N/A'}
+Diesel Total L   : ${data.empDieselTotalLiters || 'N/A'}
+Grand Total PHP  : ${data.empGrandTotal || 'N/A'}
+` : ''}
+${programs.includes('FS') ? `
+[FS - Food Safety Enrollment Form]
+Firm Name        : ${data.fsFirmName || 'N/A'}
+Firm Address     : ${data.fsFirmAddress || 'N/A'}
+Owner Name       : ${data.fsOwnerName || 'N/A'}
+Product 1        : ${data.fsProd1 || 'N/A'}
+Product 2        : ${data.fsProd2 || 'N/A'}
+Product 3        : ${data.fsProd3 || 'N/A'}
+Organization     : ${data.fsOrg || 'N/A'}
+` : ''}
+----------------------------------------------
+STAFF EDIT LINK (Authorized Personnel Only)
+----------------------------------------------
+${data.editLink || 'N/A'}
+
+==============================================
+This is an automated notification from the
+DOST-3 Online Form System.
+==============================================
   `.trim();
 
   GmailApp.sendEmail(ADMIN_EMAIL, subject, body);
+  Logger.log('Email sent successfully to ' + ADMIN_EMAIL);
 }
 
 // ============================================================
@@ -457,18 +518,16 @@ function formatHeaderRow(sheet) {
     .setFontWeight('bold')
     .setFontSize(10);
   sheet.setFrozenRows(1);
-
-  // Set column widths for key columns
-  sheet.setColumnWidth(1, 160);  // Reference Number
-  sheet.setColumnWidth(2, 170);  // Submission Date
-  sheet.setColumnWidth(3, 120);  // Programs
-  sheet.setColumnWidth(4, 100);  // Status
-  sheet.setColumnWidth(5, 200);  // Firm Name
-  sheet.setColumnWidth(6, 100);  // Province
+  sheet.setColumnWidth(1, 160);
+  sheet.setColumnWidth(2, 170);
+  sheet.setColumnWidth(3, 120);
+  sheet.setColumnWidth(4, 100);
+  sheet.setColumnWidth(5, 200);
+  sheet.setColumnWidth(6, 100);
 }
 
 // ============================================================
-// TEST FUNCTION (run manually in Apps Script editor)
+// TEST FUNCTION
 // ============================================================
 function testSubmit() {
   const testData = {
@@ -476,26 +535,31 @@ function testSubmit() {
     submissionDate: new Date().toISOString(),
     programs: 'MPP, EMP',
     firmName: 'Test Manufacturing Corp',
-    province: 'Pampanga',
+    firmProvince: 'Pampanga',
     ownerName: 'Juan dela Cruz',
     contactPerson: 'Maria Santos',
     ownerSex: 'Male',
     ownerAge: '45',
     ownerPosition: 'Owner',
-    address: '123 Brgy. Test, Angeles City, Pampanga',
-    contactNumber: '09171234567',
-    email: 'test@example.com',
-    firmBackground: 'A test manufacturing firm.',
-    reasonsForTA: 'Seeking productivity improvement.',
-    yearEstablished: '2010',
-    initialCapital: '5,000,000',
-    regNumber: 'DTI-12345',
-    yearRegistered: '2010',
-    accomplishedBy: 'Juan dela Cruz',
-    accomplishedDate: new Date().toISOString().split('T')[0],
-    editLink: 'https://yourgithubusername.github.io/DOST-FORMS/edit.html?ref=DOST3-2025-TEST01',
+    firmAddress: '123 Brgy. Test, Angeles City, Pampanga',
+    firmContactNum: '09171234567',
+    firmEmail: 'test@example.com',
+    mppBackground: 'A test manufacturing firm.',
+    mppPaYear: '2010',
+    mppPaCapital: '5,000,000',
+    mppPaRegnum: 'DTI-12345',
+    mppPaRegyear: '2010',
+    mppOrg: 'Single Proprietorship',
+    mppCap: 'Small — P 1.5–15 M',
+    mppEmp: 'Small (10–99)',
+    mppEmpProd: '20',
+    mppEmpNonprod: '5',
+    mppEmpIndirect: '3',
+    mppEmpTotal: '28',
+    mppProducts: 'Metal fabricated parts',
+    editLink: 'https://abenedicto431-glitch.github.io/PORMS/edit.html?ref=DOST3-2025-TEST01',
   };
 
-  handleSubmit(testData, {});
-  Logger.log('Test submission completed. Check your Google Sheet.');
+  handleSubmit(testData);
+  Logger.log('Test submission completed. Check your Google Sheet and Gmail.');
 }
