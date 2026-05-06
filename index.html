@@ -2007,6 +2007,37 @@ function submitForm() {
     ownerPosition:gv('owner-position'), contactSex:gv('contact-sex'),
     ownerPwd:gc('owner-pwd'), ownerSenior:gc('owner-senior'), ownerEmail:gv('owner-email'),
     consultAns:gr('prev-consult'), consultNoReason:gv('consult-no-reason'),
+    consultAns:gr('prev-consult'), consultNoReason:gv('consult-no-reason'),
+appConsultRows:(function(){
+  var rows=[];
+  document.querySelectorAll('#consult-tbody tr').forEach(function(tr){
+    var inputs=tr.querySelectorAll('input');
+    var row=[]; var hasData=false;
+    inputs.forEach(function(i){if(i.value.trim())hasData=true; row.push(i.value);});
+    if(hasData) rows.push(row.join('||'));
+  });
+  return rows.join(';;');
+})(),
+mppConsultRows:(function(){
+  var rows=[];
+  document.querySelectorAll('#mpp-consult-tbody tr').forEach(function(tr){
+    var inputs=tr.querySelectorAll('input');
+    var row=[]; var hasData=false;
+    inputs.forEach(function(i){if(i.value.trim())hasData=true; row.push(i.value);});
+    if(hasData) rows.push(row.join('||'));
+  });
+  return rows.join(';;');
+})(),
+empConsultRows:(function(){
+  var rows=[];
+  document.querySelectorAll('#emp-consult-tbody tr').forEach(function(tr){
+    var inputs=tr.querySelectorAll('input');
+    var row=[]; var hasData=false;
+    inputs.forEach(function(i){if(i.value.trim())hasData=true; row.push(i.value);});
+    if(hasData) rows.push(row.join('||'));
+  });
+  return rows.join(';;');
+})(),
     // MPP owner (if APP not selected)
     firmOwnerName:gv('firm-owner-name'), firmContactPerson:gv('firm-contact-person'),
     firmOwnerSex:gv('firm-owner-sex'), firmOwnerAge:gv('firm-owner-age'),
