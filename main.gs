@@ -9,7 +9,7 @@
  *    - Execute as: Me
  *    - Who has access: Anyone
  * 5. Copy the deployment URL and paste it into index.html and edit.html
- *    where it says: 'https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID_HERE/exec'
+ *    where it says: 'https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycbxjop3hnUQV1rzl87d3hFQSyWs_Xy9RuNhT01yAe7YCkfH4sWiJTIjH20ahGkoSKL4/exec'
  *
  * SPREADSHEET SETUP:
  * - Create a Google Sheet with these sheet tabs (exact names):
