@@ -177,8 +177,8 @@ function doGet(e) {
       ).setMimeType(ContentService.MimeType.JSON);
     }
 
-    const ss = SpreadsheetApp.openById(1k3sFNzBv1SiPohhSkuEdf-Tr7XAMNMsUwdyXg_vKdpM);
-    const sheet = ss.getSheetByName(SUBMISSIONS_SHEET);
+    const ss = SpreadsheetApp.openById('1k3sFNzBv1SiPohhSkuEdf-Tr7XAMNMsUwdyXg_vKdpM');
+    const sheet = ss.getSheetByName(Submissions);
     if (!sheet) {
       return ContentService.createTextOutput(
         JSON.stringify({ success: false, error: 'Submissions sheet not found' })
@@ -214,8 +214,8 @@ function doGet(e) {
 // HANDLE NEW SUBMISSION
 // ============================================================
 function handleSubmit(data, corsHeaders) {
-  const ss = SpreadsheetApp.openById(1k3sFNzBv1SiPohhSkuEdf-Tr7XAMNMsUwdyXg_vKdpM);
-  let sheet = ss.getSheetByName(SUBMISSIONS_SHEET);
+  const ss = SpreadsheetApp.openById('1k3sFNzBv1SiPohhSkuEdf-Tr7XAMNMsUwdyXg_vKdpM');
+  let sheet = ss.getSheetByName(Submissions);
 
   // Create sheet with headers if it doesn't exist
   if (!sheet) {
