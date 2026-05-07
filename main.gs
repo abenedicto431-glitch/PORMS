@@ -451,9 +451,6 @@ Farm Address     : ${data.appFarmAddress || 'N/A'}
 Farm Area        : ${data.appArea || 'N/A'}
 Year Established : ${data.appYearEst || 'N/A'}
 No. of Workers   : ${data.appWorkers || 'N/A'}
-Commodity 1      : ${data.appC1 || 'N/A'}
-Commodity 2      : ${data.appC2 || 'N/A'}
-Commodity 3      : ${data.appC3 || 'N/A'}
 Farm Background  : ${data.appBackground || 'N/A'}
 ` : ''}
 ${programs.includes('MPP') ? `
