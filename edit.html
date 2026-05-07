@@ -384,13 +384,13 @@ if(hasApp){
   </div>`;
   html += fg('c2', fieldEl('E-mail Address','owner-email',gp('ownerEmail'),'email'));
 
-  html += `<div class="stitle">A. Brief Farm Background</div>`;
+  html += `<div class="stitle">Brief Farm Background</div>`;
   html += fg('c1', fieldEl('Farm Background','app-background',gp('appBackground')));
 
   html += `<div class="stitle">Commodity(ies)</div>`;
   
   const consultSharedNote = (hasMpp||hasEmp) ? ' <span style="font-size:10px;font-weight:400;color:var(--green)">(also applies to other programs)</span>' : '';
-  html += `<div class="stitle">C. Previous Consultations with DOST or Other Organizations${consultSharedNote}</div>`;
+  html += `<div class="stitle">Previous Consultations with DOST or Other Organizations${consultSharedNote}</div>`;
   html += radioGroup('prev-consult', consultAns, [{value:'yes',label:'Yes — please specify the type of assistance sought and from what company / agency'},{value:'no',label:'No'}]);
 
   html += `<div id="blk-consult-yes"${consultAns!=='yes'?' style="display:none"':''} style="margin-top:10px">`;
@@ -408,13 +408,13 @@ if(hasApp){
     }));
   <\/script>`;
 
-  html += `<div class="stitle">D. Farm Data</div>`;
+  html += `<div class="stitle">Farm Data</div>`;
   html += buildTable(
     ['Commodity','Variety / Breed','Area','Avg Yield per Cropping Season','Avg Income per Cropping Season','No. of Croppings/Yr','Other Information'],
     farmRows, 4, 'app-farm-tbody'
   );
 
-  html += `<div class="stitle">E. Pre-Assessment <span style="font-weight:400;font-style:italic;font-size:11px"></span></div>`;
+  html += `<div class="stitle">Pre-Assessment <span style="font-weight:400;font-style:italic;font-size:11px"></span></div>`;
   html += buildTable(
     ['Possible Areas of Interventions','Technical Needs / Problems'],
     preRows, 5, 'app-preassess-tbody'
