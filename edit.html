@@ -388,8 +388,7 @@ if(hasApp){
   html += fg('c1', fieldEl('Farm Background','app-background',gp('appBackground')));
 
   html += `<div class="stitle">Commodity(ies)</div>`;
-  html += fg('c3', fieldEl('Commodity 1','app-commodity-1',gp('appC1')) + fieldEl('Commodity 2','app-commodity-2',gp('appC2')) + fieldEl('Commodity 3','app-commodity-3',gp('appC3')));
-
+  
   const consultSharedNote = (hasMpp||hasEmp) ? ' <span style="font-size:10px;font-weight:400;color:var(--green)">(also applies to other programs)</span>' : '';
   html += `<div class="stitle">C. Previous Consultations with DOST or Other Organizations${consultSharedNote}</div>`;
   html += radioGroup('prev-consult', consultAns, [{value:'yes',label:'Yes — please specify the type of assistance sought and from what company / agency'},{value:'no',label:'No'}]);
@@ -415,9 +414,9 @@ if(hasApp){
     farmRows, 4, 'app-farm-tbody'
   );
 
-  html += `<div class="stitle">E. Pre-Assessment <span style="font-weight:400;font-style:italic;font-size:11px">(to be filled out by DOST-III PSTO Staff)</span></div>`;
+  html += `<div class="stitle">E. Pre-Assessment <span style="font-weight:400;font-style:italic;font-size:11px"></span></div>`;
   html += buildTable(
-    ['Possible Areas of Interventions','Technical Needs / Problems','Initial Recommendations / Remarks'],
+    ['Possible Areas of Interventions','Technical Needs / Problems'],
     preRows, 5, 'app-preassess-tbody'
   );
 
@@ -839,7 +838,7 @@ if(hasFs){
   html+=`</tbody></table>`;
 
   // RECOMMENDATION
-  html += `<div class="stitle" style="margin-top:16px">Recommendation <span style="font-weight:400;font-style:italic;font-size:11px">(to be filled out by CLFST Member/s)</span></div>`;
+  html += `<div class="stitle" style="margin-top:16px">Recommendation <span style="font-weight:400;font-style:italic;font-size:11px">(to be filled out by CLFST Members)</span></div>`;
   html += `<table class="tbl"><thead><tr><th>To be enrolled in:</th><th style="width:55%">Specify</th></tr></thead><tbody>`;
   ['Level 1','Level 2','Level 3','Specialized Training / Consultancy'].forEach(lvl=>{
     html+=`<tr><td><label class="ci"><input type="checkbox"> ${esc(lvl)}</label></td><td><input type="text" placeholder="Specify"></td></tr>`;
