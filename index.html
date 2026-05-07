@@ -1090,56 +1090,309 @@ function submitForm() {
 // ─── REVIEW HTML BUILDER ───────────────────────────────────────────────────────
 function buildReviewHtml() {
   const sel = Object.entries(progs).filter(([k,v])=>v).map(([k])=>k.toUpperCase()).join(', ') || 'None';
-  function rv(lbl,v){return'<div><div class="rv-label">'+lbl+'</div><div class="rv-val">'+(v||'—')+'</div></div>';}
-  function sec(title,fields){return'<div class="rev-sec"><div class="rev-sec-title">'+title+'</div><div class="rev-grid">'+fields+'</div></div>';}
-  let h = sec('Selected Programs','<div style="grid-column:span 2"><strong style="color:var(--navy)">'+sel+'</strong></div>');
+
+  // ── HELPERS ──────────────────────────────────────────────
+  function rv(lbl,v){
+    return '<div><div class="rv-label">'+lbl+'</div><div class="rv-val">'+(v&&v.trim()?v:'—')+'</div></div>';
+  }
+  function rv2(lbl,v){ // full width
+    return '<div style="grid-column:span 2"><div class="rv-label">'+lbl+'</div><div class="rv-val">'+(v&&v.trim()?v:'—')+'</div></div>';
+  }
+  function sec(title,fields){
+    return '<div class="rev-sec"><div class="rev-sec-title">'+title+'</div><div class="rev-grid">'+fields+'</div></div>';
+  }
+  function tblHdr(cols,color){
+    color=color||'#1a2d4f';
+    return '<thead><tr>'+cols.map(c=>'<th style="background:'+color+';color:white;padding:5px 8px;font-size:11px;text-align:left">'+c+'</th>').join('')+'</tr></thead>';
+  }
+  function tblWrap(headers,rows,color){
+    return '<table style="width:100%;border-collapse:collapse;margin:6px 0 10px;font-size:12px">'+tblHdr(headers,color)+'<tbody>'+rows+'</tbody></table>';
+  }
+  function tblRow(cells){
+    return '<tr>'+cells.map(c=>'<td style="padding:4px 8px;border:1px solid #ccd6e8">'+(c||'—')+'</td>').join('')+'</tr>';
+  }
+  // Read all rows from a tbody (including empty ones up to minRows)
+  function readTbody(tbodyId, minRows){
+    var tb=document.getElementById(tbodyId); if(!tb)return[];
+    var rows=[];
+    tb.querySelectorAll('tr').forEach(function(tr){
+      var inputs=tr.querySelectorAll('input,select');
+      var row=[];
+      inputs.forEach(function(i){row.push(i.value||'');});
+      rows.push(row);
+    });
+    while(minRows && rows.length<minRows) rows.push([]);
+    return rows;
+  }
+  // Read 12-month energy table (skips month-label col, reads 2 input cols)
+  function readEnergyTbody(tbodyId){
+    var tb=document.getElementById(tbodyId); if(!tb)return[];
+    var rows=[];
+    tb.querySelectorAll('tr').forEach(function(tr){
+      var inputs=tr.querySelectorAll('input');
+      rows.push([inputs[0]?inputs[0].value:'', inputs[1]?inputs[1].value:'']);
+    });
+    return rows;
+  }
+  // Render checked checkboxes in a container
+  function getCheckedLabels(selector){
+    var items=[];
+    document.querySelectorAll(selector+' input[type="checkbox"]:checked').forEach(function(cb){
+      var lbl=cb.parentElement.textContent.trim();
+      if(lbl) items.push(lbl);
+    });
+    return items.length?items.join(', '):'—';
+  }
+
+  var h='';
+  h+='<div class="rev-sec"><div class="rev-sec-title">Selected Programs</div>';
+  h+='<div style="padding:8px 0"><strong style="color:var(--navy);font-size:14px">'+sel+'</strong></div></div>';
+
+  // ══ APP ══════════════════════════════════════════════════
   if(progs.app){
-    h+=sec('APP — Farm & Owner',
-      rv('Farm Name',gv('app-farm-name'))+rv('Province',gv('app-province'))+
-      rv('Farm Address',gv('app-farm-address'))+rv('Area',gv('app-area'))+
-      rv('Year Est.',gv('app-year-est'))+rv('Workers',gv('app-workers'))+
-      rv('Owner',gv('owner-name'))+rv('Contact Person',gv('contact-person'))+
-      rv('Email',gv('owner-email'))+rv('Position/Mobile',gv('owner-position'))+
-      rv('Commodities',[gv('app-commodity-1'),gv('app-commodity-2'),gv('app-commodity-3')].filter(Boolean).join(', '))+
-      rv('Consulted DOST?',gr('prev-consult'))+rv('Farm Background',gv('app-background'))
+    h+=sec('APP — Firm / Farm Details',
+      rv('Name of Firm',gv('app-farm-name'))+rv('Province',gv('app-province'))+
+      rv2('Complete Address',gv('app-farm-address'))+
+      rv('Area of Farm',gv('app-area'))+rv('Year Established',gv('app-year-est'))+
+      rv('No. of Workers',gv('app-workers'))+rv('Brief Background',gv('app-background'))
     );
+    h+=sec('APP — Owner / Representative',
+      rv('Owner Name',gv('owner-name'))+rv('Contact Person',gv('contact-person'))+
+      rv('Sex (Owner)',gv('owner-sex'))+rv('Age',gv('owner-age'))+
+      rv('Position / Mobile',gv('owner-position'))+rv('Sex (Contact)',gv('contact-sex'))+
+      rv('PWD',gc('owner-pwd')?'Yes':'No')+rv('Senior Citizen',gc('owner-senior')?'Yes':'No')+
+      rv2('E-mail',gv('owner-email'))
+    );
+    // Commodities
+    h+=sec('APP — Commodities',
+      rv('Commodity 1',gv('app-commodity-1'))+rv('Commodity 2',gv('app-commodity-2'))+
+      rv2('Commodity 3',gv('app-commodity-3'))
+    );
+    // Consultations
+    var cAns=gr('prev-consult');
+    h+='<div class="rev-sec"><div class="rev-sec-title">APP — Previous Consultations</div><div class="rev-grid">';
+    h+=rv2('Consulted DOST / Other Organization?',cAns||'—');
+    if(cAns==='no') h+=rv2('Why not?',gv('consult-no-reason'));
+    h+='</div>';
+    if(cAns==='yes'){
+      var cRows=readTbody('consult-tbody',3);
+      h+=tblWrap(['Agency / Company','Date of Assistance','Type of Assistance'],
+        cRows.map(function(r){return tblRow(r);}).join(''));
+    }
+    h+='</div>';
+    // Farm Data table
+    var farmRows=readTbody('app-farm-tbody',4);
+    h+='<div class="rev-sec"><div class="rev-sec-title">APP — Farm Data</div>';
+    h+=tblWrap(['Commodity','Variety/Breed','Area','Avg Yield/Cropping','Avg Income/Cropping','No. of Croppings/Yr','Other Info'],
+      farmRows.map(function(r){return tblRow(r);}).join(''));
+    h+='</div>';
+    // Pre-Assessment table
+    var preRows=readTbody('app-preassess-tbody',5);
+    h+='<div class="rev-sec"><div class="rev-sec-title">APP — Pre-Assessment (DOST Staff)</div>';
+    h+=tblWrap(['Possible Areas of Interventions','Technical Needs / Problems','Initial Recommendations / Remarks'],
+      preRows.map(function(r){return tblRow(r);}).join(''));
+    h+='</div>';
   }
+
+  // ══ MPP ══════════════════════════════════════════════════
   if(progs.mpp){
-    h+=sec('MPP — Firm & Pre-Assessment',
-      rv('Firm Name',gv('firm-name'))+rv('Province',gv('firm-province'))+
-      rv('Address',gv('firm-address'))+
-      rv('Owner',progs.app?gv('owner-name'):gv('firm-owner-name'))+
-      rv('Year Est.',gv('mpp-pa-year'))+rv('Reg. No.',gv('mpp-pa-regnum'))+
-      rv('Org Type',gr('mpp-org'))+rv('Capital Class.',gr('mpp-cap'))+
-      rv('Employment Class.',gr('mpp-emp'))+rv('Total Employees',gv('mpp-emp-total'))+
-      rv('Products',gv('mpp-products'))+rv('Concerns',getMppConcerns())
+    var oName=progs.app?gv('owner-name'):gv('firm-owner-name');
+    var oSex=progs.app?gv('owner-sex'):gv('firm-owner-sex');
+    var oAge=progs.app?gv('owner-age'):gv('firm-owner-age');
+    var oPos=progs.app?gv('owner-position'):gv('firm-owner-position');
+    var oEmail=progs.app?gv('owner-email'):gv('firm-email');
+    var cpName=progs.app?gv('contact-person'):gv('firm-contact-person');
+    var cpSex=progs.app?gv('contact-sex'):gv('firm-contact-sex');
+    var fName=progs.app?gv('app-farm-name'):gv('firm-name');
+    var fProv=progs.app?gv('app-province'):gv('firm-province');
+    var fAddr=progs.app?gv('app-farm-address'):gv('firm-address');
+    var fBg=progs.app?gv('app-background'):gv('mpp-background');
+    h+=sec('MPP — Firm Information',
+      rv('Name of Firm',fName)+rv('Province',fProv)+
+      rv2('Complete Address',fAddr)+
+      rv('Owner Name',oName)+rv('Contact Person',cpName)+
+      rv('Sex (Owner)',oSex)+rv('Age',oAge)+
+      rv('Position',oPos)+rv('Sex (Contact)',cpSex)+
+      rv('Contact Number',gv('firm-contact-num'))+rv2('E-mail',oEmail)+
+      rv2('Brief Firm Background',fBg)
     );
+    h+=sec('MPP — Pre-Assessment Checklist',
+      rv('Year Established',gv('mpp-pa-year'))+rv('Initial Capital (PHP)',gv('mpp-pa-capital'))+
+      rv('Company Reg. No.',gv('mpp-pa-regnum'))+rv('Year Registered',gv('mpp-pa-regyear'))+
+      rv('Type of Organization',gr('mpp-org'))+rv('Capital Classification',gr('mpp-cap'))+
+      rv('Employment Classification',gr('mpp-emp'))+rv('Direct Workers — Production',gv('mpp-emp-prod'))+
+      rv('Direct Workers — Non-production',gv('mpp-emp-nonprod'))+rv('Indirect / On-call',gv('mpp-emp-indirect'))+
+      rv('Total Employees',gv('mpp-emp-total'))+rv('Annual Volume of Production',gv('mpp-prod-vol'))+
+      rv('Estimated Value (PHP)',gv('mpp-prod-val'))+rv2('Products / Services',gv('mpp-products'))+
+      rv('Organizational Chart',gr('mpp-orgchart'))+rv2('Other Business Activity',gv('mpp-biz-others'))
+    );
+    // Consultations
+    var mConsultAns=progs.app?'(See APP above)':gr('mpp-consult');
+    h+='<div class="rev-sec"><div class="rev-sec-title">MPP — Consultations</div><div class="rev-grid">';
+    h+=rv2('Consulted DOST?',mConsultAns);
+    if(!progs.app && mConsultAns==='no') h+=rv2('Why not?',gv('mpp-consult-no-reason'));
+    h+='</div>';
+    if(!progs.app && mConsultAns==='yes'){
+      var mCRows=readTbody('mpp-consult-tbody',3);
+      h+=tblWrap(['Agency / Company','Date','Type of Assistance'],
+        mCRows.map(function(r){return tblRow(r);}).join(''),'#1a3f6b');
+    }
+    h+='</div>';
+    // Concerns
+    var mppConcernRows='';
+    document.querySelectorAll('#sec-mpp .ctbl tbody tr').forEach(function(tr){
+      var chk=tr.querySelector('td:first-child input[type="checkbox"]');
+      var area=tr.querySelector('td.area');
+      if(!chk||!area)return;
+      var subs=[];
+      tr.querySelectorAll('.sub-ci input[type="checkbox"]:checked').forEach(function(cb){subs.push(cb.parentElement.textContent.trim());});
+      mppConcernRows+=tblRow([area.textContent.trim(), chk.checked?'✓':'', subs.join(', ')]);
+    });
+    h+='<div class="rev-sec"><div class="rev-sec-title">MPP — Technical Assistance Concerns</div>';
+    h+=tblWrap(['Area of Concern','Selected','Sub-Areas'],mppConcernRows,'#1a3f6b');
+    h+='</div>';
   }
+
+  // ══ EMP ══════════════════════════════════════════════════
   if(progs.emp){
-    const fn=progs.mpp?gv('firm-name'):(progs.app?gv('app-farm-name'):gv('emp-firm-name'));
-    const pv=progs.mpp?gv('firm-province'):gv('emp-firm-province');
-    h+=sec('EMP — Energy Assessment',
-      rv('Firm Name',fn)+rv('Province',pv)+
-      rv('Year Est.',gv('emp-pa-year'))+rv('Org Type',gr('emp-org'))+
-      rv('Total Employees',gv('emp-emp-total'))+rv('Products',gv('emp-products'))+
-      rv('Elec. Total (kWh)',gv('emp-elec-total-kwh'))+rv('Elec. Bill (PHP)',gv('emp-elec-total-php'))+
-      rv('LPG Total (kg)',gv('emp-lpg-total-kg'))+rv('Diesel Total (L)',gv('emp-diesel-total-liters'))+
-      rv('Fuel Total (PHP)',gv('emp-fuel-total'))+rv('Grand Total (PHP)',gv('emp-grand-total'))+
-      rv('Qualification Criteria',getEmpQual())
+    var eFirmName=progs.mpp?gv('firm-name'):(progs.app?gv('app-farm-name'):gv('emp-firm-name'));
+    var eFirmProv=progs.mpp?gv('firm-province'):(progs.app?gv('app-province'):gv('emp-firm-province'));
+    var eFirmAddr=progs.mpp?gv('firm-address'):(progs.app?gv('app-farm-address'):gv('emp-firm-address'));
+    var eOwner=progs.app?gv('owner-name'):(progs.mpp?gv('firm-owner-name'):gv('emp-owner-name'));
+    var eBg=progs.app?gv('app-background'):(progs.mpp?gv('mpp-background'):gv('emp-background'));
+    h+=sec('EMP — Firm Information',
+      rv('Name of Firm',eFirmName)+rv('Province',eFirmProv)+
+      rv2('Complete Address',eFirmAddr)+
+      rv('Owner',eOwner)+rv('Contact Person',progs.app?gv('contact-person'):(progs.mpp?gv('firm-contact-person'):gv('emp-contact-person')))+
+      rv('Contact Number',progs.mpp?gv('firm-contact-num'):gv('emp-contact-num'))+rv2('E-mail',progs.mpp?gv('firm-email'):gv('emp-email'))+
+      rv2('Brief Background',eBg)
     );
+    h+=sec('EMP — Pre-Assessment Checklist',
+      rv('Year Established',gv('emp-pa-year'))+rv('Initial Capital (PHP)',gv('emp-pa-capital'))+
+      rv('Company Reg. No.',gv('emp-pa-regnum'))+rv('Year Registered',gv('emp-pa-regyear'))+
+      rv('Type of Organization',gr('emp-org'))+rv('Capital Classification',gr('emp-cap'))+
+      rv('Employment Classification',gr('emp-empcl'))+rv('Direct Workers — Production',gv('emp-emp-prod'))+
+      rv('Direct Workers — Non-production',gv('emp-emp-nonprod'))+rv('Indirect / On-call',gv('emp-emp-indirect'))+
+      rv('Total Employees',gv('emp-emp-total'))+rv('Annual Volume of Production',gv('emp-prod-vol'))+
+      rv('Estimated Value (PHP)',gv('emp-prod-val'))+rv2('Products / Services',gv('emp-products'))
+    );
+    // Electricity table — all 12 months + total row
+    var months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','TOTAL'];
+    var elecRows=readEnergyTbody('emp-elec-tbody');
+    var elecHtml=elecRows.map(function(r,i){
+      var isTotal=i===elecRows.length-1;
+      var style=isTotal?'background:#e8f0fa;font-weight:700':'';
+      return '<tr><td style="padding:4px 8px;border:1px solid #ccd6e8;text-align:center;font-weight:600;'+style+'">'+(months[i]||i+1)+'</td><td style="padding:4px 8px;border:1px solid #ccd6e8;'+style+'">'+(r[0]||'—')+'</td><td style="padding:4px 8px;border:1px solid #ccd6e8;'+style+'">'+(r[1]||'—')+'</td></tr>';
+    }).join('');
+    h+='<div class="rev-sec"><div class="rev-sec-title">EMP — Electricity Consumption (Past 12 Months)</div>';
+    h+=tblWrap(['Month','Consumption (kWh)','Electric Bill (PHP)'],elecHtml,'#1a5c4a');
+    h+='</div>';
+    // LPG + Diesel side by side
+    var lpgRows=readEnergyTbody('emp-lpg-tbody');
+    var dieselRows=readEnergyTbody('emp-diesel-tbody');
+    var lpgHtml=lpgRows.map(function(r,i){
+      var isTotal=i===lpgRows.length-1;
+      var style=isTotal?'background:#e8f0fa;font-weight:700':'';
+      return '<tr><td style="padding:4px 8px;border:1px solid #ccd6e8;text-align:center;font-weight:600;'+style+'">'+(months[i]||i+1)+'</td><td style="padding:4px 8px;border:1px solid #ccd6e8;'+style+'">'+(r[0]||'—')+'</td><td style="padding:4px 8px;border:1px solid #ccd6e8;'+style+'">'+(r[1]||'—')+'</td></tr>';
+    }).join('');
+    var dieselHtml=dieselRows.map(function(r,i){
+      var isTotal=i===dieselRows.length-1;
+      var style=isTotal?'background:#e8f0fa;font-weight:700':'';
+      return '<tr><td style="padding:4px 8px;border:1px solid #ccd6e8;text-align:center;font-weight:600;'+style+'">'+(months[i]||i+1)+'</td><td style="padding:4px 8px;border:1px solid #ccd6e8;'+style+'">'+(r[0]||'—')+'</td><td style="padding:4px 8px;border:1px solid #ccd6e8;'+style+'">'+(r[1]||'—')+'</td></tr>';
+    }).join('');
+    h+='<div class="rev-sec"><div class="rev-sec-title">EMP — Fuel Consumption (Past 12 Months)</div>';
+    h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">';
+    h+='<div><strong style="font-size:11px;color:#1a5c4a">LPG (kg)</strong>'+tblWrap(['Month','LPG (kg)','Bill (PHP)'],lpgHtml,'#1a5c4a')+'</div>';
+    h+='<div><strong style="font-size:11px;color:#1a5c4a">Diesel / Bunker (liters)</strong>'+tblWrap(['Month','Diesel (L)','Bill (PHP)'],dieselHtml,'#1a5c4a')+'</div>';
+    h+='</div></div>';
+    h+=sec('EMP — Fuel Totals & Grand Total',
+      rv('Total Production Fuel Bill (PHP)',gv('emp-fuel-total'))+rv('1 Year Electric Bill (PHP)',gv('emp-combined-elec'))+
+      rv('1 Year Fuel Bill (PHP)',gv('emp-combined-fuel'))+rv('GRAND TOTAL (PHP)',gv('emp-grand-total'))
+    );
+    // Equipment table
+    var equipRows=readTbody('emp-equip-tbody',4);
+    h+='<div class="rev-sec"><div class="rev-sec-title">EMP — Energy Consuming Equipment</div>';
+    h+=tblWrap(['Equipment & Description','Qty','Rated HP','Rated kW','Hours/Day'],
+      equipRows.map(function(r){return tblRow(r);}).join(''),'#1a5c4a');
+    h+='</div>';
+    // Qualification
+    var empQualItems=[];
+    document.querySelectorAll('#sec-emp .qual-box input[type="checkbox"]').forEach(function(cb){
+      empQualItems.push('<span style="margin-right:8px">'+(cb.checked?'☑':'☐')+' '+cb.parentElement.textContent.trim()+'</span>');
+    });
+    h+='<div class="rev-sec"><div class="rev-sec-title">EMP — Qualification Criteria</div>';
+    h+='<div style="padding:8px 0;font-size:12px;line-height:2">'+empQualItems.join('<br>')+'</div></div>';
   }
+
+  // ══ FS ═══════════════════════════════════════════════════
   if(progs.fs){
+    var fsFirm=progs.app?gv('app-farm-name'):(progs.mpp?gv('firm-name'):(progs.emp?gv('emp-firm-name'):gv('fs-firm-name')));
+    var fsProv=progs.app?gv('app-province'):(progs.mpp?gv('firm-province'):(progs.emp?gv('emp-firm-province'):gv('fs-province')));
+    var fsAddr=progs.app?gv('app-farm-address'):(progs.mpp?gv('firm-address'):(progs.emp?gv('emp-firm-address'):gv('fs-firm-address')));
+    var fsOwner=progs.app?gv('owner-name'):(progs.mpp?gv('firm-owner-name'):(progs.emp?gv('emp-owner-name'):gv('fs-owner-name')));
+    var fsAge=progs.app?gv('owner-age'):(progs.mpp?gv('firm-owner-age'):(progs.emp?gv('emp-owner-age'):gv('fs-owner-age')));
+    var fsEmail=progs.app?gv('owner-email'):(progs.mpp?gv('firm-email'):(progs.emp?gv('emp-email'):gv('fs-email')));
+    var fsContact=progs.app?gv('contact-person'):(progs.mpp?gv('firm-contact-person'):(progs.emp?gv('emp-contact-person'):gv('fs-contact-person')));
+    var fsContactNum=progs.mpp?gv('firm-contact-num'):(progs.emp?gv('emp-contact-num'):gv('fs-contact-num'));
+    var fsBg=progs.app?gv('app-background'):(progs.mpp?gv('mpp-background'):(progs.emp?gv('emp-background'):gv('fs-background')));
+    var fsOrg=progs.mpp?gr('mpp-org'):(progs.emp?gr('emp-org'):gr('fs-org'));
+    var fsCap=progs.mpp?gr('mpp-cap'):(progs.emp?gr('emp-cap'):gr('fs-cap'));
+    var fsEmpcl=progs.mpp?gr('mpp-emp'):(progs.emp?gr('emp-empcl'):gr('fs-empcl'));
     h+=sec('FS — Company Profile',
-      rv('Firm Name',gv('fs-firm-name'))+rv('Province',gv('fs-province'))+
-      rv('Address',gv('fs-firm-address'))+rv('Owner/Chairman',gv('fs-owner-name'))+
-      rv('Age',gv('fs-owner-age'))+rv('Sex',gr('fs-owner-sex'))+
-      rv('Contact No.',gv('fs-contact-num'))+rv('Email',gv('fs-email'))+
-      rv('Products',[gv('fs-prod-1'),gv('fs-prod-2'),gv('fs-prod-3')].filter(Boolean).join(', '))+
-      rv('Org Type',gr('fs-org'))+rv('Capital Class.',gr('fs-cap'))+rv('Emp. Class.',gr('fs-empcl'))
+      rv('Name of Firm',fsFirm)+rv('Province',fsProv)+
+      rv2('Company Address',fsAddr)+
+      rv('Owner / Chairman',fsOwner)+rv('Age',fsAge)+
+      rv('Sex',gr('fs-owner-sex'))+rv2('E-mail',fsEmail)+
+      rv('Contact No.',fsContactNum)+rv('Contact Person',fsContact)+
+      rv2('Contact Person No.',gv('fs-contact-person-num'))+
+      rv('Product / Service 1',gv('fs-prod-1'))+rv('Product / Service 2',gv('fs-prod-2'))+
+      rv2('Product / Service 3',gv('fs-prod-3'))+
+      rv2('Brief Background',fsBg)+
+      rv('Type of Organization',fsOrg)+rv('Capital Classification',fsCap)+
+      rv('Employment Classification',fsEmpcl)+
+      rv('Male Employees',gv('fs-emp-m'))+rv('Female Employees',gv('fs-emp-f'))
     );
+    // FS Level tables
+    function readFsTable(selector,headers,color){
+      var rows='';
+      document.querySelectorAll(selector+' tbody tr').forEach(function(tr){
+        var label=tr.cells[0]?tr.cells[0].textContent.trim():'';
+        if(!label)return;
+        var vals=[label];
+        tr.querySelectorAll('select,input[type=text],input[type=date]').forEach(function(el){vals.push(el.value||'—');});
+        rows+=tblRow(vals);
+      });
+      return rows?'<div class="rev-sec"><div class="rev-sec-title">'+headers[0]+'</div>'+tblWrap(headers.slice(1),rows,color||'#1b7a6e')+'</div>':'';
+    }
+    var fsTbls=document.querySelectorAll('#sec-fs .ftbl');
+    var fsTitles=[
+      ['FS — Level 1: Food Safety Awareness Training','Training','Yes/No','Date','Provider','Remarks'],
+      ['FS — Level 2: Food Safety Manuals','Manual','Yes/None','Date','Provider','Updated Records?'],
+      ['FS — Level 3: FDA Licensing & Registration','Question','Yes/No','Remarks'],
+      ['FS — Specialized Trainings / Consultancy','Training / Consultancy','Yes/No','Remarks'],
+    ];
+    fsTbls.forEach(function(tbl,i){
+      if(!fsTitles[i])return;
+      var rows='';
+      tbl.querySelectorAll('tbody tr').forEach(function(tr){
+        var label=tr.cells[0]?tr.cells[0].textContent.trim():'';
+        if(!label)return;
+        var vals=[label];
+        tr.querySelectorAll('select,input[type=text],input[type=date]').forEach(function(el){vals.push(el.value||'—');});
+        rows+=tblRow(vals);
+      });
+      if(rows){
+        h+='<div class="rev-sec"><div class="rev-sec-title">'+fsTitles[i][0]+'</div>';
+        h+=tblWrap(fsTitles[i].slice(1),rows,'#1b7a6e');
+        h+='</div>';
+      }
+    });
+    h+=sec('FS — Remarks',rv2('Remarks',gv('fs-remarks')));
   }
+
   return h;
 }
+
 
 updateVisibility();
 </script>
