@@ -299,13 +299,6 @@ body{font-family:'Source Sans 3',sans-serif;background:#dde4ef;color:var(--gray-
       <div class="f"><input type="text" id="app-background" placeholder="Brief background of the farm"></div>
     </div>
 
-    <div class="stitle">Commodity(ies)</div>
-    <div class="fg c1">
-      <div class="f"><input type="text" id="app-commodity-1" placeholder="Commodity 1"></div>
-      <div class="f"><input type="text" id="app-commodity-2" placeholder="Commodity 2"></div>
-      <div class="f"><input type="text" id="app-commodity-3" placeholder="Commodity 3"></div>
-    </div>
-
     <!-- C. Consultations — shared if other programs also selected -->
     <div class="stitle">C. Have you consulted DOST or any other individual / organization on any assistance? <span class="shared-note hidden" id="app-consult-shared-note">Also applies to other selected programs</span></div>
     <div class="cg" style="margin-top:0">
@@ -349,13 +342,12 @@ body{font-family:'Source Sans 3',sans-serif;background:#dde4ef;color:var(--gray-
     </table>
     <button class="add-row" onclick="addFarmRow()">+ Add Row</button>
 
-    <div class="stitle">E. Pre-Assessment <span style="font-weight:400;font-style:italic;font-size:11px">(to be filled out by DOST-III PSTO Staff)</span></div>
+    <div class="stitle">E. Pre-Assessment <span style="font-weight:400;font-style:italic;font-size:11px"></span></div>
     <table class="tbl" id="app-preassess-table">
       <thead>
         <tr>
           <th style="width:33%">Possible Areas of Interventions</th>
           <th style="width:33%">Technical Needs / Problems</th>
-          <th>Initial Recommendations / Remarks</th>
         </tr>
       </thead>
       <tbody id="app-preassess-tbody">
@@ -1089,7 +1081,7 @@ body{font-family:'Source Sans 3',sans-serif;background:#dde4ef;color:var(--gray-
       </tbody>
     </table>
 
-    <div class="stitle" style="margin-top:18px">Recommendation <span style="font-weight:400;font-style:italic;font-size:11px">(to be filled out by CLFST Member/s)</span></div>
+    <div class="stitle" style="margin-top:18px">Recommendation <span style="font-weight:400;font-style:italic;font-size:11px">(to be filled out by CLFST Member)</span></div>
     <table class="tbl">
       <thead><tr><th>To be enrolled in:</th><th style="width:55%">Specify</th></tr></thead>
       <tbody>
@@ -1413,7 +1405,6 @@ function buildReview() {
         + '<thead><tr>'
         + '<th style="background:#1a2d4f;color:white;padding:5px 8px;font-size:11px;width:33%">Possible Areas of Interventions</th>'
         + '<th style="background:#1a2d4f;color:white;padding:5px 8px;font-size:11px;width:33%">Technical Needs / Problems</th>'
-        + '<th style="background:#1a2d4f;color:white;padding:5px 8px;font-size:11px">Initial Recommendations / Remarks</th>'
         + '</tr></thead><tbody>' + rows + '</tbody></table>';
     }
 
