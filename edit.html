@@ -246,7 +246,7 @@ body{font-family:'Source Sans 3',sans-serif;background:#dde4ef;color:var(--gray-
 
 <script>
 // ─── READ URL PARAMS ────────────────────────────────────────────────────────────
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzO5znjzvXNiqu1kunMg2XB2hN_cqTAzTKBxq3MVBGw2Y3v0tYgCUbO-rdGZgxgTAwP/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwPdD8S2OPNu4YznAcdo2O2bz0AuNYuSLhdqAuzutafNKp4vqcn_81_oHmIC3i3cuL4/exec';
 const p = new URLSearchParams(window.location.search);
 const ref = p.get('ref') || '';
 function gp(k){ return decodeURIComponent(p.get(k)||''); }
@@ -803,8 +803,7 @@ if(hasFs){
     fieldEl('E-mail Address','fs-email',gp('fsEmail'),'email')
   );
   html += fg('c2',
-    fieldEl('Contact Person','fs-contact-person',gp('fsContactPerson')) +
-    fieldEl('Contact Person No.','fs-contact-person-num',gp('fsContactPersonNum'),'tel')
+    fieldEl('Contact Person','fs-contact-person',gp('fsContactPerson')) 
   );
   html += fg('c3',
     fieldEl('Product / Service 1','fs-prod-1',gp('fsProd1')) +
