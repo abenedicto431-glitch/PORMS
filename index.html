@@ -229,8 +229,8 @@ body{font-family:'Source Sans 3',sans-serif;background:#dde4ef;color:var(--gray-
     <div class="fg c4">
       <div class="f"><label>Sex (M/F)</label><select id="owner-sex"><option value="">Select</option><option>Male</option><option>Female</option></select></div>
       <div class="f"><label>Age</label><input type="number" id="owner-age" placeholder="Age" min="0"></div>
-      <div class="f"><label>Position / Mobile No.</label><input type="text" id="owner-position" placeholder="Position / Mobile"></div>
-      <div class="f"><label>Sex — Contact Person</label><select id="contact-sex"><option value="">Select</option><option>Male</option><option>Female</option></select></div>
+      <div class="f"><label>Position</label><input type="text" id="owner-position" placeholder="Position"></div>
+      <div class="f"><label>Mobile No.</label><input type="text" id="owner-mobile" placeholder="Mobile No."></div>
     </div>
     <div class="cg" style="margin-bottom:10px">
       <label class="ci"><input type="checkbox" id="owner-pwd"> PWD</label>
@@ -239,15 +239,9 @@ body{font-family:'Source Sans 3',sans-serif;background:#dde4ef;color:var(--gray-
     <div class="fg c2">
       <div class="f"><label>E-mail Address</label><input type="email" id="owner-email" placeholder="email@example.com"></div>
     </div>
-    <div class="stitle">A. Brief Farm Background</div>
+    <div class="stitle">Brief Farm Background</div>
     <div class="fg c1"><div class="f"><input type="text" id="app-background" placeholder="Brief background of the farm"></div></div>
-    <div class="stitle">Commodity(ies)</div>
-    <div class="fg c3">
-      <div class="f"><input type="text" id="app-commodity-1" placeholder="Commodity 1"></div>
-      <div class="f"><input type="text" id="app-commodity-2" placeholder="Commodity 2"></div>
-      <div class="f"><input type="text" id="app-commodity-3" placeholder="Commodity 3"></div>
-    </div>
-    <div class="stitle">C. Previous Consultations with DOST or Other Organizations <span class="shared-note hidden" id="app-consult-shared-note">Also applies to other selected programs</span></div>
+    <div class="stitle">Previous Consultations with DOST or Other Organizations <span class="shared-note hidden" id="app-consult-shared-note">Also applies to other selected programs</span></div>
     <div class="cg">
       <label class="ci"><input type="radio" name="prev-consult" value="yes" onchange="showConsult(true)"> Yes</label>
       <label class="ci"><input type="radio" name="prev-consult" value="no" onchange="showConsult(false)"> No</label>
@@ -264,7 +258,7 @@ body{font-family:'Source Sans 3',sans-serif;background:#dde4ef;color:var(--gray-
     <div id="blk-consult-no" class="hidden" style="margin-top:8px">
       <div class="f"><label>Why not?</label><input type="text" id="consult-no-reason" placeholder="Please state your reason"></div>
     </div>
-    <div class="stitle">D. Farm Data</div>
+    <div class="stitle">Farm Data</div>
     <table class="tbl"><thead><tr><th>Commodity</th><th style="width:13%">Variety/Breed</th><th style="width:8%">Area</th><th style="width:16%">Avg Yield/Cropping</th><th style="width:16%">Avg Income/Cropping</th><th style="width:12%">No. of Croppings/Yr</th><th style="width:13%">Other Info</th></tr></thead>
     <tbody id="app-farm-tbody">
       <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text" placeholder="ha"></td><td><input type="text"></td><td><input type="text" placeholder="PHP"></td><td><input type="number" min="0"></td><td><input type="text"></td></tr>
@@ -272,10 +266,9 @@ body{font-family:'Source Sans 3',sans-serif;background:#dde4ef;color:var(--gray-
       <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="number" min="0"></td><td><input type="text"></td></tr>
     </tbody></table>
     <button class="add-row" onclick="addRow('app-farm-tbody',7)">+ Add Row</button>
-    <div class="stitle">E. Pre-Assessment <span style="font-weight:400;font-style:italic;font-size:11px">(to be filled out by DOST-III PSTO Staff)</span></div>
-    <table class="tbl"><thead><tr><th style="width:33%">Possible Areas of Interventions</th><th style="width:33%">Technical Needs / Problems</th><th>Initial Recommendations / Remarks</th></tr></thead>
+    <div class="stitle">Pre-Assessment <span style="font-weight:400;font-style:italic;font-size:11px">(to be filled out by DOST-III PSTO Staff)</span></div>
+    <table class="tbl"><thead><tr><th style="width:33%">Possible Areas of Interventions</th><th style="width:33%">Technical Needs / Problems</th></tr></thead>
     <tbody id="app-preassess-tbody">
-      <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
       <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
       <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
     </tbody></table>
@@ -804,7 +797,7 @@ body{font-family:'Source Sans 3',sans-serif;background:#dde4ef;color:var(--gray-
 
 <script>
 // ─── IMPORTANT: Replace with your Google Apps Script deployment URL ────────────
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbymHuGO-OBa2RpKV2UIXRN_aXDIAtPubHcD1NhRAqv49gzCPhhuhzQfp_WbYAqzY4E/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzO5znjzvXNiqu1kunMg2XB2hN_cqTAzTKBxq3MVBGw2Y3v0tYgCUbO-rdGZgxgTAwP/exec';
 
 // ─── PROGRAM TOGGLE ────────────────────────────────────────────────────────────
 const progs = {app:false, mpp:false, emp:false, fs:false};
@@ -1159,7 +1152,7 @@ function buildReviewHtml() {
     h+=sec('APP — Owner / Representative',
       rv('Owner Name',gv('owner-name'))+rv('Contact Person',gv('contact-person'))+
       rv('Sex (Owner)',gv('owner-sex'))+rv('Age',gv('owner-age'))+
-      rv('Position / Mobile',gv('owner-position'))+rv('Sex (Contact)',gv('contact-sex'))+
+      rv('Position',gv('owner-position'))+rv('Mobile No.',gv('owner-mobile'))+
       rv('PWD',gc('owner-pwd')?'Yes':'No')+rv('Senior Citizen',gc('owner-senior')?'Yes':'No')+
       rv2('E-mail',gv('owner-email'))
     );
