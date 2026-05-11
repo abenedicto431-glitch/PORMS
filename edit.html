@@ -463,7 +463,7 @@ function setStatus(s){
 // ─── HELPERS ────────────────────────────────────────────────────────────────────
 function esc(v){return String(v||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function toRoman(n){return['I','II','III','IV','V','VI','VII','VIII','IX','X'][n-1]||n;}
-function parseRows(str){ if(!str)return[]; return str.split(';;').map(r=>r.split('||')); }
+function parseRows(str){ if(!str || typeof str !== 'string')return[]; return str.split(';;').map(r=>r.split('||')); }
 
 // Field builders
 function inp(id,val,type='text'){
@@ -635,7 +635,7 @@ if(hasMpp){
       <label class="ci"><input type="checkbox" id="firm-owner-pwd"${gp('firmOwnerPwd')?' checked':''}> PWD</label>
       <label class="ci"><input type="checkbox" id="firm-owner-senior"${gp('firmOwnerSenior')?' checked':''}> Senior Citizen</label>
     </div>`;
-    html += fieldEl('E-mail Address','firm-email',gp('firmEmail'),'email'));
+    html += fg('c2', fieldEl('Mobile Number','firm-mobile-num',gp('firmMobileNum'),'tel') + fieldEl('E-mail Address','firm-email',gp('firmEmail'),'email'));
   }
 
   html += `<div class="stitle">Firm Profile</div>`;
@@ -824,7 +824,7 @@ if(hasEmp){
       <label class="ci"><input type="checkbox" id="emp-owner-pwd"${gp('empOwnerPwd')?' checked':''}> PWD</label>
       <label class="ci"><input type="checkbox" id="emp-owner-senior"${gp('empOwnerSenior')?' checked':''}> Senior Citizen</label>
     </div>`;
-    html += fieldEl('E-mail Address','emp-email',gp('empEmail'),'email'));
+    html += fg('c2', fieldEl('Mobile Number','emp-mobile-num',gp('empMobileNum'),'tel') + fieldEl('E-mail Address','emp-email',gp('empEmail'),'email'));
   }
 
   html += `<div class="stitle">Firm Profile</div>`;
