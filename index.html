@@ -1072,7 +1072,7 @@ function submitForm() {
   fetch(APPS_SCRIPT_URL, {
     method: 'POST',
     mode: 'no-cors', // Required for GAS; we won't get a response body back
-    headers: {'Content-Type': 'application/json'},
+    headers: {'Content-Type': 'text/plain'},
     body: JSON.stringify(data)
   }).catch(() => {
     // no-cors always "fails" silently — that's expected
