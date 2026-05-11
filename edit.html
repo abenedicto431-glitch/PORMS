@@ -251,34 +251,211 @@ body{font-family:'Source Sans 3',sans-serif;background:#dde4ef;color:var(--gray-
 // ─── READ URL PARAMS ────────────────────────────────────────────────────────────
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw8qsi0dgrBP-7PcH-iK-38dePjWp5QA2_LPRA99sbFZZ_dpCQR0asxIsOknFySFn2-/exec';
 const p = new URLSearchParams(window.location.search);
-const ref = p.get('ref') || '';
-function gp(k){ return decodeURIComponent(p.get(k)||''); }
+const ref = p.get('ref') || '—';
 
-// Fetch data from Google Sheet on page load
-if(ref){
-  fetch(APPS_SCRIPT_URL + '?ref=' + ref)
-    .then(r => r.json())
-    .then(res => {
-      if(res.success && res.data){
-        const d = res.data;
-        // Pre-fill staff fields
-        if(d['Staff Assigned']) document.getElementById('staff-assigned').value = d['Staff Assigned'];
-        if(d['Staff Remarks']) document.getElementById('staff-remarks').value = d['Staff Remarks'];
-        if(d['Staff Assessment Date']) document.getElementById('staff-date').value = d['Staff Assessment Date'];
-        if(d['Staff Decline Reason']) document.getElementById('staff-decline').value = d['Staff Decline Reason'];
-        if(d['Assisted By']) document.getElementById('sig-assisted').value = d['Assisted By'];
-        if(d['Noted By']) document.getElementById('sig-noted').value = d['Noted By'];
-        if(d['Staff Status']) setStatus(d['Staff Status'].toLowerCase());
-        // Update banner
-        document.getElementById('ref-display').textContent = d['Reference Number'] || ref;
-        document.getElementById('date-display').textContent = 'Submitted: ' + new Date(d['Submission Date']).toLocaleDateString('en-PH');
+// All form data will be stored here after fetching from Sheets
+let formData = {};
+
+function gp(k){ return formData[k] || ''; }
+
+// Fetch full submission data from Google Sheets, then build the form
+fetch(APPS_SCRIPT_URL + '?ref=' + ref)
+  .then(r => r.json())
+  .then(res => {
+    if(res.success && res.data){
+      const d = res.data;
+
+      // Map sheet column names to the keys edit.html expects
+      formData = {
+        referenceNumber:      d['Reference Number']          || '',
+        programs:             d['Programs Applied']          || '',
+        submissionDate:       d['Submission Date']           || '',
+        // Shared owner
+        ownerName:            d['Owner Name']                || '',
+        contactPerson:        d['Contact Person']            || '',
+        ownerSex:             d['Owner Sex']                 || '',
+        ownerAge:             d['Owner Age']                 || '',
+        ownerPosition:        d['Owner Position']            || '',
+        contactSex:           d['Contact Sex']               || '',
+        ownerPwd:             d['PWD']                       || '',
+        ownerSenior:          d['Senior Citizen']            || '',
+        ownerEmail:           d['Email Address']             || '',
+        ownerMobile:          d['Contact Number']            || '',
+        consultAns:           d['Previously Consulted']      || '',
+        consultNoReason:      d['No Consult Reason']         || '',
+        appConsultRows:       d['APP Consult Rows']          || '',
+        // APP
+        appFarmName:          d['Firm / Farm Name']          || '',
+        appFarmAddress:       d['Complete Address']          || '',
+        appProvince:          d['Province']                  || '',
+        appArea:              d['APP Area']                  || '',
+        appYearEst:           d['Year Established']          || '',
+        appWorkers:           d['APP Workers']               || '',
+        appBackground:        d['Firm Background']           || '',
+        appFarmRows:          d['APP Farm Rows']             || '',
+        appPreAssessRows:     d['APP Pre-Assessment Rows']   || '',
+        // MPP
+        firmName:             d['Firm / Farm Name']          || '',
+        firmProvince:         d['Province']                  || '',
+        firmAddress:          d['Complete Address']          || '',
+        firmOwnerName:        d['Owner Name']                || '',
+        firmContactPerson:    d['Contact Person']            || '',
+        firmOwnerSex:         d['Owner Sex']                 || '',
+        firmOwnerAge:         d['Owner Age']                 || '',
+        firmOwnerPosition:    d['Owner Position']            || '',
+        firmContactSex:       d['Contact Sex']               || '',
+        firmOwnerPwd:         d['PWD']                       || '',
+        firmOwnerSenior:      d['Senior Citizen']            || '',
+        firmContactNum:       d['Contact Number']            || '',
+        firmEmail:            d['Email Address']             || '',
+        mppBackground:        d['Firm Background']           || '',
+        mppConsultAns:        d['Previously Consulted']      || '',
+        mppConsultNoReason:   d['No Consult Reason']         || '',
+        mppConsultRows:       d['MPP Consult Rows']          || '',
+        mppPaYear:            d['Year Established']          || '',
+        mppPaCapital:         d['Initial Capital']           || '',
+        mppPaRegnum:          d['Company Reg No']            || '',
+        mppPaRegyear:         d['Year Registered']           || '',
+        mppOrg:               d['Organization Type']         || '',
+        mppCap:               d['Capital Classification']    || '',
+        mppEmp:               d['Employment Classification'] || '',
+        mppEmpProd:           d['Direct Workers - Production']     || '',
+        mppEmpNonprod:        d['Direct Workers - Non-Production'] || '',
+        mppEmpIndirect:       d['Indirect Workers']          || '',
+        mppEmpTotal:          d['Total Workers']             || '',
+        mppProdVol:           d['Annual Production Volume']  || '',
+        mppProdVal:           d['Estimated Value PHP']       || '',
+        mppMktLocal:          d['Market - Local']            || '',
+        mppMktForeign:        d['Market - Foreign']          || '',
+        mppMktTarget:         d['Target Additional Market']  || '',
+        mppBizOthers:         d['Business Activity Others']  || '',
+        mppProducts:          d['MPP Products/Services']     || '',
+        mppOrgchart:          d['MPP Org Chart Available']   || '',
+        mppConcerns:          d['MPP Strategies and Problems']|| '',
+        // EMP
+        empFirmName:          d['Firm / Farm Name']          || '',
+        empFirmProvince:      d['Province']                  || '',
+        empFirmAddress:       d['Complete Address']          || '',
+        empOwnerName:         d['Owner Name']                || '',
+        empContactPerson:     d['Contact Person']            || '',
+        empOwnerSex:          d['Owner Sex']                 || '',
+        empOwnerAge:          d['Owner Age']                 || '',
+        empOwnerPosition:     d['Owner Position']            || '',
+        empContactSex:        d['Contact Sex']               || '',
+        empOwnerPwd:          d['PWD']                       || '',
+        empOwnerSenior:       d['Senior Citizen']            || '',
+        empContactNum:        d['Contact Number']            || '',
+        empEmail:             d['Email Address']             || '',
+        empBackground:        d['Firm Background']           || '',
+        empConsultAns:        d['Previously Consulted']      || '',
+        empConsultNoReason:   d['No Consult Reason']         || '',
+        empConsultRows:       d['EMP Consult Rows']          || '',
+        empPaYear:            d['Year Established']          || '',
+        empPaCapital:         d['Initial Capital']           || '',
+        empPaRegnum:          d['Company Reg No']            || '',
+        empPaRegyear:         d['Year Registered']           || '',
+        empOrg:               d['Organization Type']         || '',
+        empCap:               d['Capital Classification']    || '',
+        empEmpcl:             d['Employment Classification'] || '',
+        empEmpProd:           d['Direct Workers - Production']     || '',
+        empEmpNonprod:        d['Direct Workers - Non-Production'] || '',
+        empEmpIndirect:       d['Indirect Workers']          || '',
+        empEmpTotal:          d['Total Workers']             || '',
+        empProdVol:           d['Annual Production Volume']  || '',
+        empProdVal:           d['Estimated Value PHP']       || '',
+        empProducts:          d['MPP Products/Services']     || '',
+        empElecRows:          d['EMP Electricity Consumption']|| '',
+        empElecTotalKwh:      d['EMP Elec Total kWh']        || '',
+        empElecTotalPhp:      d['EMP Elec Total PHP']        || '',
+        empLpgRows:           d['EMP Fuel Consumption']      || '',
+        empLpgTotalKg:        d['EMP LPG Total kg']          || '',
+        empLpgTotalPhp:       d['EMP LPG Total PHP']         || '',
+        empDieselRows:        d['EMP Diesel Rows']           || '',
+        empDieselTotalLiters: d['EMP Diesel Total Liters']   || '',
+        empDieselTotalPhp:    d['EMP Diesel Total PHP']      || '',
+        empFuelTotal:         d['EMP Combined Consumption']  || '',
+        empCombinedElec:      d['EMP Electricity Consumption']|| '',
+        empCombinedFuel:      d['EMP Fuel Consumption']      || '',
+        empGrandTotal:        d['EMP Grand Total']           || '',
+        empEquipRows:         d['EMP Equip Rows']            || '',
+        empQual:              d['EMP Qual']                  || '',
+        // FS
+        fsProvince:           d['Province']                  || '',
+        fsFirmName:           d['Firm / Farm Name']          || '',
+        fsFirmAddress:        d['Complete Address']          || '',
+        fsOwnerName:          d['Owner Name']                || '',
+        fsOwnerAge:           d['Owner Age']                 || '',
+        fsOwnerBirthdate:     d['Birth Date']                || '',
+        fsOwnerSex:           d['Owner Sex']                 || '',
+        fsContactNum:         d['Contact Number']            || '',
+        fsEmail:              d['Email Address']             || '',
+        fsContactPerson:      d['Contact Person']            || '',
+        fsProd1:              d['Product/Service 1']         || '',
+        fsProd2:              d['Product/Service 2']         || '',
+        fsProd3:              d['Product/Service 3']         || '',
+        fsBackground:         d['Firm Background']           || '',
+        fsOrg:                d['Organization Type']         || '',
+        fsCap:                d['Capital Classification']    || '',
+        fsEmpcl:              d['Employment Classification'] || '',
+        fsEmpM:               d['FS Emp Male']               || '',
+        fsEmpF:               d['FS Emp Female']             || '',
+        fsMktLocal:           d['Market - Local']            || '',
+        fsMktForeign:         d['Market - Foreign']          || '',
+        fsMktTarget:          d['Target Additional Market']  || '',
+        fsHandler:            d['FS Handler']                || '',
+        fsRemarks:            d['FS Remarks']                || '',
+        // Staff fields
+        staffStatus:          d['Staff Status']              || '',
+        staffAssigned:        d['Staff Assigned']            || '',
+        staffRemarks:         d['Staff Remarks']             || '',
+        staffDate:            d['Staff Assessment Date']     || '',
+        staffDecline:         d['Staff Decline Reason']      || '',
+        sigAssisted:          d['Assisted By']               || '',
+        sigNoted:             d['Noted By']                  || '',
+      };
+
+     function buildFormBody(programs, hasApp, hasMpp, hasEmp, hasFs) {
+      const hasApp = programs.includes('APP');
+      const hasMpp = programs.includes('MPP');
+      const hasEmp = programs.includes('EMP');
+      const hasFs  = programs.includes('FS');
+
+      // Update banner
+      document.getElementById('ref-display').textContent = formData.referenceNumber || ref;
+      if(formData.submissionDate){
+        document.getElementById('date-display').textContent = 'Submitted: ' + new Date(formData.submissionDate).toLocaleDateString('en-PH',{year:'numeric',month:'long',day:'numeric'});
       }
-    })
-    .catch(err => console.log('Fetch error:', err));
-}
 
-const ref      = gp('referenceNumber') || gp('ref') || '—';
-const programs = gp('programs');
+      // Program tags
+      const tagMap={APP:'tag-app',MPP:'tag-mpp',EMP:'tag-emp',FS:'tag-fs'};
+      programs.split(',').forEach(prog=>{
+        prog=prog.trim(); if(!prog) return;
+        const s=document.createElement('span');
+        s.className='prog-tag '+(tagMap[prog]||'');
+        s.textContent=prog;
+        document.getElementById('prog-tags').appendChild(s);
+      });
+
+      // Staff fields
+      if(formData.staffAssigned) document.getElementById('staff-assigned').value = formData.staffAssigned;
+      if(formData.staffRemarks)  document.getElementById('staff-remarks').value  = formData.staffRemarks;
+      if(formData.staffDate)     document.getElementById('staff-date').value      = formData.staffDate;
+      if(formData.staffDecline)  document.getElementById('staff-decline').value   = formData.staffDecline;
+      if(formData.sigAssisted)   document.getElementById('sig-assisted').value    = formData.sigAssisted;
+      if(formData.sigNoted)      document.getElementById('sig-noted').value       = formData.sigNoted;
+      if(formData.staffStatus)   setStatus(formData.staffStatus.toLowerCase());
+
+      // Now build the form body with fetched data
+      buildFormBody(programs, hasApp, hasMpp, hasEmp, hasFs);
+
+    } else {
+      document.getElementById('form-body').innerHTML = '<div style="padding:40px;text-align:center;color:#dc2626;">Could not load submission data. Please check the reference number.</div>';
+    }
+  })
+  .catch(err => {
+    console.log('Fetch error:', err);
+    document.getElementById('form-body').innerHTML = '<div style="padding:40px;text-align:center;color:#dc2626;">Error loading data. Please try again.</div>';
+  });
 const hasApp = programs.includes('APP');
 const hasMpp = programs.includes('MPP');
 const hasEmp = programs.includes('EMP');
@@ -882,6 +1059,7 @@ if(hasFs){
 }
 
 document.getElementById('form-body').innerHTML = html;
+} // closes buildFormBody
 
 // ─── HELPERS TO READ CURRENT VALUES ────────────────────────────────────────────
 function gv(id){const e=document.getElementById(id);return e?e.value.trim():'';}
