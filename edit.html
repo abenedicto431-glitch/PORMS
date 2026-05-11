@@ -277,11 +277,10 @@ fetch(APPS_SCRIPT_URL + '?ref=' + ref)
         ownerSex:             d['Owner Sex']                 || '',
         ownerAge:             d['Owner Age']                 || '',
         ownerPosition:        d['Owner Position']            || '',
-        contactSex:           d['Contact Sex']               || '',
         ownerPwd:             d['PWD']                       || '',
         ownerSenior:          d['Senior Citizen']            || '',
         ownerEmail:           d['Email Address']             || '',
-        ownerMobile:          d['Contact Number']            || '',
+        ownerMobile:          d['Mobile Number']            || '',
         consultAns:           d['Previously Consulted']      || '',
         consultNoReason:      d['No Consult Reason']         || '',
         appConsultRows:       d['APP Consult Rows']          || '',
@@ -304,10 +303,9 @@ fetch(APPS_SCRIPT_URL + '?ref=' + ref)
         firmOwnerSex:         d['Owner Sex']                 || '',
         firmOwnerAge:         d['Owner Age']                 || '',
         firmOwnerPosition:    d['Owner Position']            || '',
-        firmContactSex:       d['Contact Sex']               || '',
         firmOwnerPwd:         d['PWD']                       || '',
         firmOwnerSenior:      d['Senior Citizen']            || '',
-        firmContactNum:       d['Contact Number']            || '',
+        firmMobileNum:        d['Mobile Number']             || '',
         firmEmail:            d['Email Address']             || '',
         mppBackground:        d['Firm Background']           || '',
         mppConsultAns:        d['Previously Consulted']      || '',
@@ -342,10 +340,9 @@ fetch(APPS_SCRIPT_URL + '?ref=' + ref)
         empOwnerSex:          d['Owner Sex']                 || '',
         empOwnerAge:          d['Owner Age']                 || '',
         empOwnerPosition:     d['Owner Position']            || '',
-        empContactSex:        d['Contact Sex']               || '',
         empOwnerPwd:          d['PWD']                       || '',
         empOwnerSenior:       d['Senior Citizen']            || '',
-        empContactNum:        d['Contact Number']            || '',
+        empMobileNum:         d['Mobile Number']             || '',
         empEmail:             d['Email Address']             || '',
         empBackground:        d['Firm Background']           || '',
         empConsultAns:        d['Previously Consulted']      || '',
@@ -388,7 +385,6 @@ fetch(APPS_SCRIPT_URL + '?ref=' + ref)
         fsOwnerAge:           d['Owner Age']                 || '',
         fsOwnerBirthdate:     d['Birth Date']                || '',
         fsOwnerSex:           d['Owner Sex']                 || '',
-        fsContactNum:         d['Contact Number']            || '',
         fsEmail:              d['Email Address']             || '',
         fsContactPerson:      d['Contact Person']            || '',
         fsProd1:              d['Product/Service 1']         || '',
@@ -639,7 +635,7 @@ if(hasMpp){
       <label class="ci"><input type="checkbox" id="firm-owner-pwd"${gp('firmOwnerPwd')?' checked':''}> PWD</label>
       <label class="ci"><input type="checkbox" id="firm-owner-senior"${gp('firmOwnerSenior')?' checked':''}> Senior Citizen</label>
     </div>`;
-    html += fg('c2', fieldEl('Contact Number','firm-contact-num',gp('firmContactNum'),'tel') + fieldEl('E-mail Address','firm-email',gp('firmEmail'),'email'));
+    html += fieldEl('E-mail Address','firm-email',gp('firmEmail'),'email'));
   }
 
   html += `<div class="stitle">Firm Profile</div>`;
@@ -828,7 +824,7 @@ if(hasEmp){
       <label class="ci"><input type="checkbox" id="emp-owner-pwd"${gp('empOwnerPwd')?' checked':''}> PWD</label>
       <label class="ci"><input type="checkbox" id="emp-owner-senior"${gp('empOwnerSenior')?' checked':''}> Senior Citizen</label>
     </div>`;
-    html += fg('c2', fieldEl('Contact Number','emp-contact-num',gp('empContactNum'),'tel') + fieldEl('E-mail Address','emp-email',gp('empEmail'),'email'));
+    html += fieldEl('E-mail Address','emp-email',gp('empEmail'),'email'));
   }
 
   html += `<div class="stitle">Firm Profile</div>`;
@@ -961,7 +957,7 @@ if(hasFs){
     `<div class="f"><label>Sex</label>${radioGroup('fs-owner-sex',gp('fsOwnerSex'),['Male','Female'])}</div>`
   );
   html += fg('c2',
-    fieldEl('Contact No.','fs-contact-num',gp('fsContactNum'),'tel') +
+    fieldEl('Mobile No.','fs-mobile-num',gp('fsMobileNum'),'tel') +
     fieldEl('E-mail Address','fs-email',gp('fsEmail'),'email')
   );
   html += fg('c2',
@@ -1091,7 +1087,6 @@ function saveChanges(){
     ownerSex:       gv('owner-sex'),
     ownerAge:       gv('owner-age'),
     ownerPosition:  gv('owner-position'),
-    contactSex:     gv('contact-sex'),
     ownerPwd:       gc('owner-pwd'),
     ownerSenior:    gc('owner-senior'),
     ownerEmail:     gv('owner-email'),
@@ -1107,10 +1102,9 @@ function saveChanges(){
     firmOwnerSex:   gv('firm-owner-sex'),
     firmOwnerAge:   gv('firm-owner-age'),
     firmOwnerPosition: gv('firm-owner-position'),
-    firmContactSex: gv('firm-contact-sex'),
     firmOwnerPwd:   gc('firm-owner-pwd'),
     firmOwnerSenior:gc('firm-owner-senior'),
-    firmContactNum: gv('firm-contact-num'),
+    firmMobbileNum: gv('firm-mobiile-num'),
     firmEmail:      gv('firm-email'),
     mppBackground:  gv('mpp-background'),
     mppConsultAns:  gr('mpp-consult'),
@@ -1141,10 +1135,9 @@ function saveChanges(){
     empOwnerSex:    gv('emp-owner-sex'),
     empOwnerAge:    gv('emp-owner-age'),
     empOwnerPosition:gv('emp-owner-position'),
-    empContactSex:  gv('emp-contact-sex'),
     empOwnerPwd:    gc('emp-owner-pwd'),
     empOwnerSenior: gc('emp-owner-senior'),
-    empContactNum:  gv('emp-contact-num'),
+    empMobileNum:  gv('emp-mobile-num'),
     empEmail:       gv('emp-email'),
     empBackground:  gv('emp-background'),
     empConsultAns:  gr('emp-consult'),
@@ -1181,10 +1174,9 @@ function saveChanges(){
     fsOwnerAge:     gv('fs-owner-age'),
     fsOwnerBirthdate:gv('fs-owner-birthdate'),
     fsOwnerSex:     gr('fs-owner-sex'),
-    fsContactNum:   gv('fs-contact-num'),
+    fsMobileNum:   gv('fs-mobile-num'),
     fsEmail:        gv('fs-email'),
     fsContactPerson:gv('fs-contact-person'),
-    fsContactPersonNum:gv('fs-contact-person-num'),
     fsProd1:        gv('fs-prod-1'),
     fsProd2:        gv('fs-prod-2'),
     fsProd3:        gv('fs-prod-3'),
