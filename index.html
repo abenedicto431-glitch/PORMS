@@ -1185,7 +1185,7 @@ function buildReviewHtml() {
     // Pre-Assessment table
     var preRows=readTbody('app-preassess-tbody',5);
     h+='<div class="rev-sec"><div class="rev-sec-title">APP — Pre-Assessment (DOST Staff)</div>';
-    h+=tblWrap(['Possible Areas of Interventions','Technical Needs / Problems','Initial Recommendations / Remarks'],
+    h+=tblWrap(['Possible Areas of Interventions','Technical Needs / Problems'],
       preRows.map(function(r){return tblRow(r);}).join(''));
     h+='</div>';
   }
