@@ -309,14 +309,13 @@ body{font-family:'Source Sans 3',sans-serif;background:#dde4ef;color:var(--gray-
         <div class="f"><label>Sex (M/F)</label><select id="firm-owner-sex"><option value="">Select</option><option>Male</option><option>Female</option></select></div>
         <div class="f"><label>Age</label><input type="number" id="firm-owner-age" placeholder="Age" min="0"></div>
         <div class="f"><label>Position</label><input type="text" id="firm-owner-position" placeholder="Position"></div>
-        <div class="f"><label>Sex — Contact</label><select id="firm-contact-sex"><option value="">Select</option><option>Male</option><option>Female</option></select></div>
+        <div class="f"><label>Mobile No.</label><input type="text" id="firm-owner-mobile" placeholder="Mobile No."></div>
       </div>
       <div class="cg" style="margin-bottom:10px">
         <label class="ci"><input type="checkbox" id="firm-owner-pwd"> PWD</label>
         <label class="ci"><input type="checkbox" id="firm-owner-senior"> Senior Citizen</label>
       </div>
       <div class="fg c2">
-        <div class="f"><label>Contact Number</label><input type="tel" id="firm-contact-num" placeholder="Telephone / Mobile"></div>
         <div class="f"><label>E-mail Address</label><input type="email" id="firm-email" placeholder="email@example.com"></div>
       </div>
     </div>
@@ -461,14 +460,13 @@ body{font-family:'Source Sans 3',sans-serif;background:#dde4ef;color:var(--gray-
           <div class="f"><label>Sex (M/F)</label><select id="emp-owner-sex"><option value="">Select</option><option>Male</option><option>Female</option></select></div>
           <div class="f"><label>Age</label><input type="number" id="emp-owner-age" placeholder="Age" min="0"></div>
           <div class="f"><label>Position</label><input type="text" id="emp-owner-position" placeholder="Position"></div>
-          <div class="f"><label>Sex — Contact</label><select id="emp-contact-sex"><option value="">Select</option><option>Male</option><option>Female</option></select></div>
+          <div class="f"><label>Mobile No.</label><input type="text" id="emp-mobile" placeholder="Mobile No."></div>
         </div>
         <div class="cg" style="margin-bottom:10px">
           <label class="ci"><input type="checkbox" id="emp-owner-pwd"> PWD</label>
           <label class="ci"><input type="checkbox" id="emp-owner-senior"> Senior Citizen</label>
         </div>
         <div class="fg c2">
-          <div class="f"><label>Contact Number</label><input type="tel" id="emp-contact-num" placeholder="Telephone / Mobile"></div>
           <div class="f"><label>E-mail Address</label><input type="email" id="emp-email" placeholder="email@example.com"></div>
         </div>
       </div>
@@ -672,7 +670,7 @@ body{font-family:'Source Sans 3',sans-serif;background:#dde4ef;color:var(--gray-
         <div class="f"><label>E-mail Address</label><input type="email" id="fs-email" placeholder="email@example.com"></div>
       </div>
       <div class="fg c2">
-        <div class="f"><label>Contact No.</label><input type="tel" id="fs-contact-num" placeholder="Telephone / Mobile"></div>
+        <div class="f"><label>Mobile No.</label><input type="tel" id="fs-mobile" placeholder="Mobile No."></div>
         <div class="f"><label>Contact Person</label><input type="text" id="fs-contact-person" placeholder="Full name"></div>
       </div>
     </div>
@@ -974,7 +972,7 @@ function collectAllData(ref, editLink) {
     // Shared owner (from APP fields)
     ownerName:gv('owner-name'), contactPerson:gv('contact-person'),
     ownerSex:gv('owner-sex'), ownerAge:gv('owner-age'),
-    ownerPosition:gv('owner-position'), contactSex:gv('contact-sex'),
+    ownerPosition:gv('owner-position'),
     ownerPwd:gc('owner-pwd'), ownerSenior:gc('owner-senior'),
     ownerEmail:gv('owner-email'),
     consultAns:gr('prev-consult'), consultNoReason:gv('consult-no-reason'),
@@ -983,7 +981,7 @@ function collectAllData(ref, editLink) {
     firmName:gv('firm-name'), firmProvince:gv('firm-province'), firmAddress:gv('firm-address'),
     firmOwnerName:gv('firm-owner-name'), firmContactPerson:gv('firm-contact-person'),
     firmOwnerSex:gv('firm-owner-sex'), firmOwnerAge:gv('firm-owner-age'),
-    firmOwnerPosition:gv('firm-owner-position'), firmContactSex:gv('firm-contact-sex'),
+    firmOwnerPosition:gv('firm-owner-position'),
     firmOwnerPwd:gc('firm-owner-pwd'), firmOwnerSenior:gc('firm-owner-senior'),
     firmContactNum:gv('firm-contact-num'), firmEmail:gv('firm-email'),
     mppBackground:gv('mpp-background'),
@@ -1002,8 +1000,8 @@ function collectAllData(ref, editLink) {
     empFirmAddress:gv('emp-firm-address'), empOwnerName:gv('emp-owner-name'),
     empContactPerson:gv('emp-contact-person'), empOwnerSex:gv('emp-owner-sex'),
     empOwnerAge:gv('emp-owner-age'), empOwnerPosition:gv('emp-owner-position'),
-    empContactSex:gv('emp-contact-sex'), empOwnerPwd:gc('emp-owner-pwd'),
-    empOwnerSenior:gc('emp-owner-senior'), empContactNum:gv('emp-contact-num'),
+    empOwnerPwd:gc('emp-owner-pwd'),
+    empOwnerSenior:gc('emp-owner-senior'),
     empEmail:gv('emp-email'), empBackground:gv('emp-background'),
     empConsultAns:gr('emp-consult'), empConsultNoReason:gv('emp-consult-no-reason'),
     empConsultRows:getTableRows('emp-consult-tbody'),
@@ -1027,9 +1025,8 @@ function collectAllData(ref, editLink) {
     fsProvince:gv('fs-province'), fsFirmName:gv('fs-firm-name'),
     fsFirmAddress:gv('fs-firm-address'), fsOwnerName:gv('fs-owner-name'),
     fsOwnerAge:gv('fs-owner-age'), fsOwnerBirthdate:gv('fs-owner-birthdate'),
-    fsOwnerSex:gr('fs-owner-sex'), fsContactNum:gv('fs-contact-num'),
+    fsOwnerSex:gr('fs-owner-sex'),
     fsEmail:gv('fs-email'), fsContactPerson:gv('fs-contact-person'),
-    fsContactPersonNum:gv('fs-contact-person-num'),
     fsProd1:gv('fs-prod-1'), fsProd2:gv('fs-prod-2'), fsProd3:gv('fs-prod-3'),
     fsBackground:gv('fs-background'), fsOrg:gr('fs-org'), fsCap:gr('fs-cap'),
     fsEmpcl:gr('fs-empcl'), fsEmpM:gv('fs-emp-m'), fsEmpF:gv('fs-emp-f'),
@@ -1198,7 +1195,6 @@ function buildReviewHtml() {
     var oPos=progs.app?gv('owner-position'):gv('firm-owner-position');
     var oEmail=progs.app?gv('owner-email'):gv('firm-email');
     var cpName=progs.app?gv('contact-person'):gv('firm-contact-person');
-    var cpSex=progs.app?gv('contact-sex'):gv('firm-contact-sex');
     var fName=progs.app?gv('app-farm-name'):gv('firm-name');
     var fProv=progs.app?gv('app-province'):gv('firm-province');
     var fAddr=progs.app?gv('app-farm-address'):gv('firm-address');
@@ -1260,7 +1256,7 @@ function buildReviewHtml() {
       rv('Name of Firm',eFirmName)+rv('Province',eFirmProv)+
       rv2('Complete Address',eFirmAddr)+
       rv('Owner',eOwner)+rv('Contact Person',progs.app?gv('contact-person'):(progs.mpp?gv('firm-contact-person'):gv('emp-contact-person')))+
-      rv('Contact Number',progs.mpp?gv('firm-contact-num'):gv('emp-contact-num'))+rv2('E-mail',progs.mpp?gv('firm-email'):gv('emp-email'))+
+     +rv2('E-mail',progs.mpp?gv('firm-email'):gv('emp-email'))+
       rv2('Brief Background',eBg)
     );
     h+=sec('EMP — Pre-Assessment Checklist',
@@ -1329,7 +1325,6 @@ function buildReviewHtml() {
     var fsAge=progs.app?gv('owner-age'):(progs.mpp?gv('firm-owner-age'):(progs.emp?gv('emp-owner-age'):gv('fs-owner-age')));
     var fsEmail=progs.app?gv('owner-email'):(progs.mpp?gv('firm-email'):(progs.emp?gv('emp-email'):gv('fs-email')));
     var fsContact=progs.app?gv('contact-person'):(progs.mpp?gv('firm-contact-person'):(progs.emp?gv('emp-contact-person'):gv('fs-contact-person')));
-    var fsContactNum=progs.mpp?gv('firm-contact-num'):(progs.emp?gv('emp-contact-num'):gv('fs-contact-num'));
     var fsBg=progs.app?gv('app-background'):(progs.mpp?gv('mpp-background'):(progs.emp?gv('emp-background'):gv('fs-background')));
     var fsOrg=progs.mpp?gr('mpp-org'):(progs.emp?gr('emp-org'):gr('fs-org'));
     var fsCap=progs.mpp?gr('mpp-cap'):(progs.emp?gr('emp-cap'):gr('fs-cap'));
@@ -1339,7 +1334,7 @@ function buildReviewHtml() {
       rv2('Company Address',fsAddr)+
       rv('Owner / Chairman',fsOwner)+rv('Age',fsAge)+
       rv('Sex',gr('fs-owner-sex'))+rv2('E-mail',fsEmail)+
-      rv('Contact No.',fsContactNum)+rv('Contact Person',fsContact)+
+      rv('Mobile No.',fsMobileNum)+rv('Contact Person',fsContact)+
       rv('Product / Service 1',gv('fs-prod-1'))+rv('Product / Service 2',gv('fs-prod-2'))+
       rv2('Product / Service 3',gv('fs-prod-3'))+
       rv2('Brief Background',fsBg)+
