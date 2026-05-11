@@ -255,6 +255,7 @@ const ref = p.get('ref') || '—';
 
 // All form data will be stored here after fetching from Sheets
 let formData = {};
+let programs = '';
 
 function gp(k){ return formData[k] || ''; }
 
@@ -413,19 +414,18 @@ fetch(APPS_SCRIPT_URL + '?ref=' + ref)
         sigAssisted:          d['Assisted By']               || '',
         sigNoted:             d['Noted By']                  || '',
       };
-
-     function buildFormBody(programs, hasApp, hasMpp, hasEmp, hasFs) {
+      programs = formData.programs;
       const hasApp = programs.includes('APP');
       const hasMpp = programs.includes('MPP');
       const hasEmp = programs.includes('EMP');
       const hasFs  = programs.includes('FS');
 
-      // Update banner
+
+// Update banner
       document.getElementById('ref-display').textContent = formData.referenceNumber || ref;
       if(formData.submissionDate){
         document.getElementById('date-display').textContent = 'Submitted: ' + new Date(formData.submissionDate).toLocaleDateString('en-PH',{year:'numeric',month:'long',day:'numeric'});
       }
-
       // Program tags
       const tagMap={APP:'tag-app',MPP:'tag-mpp',EMP:'tag-emp',FS:'tag-fs'};
       programs.split(',').forEach(prog=>{
@@ -435,7 +435,6 @@ fetch(APPS_SCRIPT_URL + '?ref=' + ref)
         s.textContent=prog;
         document.getElementById('prog-tags').appendChild(s);
       });
-
       // Staff fields
       if(formData.staffAssigned) document.getElementById('staff-assigned').value = formData.staffAssigned;
       if(formData.staffRemarks)  document.getElementById('staff-remarks').value  = formData.staffRemarks;
@@ -444,10 +443,7 @@ fetch(APPS_SCRIPT_URL + '?ref=' + ref)
       if(formData.sigAssisted)   document.getElementById('sig-assisted').value    = formData.sigAssisted;
       if(formData.sigNoted)      document.getElementById('sig-noted').value       = formData.sigNoted;
       if(formData.staffStatus)   setStatus(formData.staffStatus.toLowerCase());
-
-      // Now build the form body with fetched data
       buildFormBody(programs, hasApp, hasMpp, hasEmp, hasFs);
-
     } else {
       document.getElementById('form-body').innerHTML = '<div style="padding:40px;text-align:center;color:#dc2626;">Could not load submission data. Please check the reference number.</div>';
     }
@@ -456,21 +452,6 @@ fetch(APPS_SCRIPT_URL + '?ref=' + ref)
     console.log('Fetch error:', err);
     document.getElementById('form-body').innerHTML = '<div style="padding:40px;text-align:center;color:#dc2626;">Error loading data. Please try again.</div>';
   });
-const hasApp = programs.includes('APP');
-const hasMpp = programs.includes('MPP');
-const hasEmp = programs.includes('EMP');
-const hasFs  = programs.includes('FS');
-
-// Banner
-document.getElementById('ref-display').textContent = ref;
-const ds = gp('submissionDate')||gp('date');
-if(ds){ try{ const d=new Date(ds); document.getElementById('date-display').textContent='Submitted: '+d.toLocaleDateString('en-PH',{year:'numeric',month:'long',day:'numeric',hour:'2-digit',minute:'2-digit'}); }catch(e){} }
-const tagMap={APP:'tag-app',MPP:'tag-mpp',EMP:'tag-emp',FS:'tag-fs'};
-programs.split(',').forEach(prog=>{
-  prog=prog.trim(); if(!prog)return;
-  const s=document.createElement('span'); s.className='prog-tag '+(tagMap[prog]||''); s.textContent=prog;
-  document.getElementById('prog-tags').appendChild(s);
-});
 
 // ─── STATUS ─────────────────────────────────────────────────────────────────────
 let currentStatus='pending';
@@ -549,7 +530,8 @@ function addRow(tbodyId,cols){
   tr.innerHTML=h; tb.appendChild(tr);
 }
 
-// ─── BUILD ALL SECTIONS ─────────────────────────────────────────────────────────
+// ─── BUILD FORM BODY FUNCTION ───────────────────────────────────────────────────
+function buildFormBody(programs, hasApp, hasMpp, hasEmp, hasFs) {
 let html=''; let secN=1;
 
 // ══════════════════════════════ APP ═══════════════════════════════════════════════
