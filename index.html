@@ -2,1394 +2,781 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<link rel="icon" type="image/png" href="DOST_Logo.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DOST-3 · 2025 Assessment and Qualifying Form</title>
-<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<title>DOST-3 PORMS — Application Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 <style>
+/* ─── RESET & BASE ─────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --navy:#1a2d4f;--navy-dark:#0f1e36;--navy-mid:#243a62;
-  --gold:#f5a623;--gold-light:#ffc158;
-  --teal:#1b7a6e;
-  --blue-light:#e8f0fa;--blue-mid:#c8d8f0;
-  --border:#ccd6e8;--input-bg:#fafbff;
-  --gray-50:#f9fafb;--gray-200:#e5e7eb;--gray-300:#d1d5db;
-  --gray-400:#9ca3af;--gray-600:#4b5563;--gray-700:#374151;--gray-800:#1f2937;
-  --red:#dc2626;--green:#16a34a;
-  --app:#2d5a1b;--mpp:#1a3f6b;--emp:#1a5c4a;--fs:#1b7a6e;
+  --navy:#0B1F3A;
+  --navy-mid:#1A3358;
+  --navy-light:#2A4A72;
+  --accent:#E8A020;
+  --accent-light:#F5C56A;
+  --sky:#4A90C4;
+  --sky-light:#E8F3FB;
+  --green:#2D6A35;
+  --green-light:#EAF4EC;
+  --teal:#1A6B60;
+  --teal-light:#E6F4F2;
+  --purple:#4A2E8A;
+  --purple-light:#EEE9F8;
+  --red:#C0392B;
+  --bg:#F6F8FB;
+  --surface:#FFFFFF;
+  --border:#DDE4EE;
+  --text:#1A2B40;
+  --muted:#637083;
+  --shadow:0 2px 12px rgba(11,31,58,.08);
+  --shadow-hover:0 8px 32px rgba(11,31,58,.14);
+  --radius:12px;
+  --radius-lg:18px;
 }
-*{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Source Sans 3',sans-serif;background:#dde4ef;color:var(--gray-800);min-height:100vh;font-size:14px;line-height:1.5;}
-.topbar{background:var(--navy-dark);color:white;display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:46px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.3);}
-.topbar-title{font-size:13px;font-weight:600;letter-spacing:.03em;opacity:.9;}
-.topbar-print{background:var(--gold);color:var(--navy-dark);border:none;padding:6px 18px;font-weight:700;font-size:13px;cursor:pointer;border-radius:4px;}
-.paper-wrap{max-width:920px;margin:28px auto;padding:0 12px 60px;}
-.paper{background:white;box-shadow:0 2px 20px rgba(0,0,0,.12);border-radius:2px;overflow:hidden;}
-.form-header{text-align:center;padding:22px 40px 16px;border-bottom:2px solid var(--navy);}
-.form-header .dept{font-size:15px;font-weight:700;letter-spacing:.05em;color:var(--navy);}
-.form-header .sub{font-size:13px;color:var(--gray-600);margin-top:3px;}
-.prog-panel{background:var(--navy);padding:20px 28px;}
-.prog-panel-lbl{color:#b0bfd8;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px;}
-.prog-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
-.prog-card{background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.15);border-radius:6px;padding:12px 14px;cursor:pointer;display:flex;align-items:flex-start;gap:10px;transition:all .15s;user-select:none;}
-.prog-card:hover{background:rgba(255,255,255,.1);}
-.prog-card.sel{background:rgba(255,255,255,.15);border-color:var(--gold);}
-.prog-chk{width:18px;height:18px;border:2px solid rgba(255,255,255,.4);border-radius:3px;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;}
-.prog-card.sel .prog-chk{background:var(--gold);border-color:var(--gold);}
-.prog-chk svg{display:none;}
-.prog-card.sel .prog-chk svg{display:block;}
-.prog-card-name{color:white;font-weight:600;font-size:13px;line-height:1.3;}
-.prog-card-desc{color:#8fa5c8;font-size:11.5px;margin-top:2px;}
-.prog-badges{display:flex;flex-wrap:wrap;gap:6px;align-items:center;}
-.prog-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;letter-spacing:.05em;display:none;}
-.prog-badge.on{display:inline-block;background:var(--gold);color:var(--navy-dark);}
-.privacy{margin:20px 28px 0;padding:12px 16px;border:1px solid var(--blue-mid);background:var(--blue-light);border-radius:4px;font-size:12px;color:var(--gray-700);line-height:1.6;}
-.privacy strong{color:var(--navy);}
-.fbody{padding:0 28px 28px;}
-.section{margin-top:24px;}
-.sec-head{color:white;padding:8px 16px;font-weight:700;font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;display:flex;align-items:center;gap:8px;border-radius:3px 3px 0 0;}
-.sec-head.app{background:var(--app);}
-.sec-head.mpp{background:var(--mpp);}
-.sec-head.emp{background:var(--emp);}
-.sec-head.fs{background:var(--fs);}
-.sec-num{background:rgba(255,255,255,.2);width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;}
-.prog-only-badge{background:rgba(255,255,255,.18);color:#d0e4ff;font-size:10px;font-weight:700;padding:2px 10px;border-radius:20px;margin-left:auto;letter-spacing:.03em;}
-.sec-body{border:1px solid var(--border);border-top:none;padding:18px;border-radius:0 0 3px 3px;}
-.shared-note{display:inline-block;background:#e8f5e9;color:#2e7d32;font-size:10px;font-weight:700;padding:1px 7px;border-radius:20px;margin-left:8px;letter-spacing:.03em;vertical-align:middle;}
-.stitle{font-weight:700;color:var(--navy);font-size:12px;margin:18px 0 8px;padding-bottom:4px;border-bottom:1px solid var(--blue-mid);text-transform:uppercase;letter-spacing:.04em;}
-.stitle:first-child{margin-top:0;}
-.group-lbl{font-weight:700;color:var(--navy);font-size:12px;margin:12px 0 5px;padding:4px 10px;background:var(--blue-light);border-left:3px solid var(--navy);border-radius:0 3px 3px 0;}
-.fg{display:grid;gap:12px;margin-bottom:10px;}
-.fg.c1{grid-template-columns:1fr;}
-.fg.c2{grid-template-columns:1fr 1fr;}
-.fg.c3{grid-template-columns:1fr 1fr 1fr;}
-.fg.c4{grid-template-columns:1fr 1fr 1fr 1fr;}
-.fg.c21{grid-template-columns:2fr 1fr;}
-.f{display:flex;flex-direction:column;gap:3px;}
-.f label{font-size:11.5px;font-weight:600;color:var(--gray-700);}
-.f label .req{color:var(--red);margin-left:2px;}
-.f input[type=text],.f input[type=email],.f input[type=tel],
-.f input[type=number],.f input[type=date],.f select,.f textarea{
-  border:1px solid var(--border);border-radius:3px;padding:6px 9px;
-  font-size:13px;color:var(--gray-800);background:var(--input-bg);
-  font-family:inherit;width:100%;transition:border-color .15s;}
-.f input:focus,.f select:focus,.f textarea:focus{outline:none;border-color:var(--navy-mid);box-shadow:0 0 0 2px rgba(36,58,98,.12);background:white;}
-.hint{font-size:11px;color:var(--gray-400);font-style:italic;margin-top:2px;}
-.cg{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:4px;}
-.ci{display:flex;align-items:center;gap:5px;cursor:pointer;font-size:13px;color:var(--gray-700);}
-.ci input{cursor:pointer;width:14px;height:14px;}
-.tbl{width:100%;border-collapse:collapse;font-size:12.5px;margin:8px 0;}
-.tbl th{background:var(--navy);color:white;padding:7px 10px;text-align:left;font-size:11px;font-weight:700;}
-.tbl td{padding:5px 8px;border:1px solid var(--border);vertical-align:middle;}
-.tbl td input,.tbl td select{width:100%;border:none;background:transparent;font-size:12.5px;padding:2px 4px;font-family:inherit;color:var(--gray-800);}
-.tbl tr:nth-child(even) td{background:var(--gray-50);}
-.add-row{font-size:11.5px;color:var(--navy);background:none;border:1px dashed var(--navy-mid);border-radius:3px;padding:4px 12px;cursor:pointer;margin-top:6px;font-weight:600;}
-.add-row:hover{background:var(--blue-light);}
-.ctbl{width:100%;border-collapse:collapse;font-size:12px;margin:4px 0;}
-.ctbl th{background:var(--navy-mid);color:white;padding:6px 10px;font-size:11px;font-weight:700;text-align:left;}
-.ctbl td{padding:6px 10px;border:1px solid var(--border);vertical-align:middle;}
-.ctbl tr:nth-child(even) td{background:var(--gray-50);}
-.ctbl td.area{font-weight:600;color:var(--gray-700);font-size:12.5px;width:36%;}
-.sub-cg{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:3px;}
-.sub-ci{display:flex;align-items:center;gap:4px;font-size:11.5px;color:var(--gray-600);cursor:pointer;}
-.sub-ci input{width:13px;height:13px;cursor:pointer;}
-.qual-box{background:#fffbe6;border:1px solid #f5d070;border-radius:4px;padding:12px 16px;margin:10px 0;font-size:12.5px;}
-.qi{display:flex;align-items:flex-start;gap:8px;margin:7px 0;}
-.qi input{margin-top:2px;cursor:pointer;}
-.fs-lvl{background:var(--teal);color:white;padding:5px 12px;font-size:11.5px;font-weight:700;letter-spacing:.05em;border-radius:3px;margin:12px 0 6px;}
-.ftbl{width:100%;border-collapse:collapse;font-size:12px;}
-.ftbl th{background:var(--teal);color:white;padding:6px 10px;text-align:left;font-size:11px;font-weight:700;}
-.ftbl td{border:1px solid var(--border);padding:5px 8px;vertical-align:middle;}
-.ftbl tr:nth-child(even) td{background:var(--gray-50);}
-.ftbl td input,.ftbl td select{width:100%;border:none;background:transparent;font-size:12px;font-family:inherit;padding:2px 4px;}
-.hidden{display:none!important;}
-.form-actions{display:flex;gap:12px;justify-content:flex-end;padding:18px 28px 26px;border-top:1px solid var(--gray-200);background:var(--gray-50);}
-.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 22px;border-radius:4px;font-weight:700;font-size:13px;cursor:pointer;border:none;transition:all .15s;font-family:inherit;}
-.btn-outline{background:white;color:var(--navy);border:1.5px solid var(--navy);}
-.btn-outline:hover{background:var(--blue-light);}
-.btn-gold{background:var(--gold);color:var(--navy-dark);}
-.btn-gold:hover{background:var(--gold-light);}
-.btn-navy{background:var(--navy);color:white;}
-.btn-navy:hover{background:var(--navy-dark);}
-.btn-green{background:var(--green);color:white;}
-.btn-green:hover{background:#15803d;}
-.overlay{display:none;position:fixed;inset:0;background:rgba(10,20,40,.7);z-index:200;align-items:center;justify-content:center;padding:20px;}
-.overlay.open{display:flex;}
-.modal{background:white;border-radius:6px;max-width:760px;width:100%;max-height:88vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.4);}
-.modal-head{background:var(--navy);color:white;padding:15px 22px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;}
-.modal-head h2{font-size:15px;font-weight:700;}
-.modal-x{background:none;border:none;color:rgba(255,255,255,.7);cursor:pointer;font-size:20px;line-height:1;padding:2px 6px;}
-.modal-body{padding:20px 22px;}
-.rev-sec{margin-bottom:18px;}
-.rev-sec-title{font-weight:700;color:var(--navy);font-size:13px;padding:5px 12px;background:var(--blue-light);border-left:3px solid var(--navy);margin-bottom:10px;border-radius:0 3px 3px 0;}
-.rev-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
-.rv-label{font-size:11px;color:var(--gray-400);font-weight:600;text-transform:uppercase;}
-.rv-val{font-size:13px;color:var(--gray-800);border-bottom:1px solid var(--gray-200);padding-bottom:3px;min-height:20px;}
-.modal-foot{padding:14px 22px;border-top:1px solid var(--gray-200);display:flex;gap:10px;justify-content:flex-end;background:var(--gray-50);}
-.spin-overlay{display:none;position:fixed;inset:0;background:rgba(10,20,40,.75);z-index:400;align-items:center;justify-content:center;flex-direction:column;gap:18px;}
-.spin-overlay.open{display:flex;}
-.spinner{width:52px;height:52px;border:4px solid rgba(255,255,255,.2);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite;}
-@keyframes spin{to{transform:rotate(360deg);}}
-.spin-txt{color:white;font-size:14px;font-weight:600;}
-.suc-pg{display:none;position:fixed;inset:0;background:var(--navy-dark);z-index:300;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:40px;overflow-y:auto;}
-.suc-pg.open{display:flex;}
-.suc-icon{width:80px;height:80px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:24px;animation:pop .4s ease;}
-@keyframes pop{from{transform:scale(0);opacity:0;}to{transform:scale(1);opacity:1;}}
-.suc-icon svg{width:40px;height:40px;stroke:white;stroke-width:3;fill:none;}
-.suc-title{color:white;font-size:28px;font-weight:700;margin-bottom:10px;}
-.suc-sub{color:#8fa5c8;font-size:16px;margin-bottom:28px;max-width:500px;}
-.suc-ref{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:18px 32px;margin-bottom:20px;}
-.suc-ref-lbl{color:#8fa5c8;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;}
-.suc-ref-num{color:white;font-size:24px;font-weight:700;letter-spacing:.1em;font-family:monospace;}
-.suc-note{color:#6b87a8;font-size:13px;}
-@media(max-width:640px){
-  .prog-grid,.fg.c2,.fg.c3,.fg.c4,.fg.c21{grid-template-columns:1fr;}
-  .rev-grid{grid-template-columns:1fr;}
-  .paper-wrap{padding:0 6px 40px;}
-  .fbody,.prog-panel{padding:14px 16px;}
+
+html{scroll-behavior:smooth}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  font-size:15px;
+  line-height:1.6;
 }
-@media print{
-  .topbar,.form-actions{display:none!important;}
-  body{background:white;}
-  .paper-wrap{margin:0;padding:0;max-width:100%;}
-  .paper{box-shadow:none;}
+
+/* ─── TOPBAR ────────────────────────────────────────────── */
+.topbar{
+  background:var(--navy);
+  color:white;
+  font-size:12px;
+  padding:6px 40px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  letter-spacing:.02em;
+}
+.topbar a{color:var(--accent-light);text-decoration:none}
+.topbar a:hover{text-decoration:underline}
+
+/* ─── HEADER ────────────────────────────────────────────── */
+header{
+  background:var(--navy);
+  padding:0 40px;
+  position:sticky;
+  top:0;
+  z-index:100;
+  box-shadow:0 2px 16px rgba(0,0,0,.25);
+}
+.header-inner{
+  max-width:1100px;
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  gap:18px;
+  padding:14px 0;
+}
+.logo-seal{
+  width:52px;height:52px;
+  background:var(--accent);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'DM Serif Display',serif;
+  font-size:18px;color:var(--navy);
+  font-weight:400;flex-shrink:0;
+  box-shadow:0 0 0 3px rgba(232,160,32,.25);
+}
+.header-titles h1{
+  font-family:'DM Serif Display',serif;
+  font-size:18px;color:white;
+  font-weight:400;letter-spacing:.01em;
+}
+.header-titles p{color:rgba(255,255,255,.55);font-size:12px;margin-top:1px}
+.header-nav{
+  margin-left:auto;
+  display:flex;gap:6px;align-items:center;
+}
+.header-nav a{
+  color:rgba(255,255,255,.7);
+  text-decoration:none;
+  font-size:13px;
+  padding:6px 14px;
+  border-radius:6px;
+  transition:.15s;
+}
+.header-nav a:hover{background:rgba(255,255,255,.1);color:white}
+.nav-cta{
+  background:var(--accent)!important;
+  color:var(--navy)!important;
+  font-weight:500!important;
+  padding:7px 16px!important;
+}
+.nav-cta:hover{background:var(--accent-light)!important}
+
+/* ─── HERO ──────────────────────────────────────────────── */
+.hero{
+  background:linear-gradient(135deg,var(--navy) 0%,var(--navy-mid) 60%,var(--navy-light) 100%);
+  padding:72px 40px 80px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+.hero::before{
+  content:'';
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 600px 300px at 20% 80%, rgba(74,144,196,.12) 0%, transparent 70%),
+    radial-gradient(ellipse 400px 400px at 80% 20%, rgba(232,160,32,.08) 0%, transparent 60%);
+  pointer-events:none;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(232,160,32,.15);
+  border:1px solid rgba(232,160,32,.3);
+  border-radius:40px;
+  padding:6px 18px;
+  font-size:12px;color:var(--accent-light);
+  margin-bottom:24px;
+  letter-spacing:.05em;text-transform:uppercase;font-weight:500;
+}
+.hero h2{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(28px,4vw,44px);
+  color:white;
+  font-weight:400;
+  line-height:1.2;
+  max-width:660px;margin:0 auto 16px;
+}
+.hero h2 em{color:var(--accent-light);font-style:italic}
+.hero p{
+  color:rgba(255,255,255,.65);
+  font-size:16px;
+  max-width:520px;margin:0 auto 40px;
+}
+.hero-steps{
+  display:flex;justify-content:center;gap:0;
+  max-width:580px;margin:0 auto;
+}
+.hero-step{
+  flex:1;
+  text-align:center;
+  position:relative;
+}
+.hero-step::after{
+  content:'';
+  position:absolute;top:16px;left:calc(50% + 20px);
+  right:calc(-50% + 20px);
+  height:1px;background:rgba(255,255,255,.2);
+}
+.hero-step:last-child::after{display:none}
+.step-num{
+  width:32px;height:32px;
+  background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.25);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:600;color:white;
+  margin:0 auto 8px;
+}
+.hero-step p{font-size:12px;color:rgba(255,255,255,.55)}
+
+/* ─── ALERT BAR ─────────────────────────────────────────── */
+.alert-bar{
+  background:var(--accent);
+  padding:10px 40px;
+  text-align:center;
+  font-size:13px;font-weight:500;color:var(--navy);
+}
+.alert-bar a{color:var(--navy-mid);font-weight:600}
+
+/* ─── MAIN LAYOUT ───────────────────────────────────────── */
+main{
+  max-width:1100px;
+  margin:0 auto;
+  padding:56px 40px 80px;
+}
+.section-label{
+  font-size:11px;font-weight:600;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:10px;
+}
+.section-title{
+  font-family:'DM Serif Display',serif;
+  font-size:28px;font-weight:400;
+  color:var(--text);margin-bottom:6px;
+}
+.section-desc{font-size:14px;color:var(--muted);margin-bottom:36px}
+
+/* ─── PROGRAM CARDS ─────────────────────────────────────── */
+.programs-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:20px;
+  margin-bottom:56px;
+}
+.prog-card{
+  background:var(--surface);
+  border:1.5px solid var(--border);
+  border-radius:var(--radius-lg);
+  padding:28px 24px 22px;
+  cursor:pointer;
+  transition:.2s ease;
+  position:relative;
+  overflow:hidden;
+  text-decoration:none;color:inherit;
+  display:block;
+}
+.prog-card::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;
+  height:4px;
+  background:var(--card-color);
+  border-radius:var(--radius-lg) var(--radius-lg) 0 0;
+}
+.prog-card:hover{
+  transform:translateY(-3px);
+  box-shadow:var(--shadow-hover);
+  border-color:var(--card-color);
+}
+.prog-card.selected{
+  border-color:var(--card-color);
+  background:var(--card-bg);
+  box-shadow:0 0 0 3px rgba(var(--card-rgb),.15), var(--shadow);
+}
+.prog-card.selected .card-check{
+  background:var(--card-color);border-color:var(--card-color);
+}
+.prog-card.selected .card-check::after{opacity:1}
+
+.card-check{
+  position:absolute;top:18px;right:18px;
+  width:22px;height:22px;border-radius:50%;
+  border:2px solid var(--border);
+  transition:.15s;
+}
+.card-check::after{
+  content:'✓';
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;color:white;font-weight:700;
+  opacity:0;transition:.15s;
+}
+
+.card-icon{
+  width:48px;height:48px;border-radius:12px;
+  background:var(--card-bg);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:16px;
+}
+.card-icon svg{width:24px;height:24px}
+.card-tag{
+  display:inline-block;
+  background:var(--card-color);
+  color:white;
+  font-size:10px;font-weight:700;
+  letter-spacing:.06em;text-transform:uppercase;
+  padding:3px 10px;border-radius:20px;
+  margin-bottom:10px;
+}
+.prog-card h3{font-size:16px;font-weight:600;margin-bottom:6px;line-height:1.3}
+.prog-card p{font-size:13px;color:var(--muted);line-height:1.5}
+.card-meta{
+  margin-top:16px;
+  padding-top:14px;
+  border-top:1px solid var(--border);
+  font-size:12px;color:var(--muted);
+  display:flex;gap:12px;
+}
+.card-meta span{display:flex;align-items:center;gap:4px}
+
+/* ─── PROCEED SECTION ───────────────────────────────────── */
+.proceed-section{
+  background:var(--surface);
+  border:1.5px solid var(--border);
+  border-radius:var(--radius-lg);
+  padding:32px;
+  display:flex;align-items:center;gap:24px;
+  flex-wrap:wrap;
+  margin-bottom:56px;
+}
+.selection-display{
+  flex:1;min-width:200px;
+}
+.selection-display .label{
+  font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:8px;
+}
+.selected-tags{
+  display:flex;flex-wrap:wrap;gap:6px;min-height:30px;align-items:center;
+}
+.sel-tag{
+  background:var(--navy);color:white;
+  font-size:12px;font-weight:600;
+  padding:4px 12px;border-radius:20px;
+  display:flex;align-items:center;gap:6px;
+  animation:tagIn .15s ease;
+}
+@keyframes tagIn{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}
+.sel-tag button{
+  background:none;border:none;color:rgba(255,255,255,.6);
+  cursor:pointer;font-size:14px;line-height:1;padding:0 0 0 2px;
+}
+.sel-tag button:hover{color:white}
+.empty-state{font-size:13px;color:var(--muted);font-style:italic}
+
+.proceed-btn{
+  background:var(--navy);
+  color:white;
+  border:none;cursor:pointer;
+  font-family:'DM Sans',sans-serif;
+  font-size:15px;font-weight:600;
+  padding:14px 32px;
+  border-radius:10px;
+  transition:.2s;
+  white-space:nowrap;
+  display:flex;align-items:center;gap:8px;
+}
+.proceed-btn:hover:not(:disabled){background:var(--navy-mid);transform:translateY(-1px)}
+.proceed-btn:disabled{opacity:.4;cursor:not-allowed}
+.proceed-btn svg{width:18px;height:18px}
+
+/* ─── TRACK SECTION ─────────────────────────────────────── */
+.track-card{
+  background:var(--surface);
+  border:1.5px solid var(--border);
+  border-radius:var(--radius-lg);
+  padding:32px;
+  display:flex;align-items:center;gap:24px;
+  flex-wrap:wrap;
+  margin-bottom:56px;
+}
+.track-info{flex:1}
+.track-info h3{font-size:18px;font-weight:600;margin-bottom:4px}
+.track-info p{font-size:14px;color:var(--muted)}
+.track-form{display:flex;gap:10px;flex:1;min-width:280px}
+.track-form input{
+  flex:1;
+  border:1.5px solid var(--border);
+  border-radius:8px;
+  padding:11px 16px;
+  font-family:'DM Sans',sans-serif;font-size:14px;
+  color:var(--text);background:var(--bg);
+  transition:.15s;
+}
+.track-form input:focus{outline:none;border-color:var(--sky);background:white}
+.track-form button{
+  background:var(--sky);color:white;border:none;
+  font-family:'DM Sans',sans-serif;font-weight:600;font-size:14px;
+  padding:11px 24px;border-radius:8px;cursor:pointer;
+  white-space:nowrap;transition:.15s;
+}
+.track-form button:hover{background:#3878AA}
+
+/* ─── INFO CARDS ────────────────────────────────────────── */
+.info-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:16px;
+  margin-bottom:48px;
+}
+.info-card{
+  background:var(--surface);
+  border:1.5px solid var(--border);
+  border-radius:var(--radius);
+  padding:22px;
+}
+.info-card h4{font-size:14px;font-weight:600;margin-bottom:6px}
+.info-card p{font-size:13px;color:var(--muted);line-height:1.55}
+.info-icon{
+  width:36px;height:36px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:12px;font-size:18px;
+}
+
+/* ─── FOOTER ────────────────────────────────────────────── */
+footer{
+  background:var(--navy);
+  color:rgba(255,255,255,.5);
+  padding:32px 40px;
+  font-size:13px;
+}
+.footer-inner{
+  max-width:1100px;margin:0 auto;
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:12px;
+}
+footer a{color:rgba(255,255,255,.6);text-decoration:none}
+footer a:hover{color:white}
+
+/* ─── TOAST ─────────────────────────────────────────────── */
+.toast{
+  position:fixed;bottom:24px;right:24px;
+  background:var(--navy);color:white;
+  padding:14px 20px;border-radius:10px;
+  font-size:14px;font-weight:500;
+  box-shadow:0 8px 32px rgba(0,0,0,.25);
+  transform:translateY(80px);opacity:0;
+  transition:.3s ease;pointer-events:none;
+  z-index:999;max-width:320px;
+  display:flex;align-items:center;gap:10px;
+}
+.toast.show{transform:translateY(0);opacity:1}
+.toast.error{background:#C0392B}
+.toast.success{background:#27AE60}
+
+/* ─── RESPONSIVE ────────────────────────────────────────── */
+@media(max-width:600px){
+  header,main,.topbar,.alert-bar,footer{padding-left:20px;padding-right:20px}
+  .hero{padding:48px 20px 56px}
+  .programs-grid{grid-template-columns:1fr}
+  .proceed-section,.track-card{flex-direction:column;align-items:stretch}
+  .track-form{flex-direction:column}
 }
 </style>
 </head>
 <body>
+
 <div class="topbar">
-  <div style="display:flex;align-items:center;gap:10px;">
-    <img src="DOST_Logo.png" style="height:32px;width:auto;">
-  <span class="topbar-title">DOST-3 · Assessment and Qualifying Form</span>
-  </div>
-  <button class="topbar-print" onclick="window.print()">Print</button>
-</div>
-<div class="paper-wrap"><div class="paper">
-<div class="form-header">
-  <img src="DOST_Logo.png" style="height:40px;width:auto;margin-bottom:6px;">
-  <div class="dept">DEPARTMENT OF SCIENCE AND TECHNOLOGY</div>
-  <div class="sub">2025 Assessment and Qualifying Form</div>
+  <span>Republic of the Philippines · Department of Science and Technology · Region III</span>
+  <span><a href="mailto:dost3@psto.net">dost3@psto.net</a> · (045) 961-0682</span>
 </div>
 
-<div class="prog-panel">
-  <div class="prog-panel-lbl">Select Program/s:</div>
-  <div class="prog-grid">
-    <div class="prog-card" id="card-app" onclick="toggleProg('app')">
-      <div class="prog-chk"><svg viewBox="0 0 12 12" width="10" height="10" stroke="white" fill="none"><polyline points="1.5,6 5,9.5 10.5,2.5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <div><div class="prog-card-name">Agricultural Productivity Program (APP)</div><div class="prog-card-desc">For farms and agricultural/aquacultural operations</div></div>
+<header>
+  <div class="header-inner">
+    <div class="logo-seal">D3</div>
+    <div class="header-titles">
+      <h1>DOST-III PORMS</h1>
+      <p>Productivity &amp; Operations Records Management System</p>
     </div>
-    <div class="prog-card" id="card-mpp" onclick="toggleProg('mpp')">
-      <div class="prog-chk"><svg viewBox="0 0 12 12" width="10" height="10" stroke="white" fill="none"><polyline points="1.5,6 5,9.5 10.5,2.5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <div><div class="prog-card-name">Manufacturing Productivity Program – BASIC/Regular (MPP)</div><div class="prog-card-desc">For manufacturing firms and enterprises</div></div>
-    </div>
-    <div class="prog-card" id="card-emp" onclick="toggleProg('emp')">
-      <div class="prog-chk"><svg viewBox="0 0 12 12" width="10" height="10" stroke="white" fill="none"><polyline points="1.5,6 5,9.5 10.5,2.5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <div><div class="prog-card-name">Energy Management Program (EMP)</div><div class="prog-card-desc">For firms seeking energy assessment and management assistance</div></div>
-    </div>
-    <div class="prog-card" id="card-fs" onclick="toggleProg('fs')">
-      <div class="prog-chk"><svg viewBox="0 0 12 12" width="10" height="10" stroke="white" fill="none"><polyline points="1.5,6 5,9.5 10.5,2.5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <div><div class="prog-card-name">Food Safety (FS) Enrollment Form</div><div class="prog-card-desc">For food businesses seeking food safety consultancy</div></div>
-    </div>
+    <nav class="header-nav">
+      <a href="#programs">Programs</a>
+      <a href="#track">Track Status</a>
+      <a href="#help">Help</a>
+      <a href="#programs" class="nav-cta">Apply Now</a>
+    </nav>
   </div>
-  <div class="prog-badges">
-    <span class="prog-badge" id="badge-app">APP</span>
-    <span class="prog-badge" id="badge-mpp">MPP</span>
-    <span class="prog-badge" id="badge-emp">EMP</span>
-    <span class="prog-badge" id="badge-fs">FS</span>
-    <span id="badge-none" style="color:#6b87a8;font-size:11px">No program selected</span>
+</header>
+
+<div class="hero">
+  <div class="hero-badge">
+    <span>●</span> 2025 Unified Application Form
   </div>
-</div>
-
-<div class="privacy">
-  The DOST3 recognizes its responsibilities under the Republic Act No. 10173 (Act), also known as the <strong>Data Privacy Act of 2012</strong>. The personal data obtained from this form is analyzed, entered, and stored within the Department's authorized information and communications system and will only be accessed by the DOST3 authorized personnel.
-</div>
-
-<div class="fbody">
-
-<!-- ═══════════ SECTION APP ═══════════ -->
-<div class="section hidden" id="sec-app">
-  <div class="sec-head app">
-    <span class="sec-num" id="app-sec-num">I</span>
-    Agricultural Productivity Program (APP) — Farm Profile
-    <span class="prog-only-badge">APP</span>
-  </div>
-  <div class="sec-body">
-    <div class="fg c2">
-      <div class="f"><label>Name of Firm <span class="req">*</span></label><input type="text" id="app-farm-name" placeholder="Enter firm / farm name"></div>
-      <div class="f"><label>Complete Address <span class="req">*</span></label><input type="text" id="app-farm-address" placeholder="Street, Barangay, Municipality, Province"></div>
+  <h2>Apply for DOST-III <em>Technical Assistance</em> Programs</h2>
+  <p>Complete your assessment and qualifying form online. Select one or more programs and submit your application in minutes.</p>
+  <div class="hero-steps">
+    <div class="hero-step">
+      <div class="step-num">1</div>
+      <p>Choose program(s)</p>
     </div>
-    <div class="fg c4">
-      <div class="f"><label>Area of Farm</label><input type="text" id="app-area" placeholder="e.g. 2.5 ha"></div>
-      <div class="f"><label>Year Established</label><input type="text" id="app-year-est" placeholder="YYYY"></div>
-      <div class="f"><label>No. of Workers</label><input type="number" id="app-workers" placeholder="Number" min="0"></div>
-      <div class="f"><label>Province <span class="req">*</span></label>
-        <select id="app-province"><option value="">Select...</option><option>Aurora</option><option>Bataan</option><option>Bulacan</option><option>Nueva Ecija</option><option>Pampanga</option><option>Tarlac</option><option>Zambales</option></select>
-      </div>
+    <div class="hero-step">
+      <div class="step-num">2</div>
+      <p>Fill out the form</p>
     </div>
-    <div class="stitle">Owner / Representative <span class="shared-note hidden" id="app-owner-shared-note">Also used for other selected programs</span></div>
-    <div class="fg c2">
-      <div class="f"><label>Owner <span class="req">*</span></label><input type="text" id="owner-name" placeholder="Full name"></div>
-      <div class="f"><label>Contact Person</label><input type="text" id="contact-person" placeholder="Full name"></div>
+    <div class="hero-step">
+      <div class="step-num">3</div>
+      <p>Receive reference no.</p>
     </div>
-    <div class="fg c4">
-      <div class="f"><label>Sex (M/F)</label><select id="owner-sex"><option value="">Select</option><option>Male</option><option>Female</option></select></div>
-      <div class="f"><label>Age</label><input type="number" id="owner-age" placeholder="Age" min="0"></div>
-      <div class="f"><label>Position</label><input type="text" id="owner-position" placeholder="Position"></div>
-      <div class="f"><label>Mobile No.</label><input type="text" id="owner-mobile" placeholder="Mobile No."></div>
+    <div class="hero-step">
+      <div class="step-num">4</div>
+      <p>DOST staff contacts you</p>
     </div>
-    <div class="cg" style="margin-bottom:10px">
-      <label class="ci"><input type="checkbox" id="owner-pwd"> PWD</label>
-      <label class="ci"><input type="checkbox" id="owner-senior"> Senior Citizen</label>
-    </div>
-    <div class="fg c2">
-      <div class="f"><label>E-mail Address</label><input type="email" id="owner-email" placeholder="email@example.com"></div>
-    </div>
-    <div class="stitle">Brief Farm Background</div>
-    <div class="fg c1"><div class="f"><input type="text" id="app-background" placeholder="Brief background of the farm"></div></div>
-    <div class="stitle">Previous Consultations with DOST or Other Organizations <span class="shared-note hidden" id="app-consult-shared-note">Also applies to other selected programs</span></div>
-    <div class="cg">
-      <label class="ci"><input type="radio" name="prev-consult" value="yes" onchange="showConsult(true)"> Yes</label>
-      <label class="ci"><input type="radio" name="prev-consult" value="no" onchange="showConsult(false)"> No</label>
-    </div>
-    <div id="blk-consult-yes" class="hidden" style="margin-top:10px">
-      <table class="tbl"><thead><tr><th style="width:33%">Agency / Company</th><th style="width:20%">Date of Assistance</th><th>Type of Assistance</th></tr></thead>
-      <tbody id="consult-tbody">
-        <tr><td><input type="text" placeholder="Agency or company name"></td><td><input type="date"></td><td><input type="text" placeholder="Type of assistance"></td></tr>
-        <tr><td><input type="text"></td><td><input type="date"></td><td><input type="text"></td></tr>
-        <tr><td><input type="text"></td><td><input type="date"></td><td><input type="text"></td></tr>
-      </tbody></table>
-      <button class="add-row" onclick="addRow('consult-tbody',3)">+ Add Row</button>
-    </div>
-    <div id="blk-consult-no" class="hidden" style="margin-top:8px">
-      <div class="f"><label>Why not?</label><input type="text" id="consult-no-reason" placeholder="Please state your reason"></div>
-    </div>
-    <div class="stitle">Farm Data</div>
-    <table class="tbl"><thead><tr><th>Commodity</th><th style="width:13%">Variety/Breed</th><th style="width:8%">Area</th><th style="width:16%">Avg Yield/Cropping</th><th style="width:16%">Avg Income/Cropping</th><th style="width:12%">No. of Croppings/Yr</th><th style="width:13%">Other Info</th></tr></thead>
-    <tbody id="app-farm-tbody">
-      <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text" placeholder="ha"></td><td><input type="text"></td><td><input type="text" placeholder="PHP"></td><td><input type="number" min="0"></td><td><input type="text"></td></tr>
-      <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="number" min="0"></td><td><input type="text"></td></tr>
-      <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="number" min="0"></td><td><input type="text"></td></tr>
-    </tbody></table>
-    <button class="add-row" onclick="addRow('app-farm-tbody',7)">+ Add Row</button>
-    <div class="stitle">Pre-Assessment <span style="font-weight:400;font-style:italic;font-size:11px">(to be filled out by DOST-III PSTO Staff)</span></div>
-    <table class="tbl"><thead><tr><th style="width:33%">Possible Areas of Interventions</th><th style="width:33%">Technical Needs / Problems</th></tr></thead>
-    <tbody id="app-preassess-tbody">
-      <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
-      <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
-    </tbody></table>
-    <button class="add-row" onclick="addRow('app-preassess-tbody',3)">+ Add Row</button>
   </div>
 </div>
 
-<!-- ═══════════ SECTION MPP ═══════════ -->
-<div class="section hidden" id="sec-mpp">
-  <div class="sec-head mpp">
-    <span class="sec-num" id="mpp-sec-num">II</span>
-    Manufacturing Productivity Program (MPP) — Firm Profile &amp; Assessment
-    <span class="prog-only-badge">MPP</span>
-  </div>
-  <div class="sec-body">
-    <div class="stitle">Firm Information <span class="shared-note hidden" id="mpp-firm-shared-note">Also used for EMP</span></div>
-    <div id="mpp-firm-fields">
-      <div class="fg c21">
-        <div class="f"><label>Name of Firm <span class="req">*</span></label><input type="text" id="firm-name" placeholder="Enter firm name"></div>
-        <div class="f"><label>Province <span class="req">*</span></label><select id="firm-province"><option value="">Select...</option><option>Aurora</option><option>Bataan</option><option>Bulacan</option><option>Nueva Ecija</option><option>Pampanga</option><option>Tarlac</option><option>Zambales</option></select></div>
-      </div>
-      <div class="fg c1"><div class="f"><label>Firm Complete Address <span class="req">*</span></label><input type="text" id="firm-address" placeholder="Street, Barangay, Municipality, Province"></div></div>
-    </div>
-    <div id="mpp-firm-shared-msg" class="hidden" style="background:var(--blue-light);border:1px solid var(--blue-mid);border-radius:4px;padding:8px 14px;font-size:12px;color:var(--gray-700);margin:6px 0;">
-      &#x2139;&#xFE0F; Firm name, province, and address already filled in the APP section above.
-    </div>
-    <div id="mpp-owner-fields">
-      <div class="fg c2">
-        <div class="f"><label>Owner <span class="req">*</span></label><input type="text" id="firm-owner-name" placeholder="Full name"></div>
-        <div class="f"><label>Contact Person</label><input type="text" id="firm-contact-person" placeholder="Full name"></div>
-      </div>
-      <div class="fg c4">
-        <div class="f"><label>Sex (M/F)</label><select id="firm-owner-sex"><option value="">Select</option><option>Male</option><option>Female</option></select></div>
-        <div class="f"><label>Age</label><input type="number" id="firm-owner-age" placeholder="Age" min="0"></div>
-        <div class="f"><label>Position</label><input type="text" id="firm-owner-position" placeholder="Position"></div>
-        <div class="f"><label>Sex — Contact</label><select id="firm-contact-sex"><option value="">Select</option><option>Male</option><option>Female</option></select></div>
-      </div>
-      <div class="cg" style="margin-bottom:10px">
-        <label class="ci"><input type="checkbox" id="firm-owner-pwd"> PWD</label>
-        <label class="ci"><input type="checkbox" id="firm-owner-senior"> Senior Citizen</label>
-      </div>
-      <div class="fg c2">
-        <div class="f"><label>Contact Number</label><input type="tel" id="firm-contact-num" placeholder="Telephone / Mobile"></div>
-        <div class="f"><label>E-mail Address</label><input type="email" id="firm-email" placeholder="email@example.com"></div>
-      </div>
-    </div>
-    <div id="mpp-owner-shared-msg" class="hidden" style="background:var(--blue-light);border:1px solid var(--blue-mid);border-radius:4px;padding:8px 14px;font-size:12px;color:var(--gray-700);margin:8px 0;">
-      ℹ️ Owner / representative details already filled in the APP section above.
-    </div>
-    <div id="mpp-background-fields">
-      <div class="stitle">Firm Profile</div>
-      <div class="fg c1"><div class="f"><label>Brief Firm Background</label><input type="text" id="mpp-background" placeholder="Brief background of the firm"></div></div>
-    </div>
-    <div id="mpp-background-shared-msg" class="hidden" style="background:var(--blue-light);border:1px solid var(--blue-mid);border-radius:4px;padding:8px 14px;font-size:12px;color:var(--gray-700);margin:6px 0;">
-      &#x2139;&#xFE0F; Brief firm background already filled in the APP section above.
-    </div>
-    <div class="stitle">Previous Consultations <span class="shared-note hidden" id="mpp-consult-shared-note">Already answered in APP section</span></div>
-    <div id="mpp-consult-block">
-      <div class="cg">
-        <label class="ci"><input type="radio" name="mpp-consult" value="yes" onchange="showMppConsult(true)"> Yes</label>
-        <label class="ci"><input type="radio" name="mpp-consult" value="no" onchange="showMppConsult(false)"> No</label>
-      </div>
-      <div id="blk-mpp-consult-yes" class="hidden" style="margin-top:10px">
-        <table class="tbl"><thead><tr><th style="width:33%">Agency / Company</th><th style="width:20%">Date</th><th>Type of Assistance</th></tr></thead>
-        <tbody id="mpp-consult-tbody">
-          <tr><td><input type="text"></td><td><input type="date"></td><td><input type="text"></td></tr>
-          <tr><td><input type="text"></td><td><input type="date"></td><td><input type="text"></td></tr>
-        </tbody></table>
-        <button class="add-row" onclick="addRow('mpp-consult-tbody',3)">+ Add Row</button>
-      </div>
-      <div id="blk-mpp-consult-no" class="hidden" style="margin-top:8px">
-        <div class="f"><label>Why not?</label><input type="text" id="mpp-consult-no-reason" placeholder="Please state your reason"></div>
-      </div>
-    </div>
-    <div id="mpp-consult-shared-msg" class="hidden" style="background:var(--blue-light);border:1px solid var(--blue-mid);border-radius:4px;padding:8px 14px;font-size:12px;color:var(--gray-700);">
-      ℹ️ Consultations already answered in the APP section above.
-    </div>
-    <div class="stitle">Pre-Assessment Checklist</div>
-    <div class="fg c3">
-      <div class="f"><label>Year Established</label><input type="text" id="mpp-pa-year" placeholder="YYYY"></div>
-      <div class="f"><label>Initial Capital (PHP)</label><input type="text" id="mpp-pa-capital" placeholder="Amount"></div>
-      <div class="f"><label>Company Registration No.</label><input type="text" id="mpp-pa-regnum" placeholder="Reg. No."></div>
-    </div>
-    <div class="fg c2"><div class="f"><label>Year Registered</label><input type="text" id="mpp-pa-regyear" placeholder="YYYY"></div></div>
-    <div class="stitle">Type of Organization</div>
-    <div class="cg">
-      <label class="ci"><input type="radio" name="mpp-org"> Single Proprietorship</label>
-      <label class="ci"><input type="radio" name="mpp-org"> Partnership</label>
-      <label class="ci"><input type="radio" name="mpp-org"> Corporation</label>
-      <label class="ci"><input type="radio" name="mpp-org"> Cooperative</label>
-      <label class="ci"><input type="radio" name="mpp-org"> Profit</label>
-      <label class="ci"><input type="radio" name="mpp-org"> Non-profit</label>
-    </div>
-    <div class="stitle">Classification According to Capital</div>
-    <div class="cg">
-      <label class="ci"><input type="radio" name="mpp-cap"> Micro — less than P 1.5 M</label>
-      <label class="ci"><input type="radio" name="mpp-cap"> Small — P 1.5–15 M</label>
-      <label class="ci"><input type="radio" name="mpp-cap"> Medium — P 15–100 M</label>
-    </div>
-    <div class="stitle">Classification According to Employment</div>
-    <div class="cg">
-      <label class="ci"><input type="radio" name="mpp-emp"> Micro (1–9)</label>
-      <label class="ci"><input type="radio" name="mpp-emp"> Small (10–99)</label>
-      <label class="ci"><input type="radio" name="mpp-emp"> Medium (100–199)</label>
-    </div>
-    <div class="stitle">Number of Employees</div>
-    <div class="fg c4">
-      <div class="f"><label>Direct — Production</label><input type="number" id="mpp-emp-prod" placeholder="0" min="0"></div>
-      <div class="f"><label>Direct — Non-production</label><input type="number" id="mpp-emp-nonprod" placeholder="0" min="0"></div>
-      <div class="f"><label>Indirect / On-call</label><input type="number" id="mpp-emp-indirect" placeholder="0" min="0"></div>
-      <div class="f"><label>Total</label><input type="number" id="mpp-emp-total" placeholder="0" min="0"></div>
-    </div>
-    <div class="stitle">Production</div>
-    <div class="fg c2">
-      <div class="f"><label>Annual Volume of Production</label><input type="text" id="mpp-prod-vol" placeholder="e.g. 50,000 kg/yr"></div>
-      <div class="f"><label>Estimated Value (PHP)</label><input type="text" id="mpp-prod-val" placeholder="e.g. 1,000,000"></div>
-    </div>
-    <div class="stitle">Business Activity</div>
-    <div class="cg">
-      <label class="ci"><input type="checkbox"> Food Processing</label>
-      <label class="ci"><input type="checkbox"> Furniture</label>
-      <label class="ci"><input type="checkbox"> Gifts, Decors &amp; Housewares</label>
-      <label class="ci"><input type="checkbox"> Metals &amp; Engineering</label>
-      <label class="ci"><input type="checkbox"> Metal Casting</label>
-      <label class="ci"><input type="checkbox"> Machining</label>
-      <label class="ci"><input type="checkbox"> Welding &amp; Fabrication</label>
-      <label class="ci"><input type="checkbox"> Aquaculture &amp; Marine Resources</label>
-      <label class="ci"><input type="checkbox"> Horticulture</label>
-    </div>
-    <div class="fg c2" style="margin-top:8px"><div class="f"><label>Others — specify</label><input type="text" id="mpp-biz-others" placeholder="Specify"></div></div>
-    <div class="stitle">Specific Products / Services</div>
-    <div class="fg c1"><div class="f"><input type="text" id="mpp-products" placeholder="e.g. Metal fabricated parts, custom furniture, etc."></div></div>
-    <div class="stitle">Organizational Chart</div>
-    <div class="cg">
-      <label class="ci"><input type="radio" name="mpp-orgchart"> Available</label>
-      <label class="ci"><input type="radio" name="mpp-orgchart"> Not available (PSTO can assist in drafting)</label>
-    </div>
-    <div class="stitle">Technical Assistance Needed / Productivity Improvement Concerns</div>
-    <div class="hint" style="margin-bottom:10px">Please select your top 3–4 major areas of concern:</div>
-    <div class="group-lbl">▸ Production</div>
-    <table class="ctbl"><thead><tr><th style="width:36px">✓</th><th>Area of Concern</th><th>Sub Areas</th></tr></thead><tbody>
-      <tr><td><input type="checkbox"></td><td class="area">Material Management System</td><td><div class="sub-cg"><label class="sub-ci"><input type="checkbox"> Procurement</label><label class="sub-ci"><input type="checkbox"> Inventory</label><label class="sub-ci"><input type="checkbox"> Warehousing</label></div></td></tr>
-      <tr><td><input type="checkbox"></td><td class="area">Production Planning and Control</td><td><div class="sub-cg"><label class="sub-ci"><input type="checkbox"> Delivery</label><label class="sub-ci"><input type="checkbox"> Demand Problem</label><label class="sub-ci"><input type="checkbox"> Line Balancing</label></div></td></tr>
-      <tr><td><input type="checkbox"></td><td class="area">Machine &amp; Equipment Utilization</td><td><div class="sub-cg"><label class="sub-ci"><input type="checkbox"> Capacity</label><label class="sub-ci"><input type="checkbox"> Appropriate Machine &amp; Equipment</label><label class="sub-ci"><input type="checkbox"> Upgrading</label></div></td></tr>
-      <tr><td><input type="checkbox"></td><td class="area">Quality Control Assurance System</td><td><div class="sub-cg"><label class="sub-ci"><input type="checkbox"> Products/Services Issues</label><label class="sub-ci"><input type="checkbox"> Rejects/Reworks</label><label class="sub-ci"><input type="checkbox"> Customer Complaints</label></div></td></tr>
-      <tr><td><input type="checkbox"></td><td class="area">Safety &amp; Housekeeping / 5S</td><td><div class="sub-cg"><label class="sub-ci"><input type="checkbox"> OSH</label><label class="sub-ci"><input type="checkbox"> 5S</label></div></td></tr>
-      <tr><td><input type="checkbox"></td><td class="area">Wastage Levels</td><td><div class="sub-cg"><label class="sub-ci"><input type="checkbox"> Rejects</label><label class="sub-ci"><input type="checkbox"> High Cost</label></div></td></tr>
-      <tr><td><input type="checkbox"></td><td class="area">Product Packaging</td><td><div class="sub-cg"><label class="sub-ci"><input type="checkbox"> Appropriate Packaging</label><label class="sub-ci"><input type="checkbox"> Loading Issues</label></div></td></tr>
-      <tr><td><input type="checkbox"></td><td class="area">Layout</td><td><div class="sub-cg"><label class="sub-ci"><input type="checkbox"> Disorganised Process/Product</label><label class="sub-ci"><input type="checkbox"> Limited Space</label></div></td></tr>
-    </tbody></table>
-    <div class="group-lbl">▸ Finance</div>
-    <table class="ctbl"><tbody>
-      <tr><td style="width:36px"><input type="checkbox"></td><td class="area">Financial System &amp; Controls</td><td><div class="sub-cg"><label class="sub-ci"><input type="checkbox"> Accounting, Product Costing</label><label class="sub-ci"><input type="checkbox"> Sales &amp; Income</label></div></td></tr>
-    </tbody></table>
-    <div class="group-lbl">▸ Administrative</div>
-    <table class="ctbl"><tbody>
-      <tr><td style="width:36px"><input type="checkbox"></td><td class="area">Work Organization</td><td><div class="sub-cg"><label class="sub-ci"><input type="checkbox"> Duties and Responsibilities</label><label class="sub-ci"><input type="checkbox"> Leadership</label></div></td></tr>
-      <tr><td><input type="checkbox"></td><td class="area">Human Resource</td><td><div class="sub-cg"><label class="sub-ci"><input type="checkbox"> Management-Worker Issues</label><label class="sub-ci"><input type="checkbox"> DOLE Requirements</label></div></td></tr>
-      <tr><td><input type="checkbox"></td><td class="area">Plant Maintenance</td><td><div class="sub-cg"><label class="sub-ci"><input type="checkbox"> Machine &amp; Equipment Maintenance</label><label class="sub-ci"><input type="checkbox"> Preventive Maintenance</label></div></td></tr>
-    </tbody></table>
-  </div>
+<div class="alert-bar">
+  ⚠ Submission deadline for Q2 2025: <strong>June 30, 2025</strong> — <a href="#">View announcement</a>
 </div>
 
-<!-- ═══════════ SECTION EMP ═══════════ -->
-<div class="section hidden" id="sec-emp">
-  <div class="sec-head emp">
-    <span class="sec-num" id="emp-sec-num">III</span>
-    Energy Management Program (EMP) — Firm Profile &amp; Energy Assessment
-    <span class="prog-only-badge">EMP</span>
-  </div>
-  <div class="sec-body">
-    <div id="emp-firm-fields">
-      <div class="stitle">Firm Information</div>
-      <div class="fg c21">
-        <div class="f"><label>Name of Firm <span class="req">*</span></label><input type="text" id="emp-firm-name" placeholder="Enter firm name"></div>
-        <div class="f"><label>Province <span class="req">*</span></label><select id="emp-firm-province"><option value="">Select...</option><option>Aurora</option><option>Bataan</option><option>Bulacan</option><option>Nueva Ecija</option><option>Pampanga</option><option>Tarlac</option><option>Zambales</option></select></div>
-      </div>
-      <div class="fg c1"><div class="f"><label>Firm Complete Address <span class="req">*</span></label><input type="text" id="emp-firm-address" placeholder="Street, Barangay, Municipality, Province"></div></div>
-      <div id="emp-owner-fields">
-        <div class="fg c2">
-          <div class="f"><label>Owner <span class="req">*</span></label><input type="text" id="emp-owner-name" placeholder="Full name"></div>
-          <div class="f"><label>Contact Person</label><input type="text" id="emp-contact-person" placeholder="Full name"></div>
+<main>
+
+  <div id="programs">
+    <div class="section-label">Step 1 — Select Program(s)</div>
+    <h2 class="section-title">Which program are you applying for?</h2>
+    <p class="section-desc">You may select multiple programs. A combined form will be generated based on your selection.</p>
+
+    <div class="programs-grid">
+
+      <!-- APP -->
+      <div class="prog-card" id="card-APP"
+        style="--card-color:#2D6A35;--card-bg:#EAF4EC;--card-rgb:45,106,53"
+        onclick="toggleProgram('APP',this)">
+        <div class="card-check" id="check-APP"></div>
+        <div class="card-icon" style="background:#EAF4EC">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#2D6A35" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
         </div>
-        <div class="fg c4">
-          <div class="f"><label>Sex (M/F)</label><select id="emp-owner-sex"><option value="">Select</option><option>Male</option><option>Female</option></select></div>
-          <div class="f"><label>Age</label><input type="number" id="emp-owner-age" placeholder="Age" min="0"></div>
-          <div class="f"><label>Position</label><input type="text" id="emp-owner-position" placeholder="Position"></div>
-          <div class="f"><label>Sex — Contact</label><select id="emp-contact-sex"><option value="">Select</option><option>Male</option><option>Female</option></select></div>
-        </div>
-        <div class="cg" style="margin-bottom:10px">
-          <label class="ci"><input type="checkbox" id="emp-owner-pwd"> PWD</label>
-          <label class="ci"><input type="checkbox" id="emp-owner-senior"> Senior Citizen</label>
-        </div>
-        <div class="fg c2">
-          <div class="f"><label>Contact Number</label><input type="tel" id="emp-contact-num" placeholder="Telephone / Mobile"></div>
-          <div class="f"><label>E-mail Address</label><input type="email" id="emp-email" placeholder="email@example.com"></div>
+        <span class="card-tag" style="background:#2D6A35">APP</span>
+        <h3>Agricultural Productivity Program</h3>
+        <p>For farmers and agricultural enterprises seeking technical assistance to improve farm productivity and crop yields.</p>
+        <div class="card-meta">
+          <span>🌾 Farm-based</span>
+          <span>📋 Farm profile required</span>
         </div>
       </div>
-      <div class="stitle">Firm Profile</div>
-      <div class="fg c1"><div class="f"><label>Brief Firm Background</label><input type="text" id="emp-background" placeholder="Brief background of the firm"></div></div>
-    </div>
-    <div id="emp-firm-shared-msg" class="hidden" style="background:var(--blue-light);border:1px solid var(--blue-mid);border-radius:4px;padding:8px 14px;font-size:12px;color:var(--gray-700);margin:8px 0;">
-      &#x2139;&#xFE0F; Firm name, address, and background already filled in the previous section above.
-    </div>
-    <div id="emp-consult-question">
-      <div class="stitle">Previous Consultations <span class="shared-note hidden" id="emp-consult-shared-note">Already answered above</span></div>
-      <div class="cg">
-        <label class="ci"><input type="radio" name="emp-consult" value="yes" onchange="showEmpConsult(true)"> Yes</label>
-        <label class="ci"><input type="radio" name="emp-consult" value="no" onchange="showEmpConsult(false)"> No</label>
-      </div>
-      <div id="blk-emp-consult-yes" class="hidden" style="margin-top:10px">
-        <table class="tbl"><thead><tr><th style="width:33%">Agency / Company</th><th style="width:20%">Date</th><th>Type of Assistance</th></tr></thead>
-        <tbody id="emp-consult-tbody">
-          <tr><td><input type="text"></td><td><input type="date"></td><td><input type="text"></td></tr>
-          <tr><td><input type="text"></td><td><input type="date"></td><td><input type="text"></td></tr>
-        </tbody></table>
-        <button class="add-row" onclick="addRow('emp-consult-tbody',3)">+ Add Row</button>
-      </div>
-      <div id="blk-emp-consult-no" class="hidden" style="margin-top:8px">
-        <div class="f"><label>Why not?</label><input type="text" id="emp-consult-no-reason" placeholder="Please state your reason"></div>
-      </div>
-    </div>
-    <div id="emp-consult-shared-msg" class="hidden" style="background:var(--blue-light);border:1px solid var(--blue-mid);border-radius:4px;padding:8px 14px;font-size:12px;color:var(--gray-700);">
-      ℹ️ Consultations already answered in a previous section above.
-    </div>
-    <div class="stitle">Pre-Assessment Checklist</div>
-    <div id="emp-preassess-fields">
-      <div class="fg c3">
-        <div class="f"><label>Year Established</label><input type="text" id="emp-pa-year" placeholder="YYYY"></div>
-        <div class="f"><label>Initial Capital (PHP)</label><input type="text" id="emp-pa-capital" placeholder="Amount"></div>
-        <div class="f"><label>Company Registration No.</label><input type="text" id="emp-pa-regnum" placeholder="Reg. No."></div>
-      </div>
-      <div class="fg c2"><div class="f"><label>Year Registered</label><input type="text" id="emp-pa-regyear" placeholder="YYYY"></div></div>
-    </div>
-    <div id="emp-preassess-shared-msg" class="hidden" style="background:var(--blue-light);border:1px solid var(--blue-mid);border-radius:4px;padding:8px 14px;font-size:12px;color:var(--gray-700);margin:8px 0;">
-      &#x2139;&#xFE0F; Year Established, Initial Capital, and Registration details already filled in the MPP section above.
-    </div>
-    <div class="stitle">Type of Organization</div>
-    <div class="cg">
-      <label class="ci"><input type="radio" name="emp-org"> Single Proprietorship</label>
-      <label class="ci"><input type="radio" name="emp-org"> Partnership</label>
-      <label class="ci"><input type="radio" name="emp-org"> Corporation</label>
-      <label class="ci"><input type="radio" name="emp-org"> Cooperative</label>
-    </div>
-    <div class="stitle">Classification According to Capital</div>
-    <div class="cg">
-      <label class="ci"><input type="radio" name="emp-cap"> Micro — less than P 1.5 M</label>
-      <label class="ci"><input type="radio" name="emp-cap"> Small — P 1.5–15 M</label>
-      <label class="ci"><input type="radio" name="emp-cap"> Medium — P 15–100 M</label>
-    </div>
-    <div class="stitle">Classification According to Employment</div>
-    <div class="cg">
-      <label class="ci"><input type="radio" name="emp-empcl"> Micro (1–9)</label>
-      <label class="ci"><input type="radio" name="emp-empcl"> Small (10–99)</label>
-      <label class="ci"><input type="radio" name="emp-empcl"> Medium (100–199)</label>
-    </div>
-    <div class="stitle">Number of Employees</div>
-    <div class="fg c4">
-      <div class="f"><label>Direct — Production</label><input type="number" id="emp-emp-prod" placeholder="0" min="0"></div>
-      <div class="f"><label>Direct — Non-production</label><input type="number" id="emp-emp-nonprod" placeholder="0" min="0"></div>
-      <div class="f"><label>Indirect / On-call</label><input type="number" id="emp-emp-indirect" placeholder="0" min="0"></div>
-      <div class="f"><label>Total</label><input type="number" id="emp-emp-total" placeholder="0" min="0"></div>
-    </div>
-    <div class="stitle">Production</div>
-    <div class="fg c2">
-      <div class="f"><label>Annual Volume of Production</label><input type="text" id="emp-prod-vol" placeholder="e.g. 50,000 kg/yr"></div>
-      <div class="f"><label>Estimated Value (PHP)</label><input type="text" id="emp-prod-val" placeholder="e.g. 1,000,000"></div>
-    </div>
-    <div class="stitle">Specific Products or Services</div>
-    <div class="fg c1"><div class="f"><input type="text" id="emp-products" placeholder="e.g. Processed food, fabricated metal parts, etc."></div></div>
-    <div class="stitle">Electricity Consumption — Past 12 Months</div>
-    <table class="tbl"><thead><tr><th style="width:18%;text-align:center">Month</th><th style="text-align:center">Consumption (kWh)</th><th style="text-align:center">Electric Bill (PHP)</th></tr></thead>
-    <tbody id="emp-elec-tbody">
-      <tr><td style="text-align:center;font-weight:600">1</td><td><input type="number" min="0" placeholder="kWh"></td><td><input type="number" min="0" placeholder="PHP"></td></tr>
-      <tr><td style="text-align:center;font-weight:600">2</td><td><input type="number" min="0"></td><td><input type="number" min="0"></td></tr>
-      <tr><td style="text-align:center;font-weight:600">3</td><td><input type="number" min="0"></td><td><input type="number" min="0"></td></tr>
-      <tr><td style="text-align:center;font-weight:600">4</td><td><input type="number" min="0"></td><td><input type="number" min="0"></td></tr>
-      <tr><td style="text-align:center;font-weight:600">5</td><td><input type="number" min="0"></td><td><input type="number" min="0"></td></tr>
-      <tr><td style="text-align:center;font-weight:600">6</td><td><input type="number" min="0"></td><td><input type="number" min="0"></td></tr>
-      <tr><td style="text-align:center;font-weight:600">7</td><td><input type="number" min="0"></td><td><input type="number" min="0"></td></tr>
-      <tr><td style="text-align:center;font-weight:600">8</td><td><input type="number" min="0"></td><td><input type="number" min="0"></td></tr>
-      <tr><td style="text-align:center;font-weight:600">9</td><td><input type="number" min="0"></td><td><input type="number" min="0"></td></tr>
-      <tr><td style="text-align:center;font-weight:600">10</td><td><input type="number" min="0"></td><td><input type="number" min="0"></td></tr>
-      <tr><td style="text-align:center;font-weight:600">11</td><td><input type="number" min="0"></td><td><input type="number" min="0"></td></tr>
-      <tr><td style="text-align:center;font-weight:600">12</td><td><input type="number" min="0"></td><td><input type="number" min="0"></td></tr>
-      <tr style="background:var(--blue-light)"><td style="text-align:center;font-weight:700">TOTAL</td><td><input type="number" min="0" id="emp-elec-total-kwh" placeholder="Total kWh" style="font-weight:700;"></td><td><input type="number" min="0" id="emp-elec-total-php" placeholder="Total PHP" style="font-weight:700;"></td></tr>
-    </tbody></table>
-    <div class="stitle">Fuel Consumption — Past 12 Months (Production only)</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-      <div>
-        <div style="font-weight:600;font-size:12px;color:var(--navy);margin-bottom:4px;">LPG (kg)</div>
-        <table class="tbl"><thead><tr><th style="width:22%;text-align:center">Month</th><th>LPG (kg)</th><th>Bill (PHP)</th></tr></thead>
-        <tbody id="emp-lpg-tbody">
-          <tr><td style="text-align:center;font-weight:600">1</td><td><input type="number" min="0"></td><td><input type="number" min="0"></td></tr>
-          <tr><td style="text-align:center;font-weight:600">2</td><td><input type="number" min="0"></td><td><input type="number" min="0"></td></tr>
-          <tr><td style="text-align:center;font-weight:600">3</td><td><input type="number" min="0"></td><td><input type="number" min="0"></td></tr>
-          <tr><td style="text-align:center;font-weight:600">4</td><td><input type="number" min="0"></td><td><input type="number" min="0"></td></tr>
-          <tr><td style="text-align:center;font-weight:600">5</td><td><input type="number" min="0"></td><td><input type="number" min="0"></td></tr>
-          <tr><td style="text-align:center;font-weight:600">6</td><td><input type="number" min="0"></td><td><input type="number" min="0"></td></tr>
-          <tr><td style="text-align:center;font-weight:600">7</td><td><input type="number" min="0"></td><td><input type="number" min="0"></td></tr>
-          <tr><td style="text-align:center;font-weight:600">8</td><td><input type="number" min="0"></td><td><input type="number" min="0"></td></tr>
-          <tr><td style="text-align:center;font-weight:600">9</td><td><input type="number" min="0"></td><td><input type="number" min="0"></td></tr>
-          <tr><td style="text-align:center;font-weight:600">10</td><td><input type="number" min="0"></td><td><input type="number" min="0"></td></tr>
-          <tr><td style="text-align:center;font-weight:600">11</td><td><input type="number" min="0"></td><td><input type="number" min="0"></td></tr>
-          <tr><td style="text-align:center;font-weight:600">12</td><td><input type="number" min="0"></td><td><input type="number" min="0"></td></tr>
-          <tr style="background:var(--blue-light)"><td style="text-align:center;font-weight:700">TOTAL A</td><td><input type="number" min="0" id="emp-lpg-total-kg" style="font-weight:700;"></td><td><input type="number" min="0" id="emp-lpg-total-php" style="font-weight:700;"></td></tr>
-        </tbody></table>
-      </div>
-      <div>
-        <div style="font-weight:600;font-size:12px;color:var(--navy);margin-bottom:4px;">Diesel / Bunker (liters)</div>
-        <table class="tbl"><thead><tr><th style="width:22%;text-align:center">Month</th><th>Diesel (L)</th><th>Bill (PHP)</th></tr></thead>
-        <tbody id="emp-diesel-tbody">
-          <tr><td style="text-align:center;font-weight:600">1</td><td><input type="number" min="0"></td><td><input type="number" min="0"></td></tr>
-          <tr><td style="text-align:center;font-weight:600">2</td><td><input type="number" min="0"></td><td><input type="number" min="0"></td></tr>
-          <tr><td style="text-align:center;font-weight:600">3</td><td><input type="number" min="0"></td><td><input type="number" min="0"></td></tr>
-          <tr><td style="text-align:center;font-weight:600">4</td><td><input type="number" min="0"></td><td><input type="number" min="0"></td></tr>
-          <tr><td style="text-align:center;font-weight:600">5</td><td><input type="number" min="0"></td><td><input type="number" min="0"></td></tr>
-          <tr><td style="text-align:center;font-weight:600">6</td><td><input type="number" min="0"></td><td><input type="number" min="0"></td></tr>
-          <tr><td style="text-align:center;font-weight:600">7</td><td><input type="number" min="0"></td><td><input type="number" min="0"></td></tr>
-          <tr><td style="text-align:center;font-weight:600">8</td><td><input type="number" min="0"></td><td><input type="number" min="0"></td></tr>
-          <tr><td style="text-align:center;font-weight:600">9</td><td><input type="number" min="0"></td><td><input type="number" min="0"></td></tr>
-          <tr><td style="text-align:center;font-weight:600">10</td><td><input type="number" min="0"></td><td><input type="number" min="0"></td></tr>
-          <tr><td style="text-align:center;font-weight:600">11</td><td><input type="number" min="0"></td><td><input type="number" min="0"></td></tr>
-          <tr><td style="text-align:center;font-weight:600">12</td><td><input type="number" min="0"></td><td><input type="number" min="0"></td></tr>
-          <tr style="background:var(--blue-light)"><td style="text-align:center;font-weight:700">TOTAL B</td><td><input type="number" min="0" id="emp-diesel-total-liters" style="font-weight:700;"></td><td><input type="number" min="0" id="emp-diesel-total-php" style="font-weight:700;"></td></tr>
-        </tbody></table>
-      </div>
-    </div>
-    <table class="tbl" style="margin-top:6px"><tbody>
-      <tr style="background:var(--blue-light)"><td style="font-weight:700;padding:7px 10px;">TOTAL Production Fuel Bill (PHP)</td><td style="width:40%"><input type="number" min="0" id="emp-fuel-total" placeholder="Total fuel bill in PHP" style="font-weight:700;"></td></tr>
-    </tbody></table>
-    <div style="font-weight:700;font-size:13px;color:var(--gray-800);margin:14px 0 6px;">Grand Total (Electricity + Fuel):</div>
-    <table class="tbl"><tbody>
-      <tr><td style="width:60%">1 Year Electric Bill (PHP)</td><td><input type="number" min="0" id="emp-combined-elec" placeholder="PHP"></td></tr>
-      <tr><td>1 Year Fuel Bill (PHP)</td><td><input type="number" min="0" id="emp-combined-fuel" placeholder="PHP"></td></tr>
-      <tr style="background:var(--blue-light)"><td style="font-weight:700">GRAND TOTAL (PHP)</td><td><input type="number" min="0" id="emp-grand-total" placeholder="Grand Total PHP" style="font-weight:700;"></td></tr>
-    </tbody></table>
-    <div class="stitle">Energy Consuming Equipment Inventory</div>
-    <div class="hint" style="margin-bottom:8px">Lighting, Air Conditioning, Machines, Compressed Air, etc.</div>
-    <table class="tbl"><thead><tr><th style="width:30%">Equipment and Description</th><th style="width:10%">Qty</th><th style="width:15%">Rated HP</th><th style="width:15%">Rated kW</th><th>Hours/Day</th></tr></thead>
-    <tbody id="emp-equip-tbody">
-      <tr><td><input type="text" placeholder="e.g. Air Compressor"></td><td><input type="number" min="0"></td><td><input type="text" placeholder="HP"></td><td><input type="text" placeholder="kW"></td><td><input type="number" min="0" max="24" placeholder="hrs"></td></tr>
-      <tr><td><input type="text"></td><td><input type="number" min="0"></td><td><input type="text"></td><td><input type="text"></td><td><input type="number" min="0" max="24"></td></tr>
-      <tr><td><input type="text"></td><td><input type="number" min="0"></td><td><input type="text"></td><td><input type="text"></td><td><input type="number" min="0" max="24"></td></tr>
-    </tbody></table>
-    <button class="add-row" onclick="addRow('emp-equip-tbody',5)">+ Add Row</button>
-    <div class="stitle" style="margin-top:18px">Qualification Criteria</div>
-    <div class="qual-box">
-      <div style="font-weight:700;color:var(--navy);margin-bottom:8px">For a firm to qualify, one of the following criteria should be met (put a checkmark):</div>
-      <div class="qi"><input type="checkbox" id="emp-qual-a"> <label><strong>(A)</strong> Min. Total kWh for 1 year: not less than <strong>18,000 kWh</strong></label></div>
-      <div style="margin:6px 0 2px 0;font-size:12px;color:var(--gray-600);font-weight:600">(B) Minimum Total Fuel Consumption for 1 year:</div>
-      <div class="qi" style="margin-left:14px"><input type="checkbox" id="emp-qual-b1"> <label><strong>(a)</strong> LPG: not less than <strong>2,500 kg</strong></label></div>
-      <div class="qi" style="margin-left:14px"><input type="checkbox" id="emp-qual-b2"> <label><strong>(b)</strong> Diesel/Bunker: not less than <strong>5,000 liters</strong></label></div>
-      <div class="qi" style="margin-left:14px"><input type="checkbox" id="emp-qual-b3"> <label><strong>(c)</strong> Combination: not less than <strong>PHP 220,000/yr</strong></label></div>
-      <div class="qi"><input type="checkbox" id="emp-qual-c"> <label><strong>(C)</strong> Grand Total (A + B): not less than <strong>PHP 220,000/yr</strong></label></div>
-    </div>
-  </div>
-</div>
 
-<!-- ═══════════ SECTION FS ═══════════ -->
-<div class="section hidden" id="sec-fs">
-  <div class="sec-head fs">
-    <span class="sec-num" id="fs-sec-num">IV</span>
-    Food Safety (FS) Enrollment Form — Company Profile &amp; Assessment
-    <span class="prog-only-badge">FS</span>
-  </div>
-  <div class="sec-body">
-
-    <!-- NOTE: shown when other programs already selected -->
-    <div id="fs-firm-ref-note" class="hidden" style="background:var(--blue-light);border:1px solid var(--blue-mid);border-radius:4px;padding:8px 14px;font-size:12px;color:var(--gray-700);margin-bottom:12px;">
-      &#x2139;&#xFE0F; Some fields below are already filled in a previous section. Only the highlighted Food Safety-specific fields are shown.
-    </div>
-
-    <div class="stitle">Company Profile</div>
-
-    <!-- GROUP 1: Firm name/address/province — hide if any other program selected -->
-    <div id="fs-firm-fields">
-      <div class="fg c2"><div class="f"><label>Province <span class="req">*</span></label>
-        <select id="fs-province"><option value="">Select...</option><option>Aurora</option><option>Bataan</option><option>Bulacan</option><option>Nueva Ecija</option><option>Pampanga</option><option>Tarlac</option><option>Zambales</option></select>
-      </div></div>
-      <div class="fg c21"><div class="f"><label>Name of Firm / Organization <span class="req">*</span></label><input type="text" id="fs-firm-name" placeholder="Enter firm name"></div></div>
-      <div class="fg c1"><div class="f"><label>Company Address <span class="req">*</span></label><input type="text" id="fs-firm-address" placeholder="Street, Barangay, Municipality, Province"></div></div>
-    </div>
-    <div id="fs-firm-shared-msg" class="hidden" style="background:var(--blue-light);border:1px solid var(--blue-mid);border-radius:4px;padding:8px 14px;font-size:12px;color:var(--gray-700);margin:6px 0;">
-      &#x2139;&#xFE0F; Firm name, province, and address already filled above.
-    </div>
-
-    <!-- GROUP 2: Owner info — hide if any other program selected -->
-    <div id="fs-owner-fields">
-      <div class="fg c2">
-        <div class="f"><label>Name of Owner / Chairman <span class="req">*</span></label><input type="text" id="fs-owner-name" placeholder="Full name"></div>
-        <div class="f"><label>Age</label><input type="number" id="fs-owner-age" placeholder="Age" min="0"></div>
+      <!-- MPP -->
+      <div class="prog-card" id="card-MPP"
+        style="--card-color:#1A3F6B;--card-bg:#E6EDF7;--card-rgb:26,63,107"
+        onclick="toggleProgram('MPP',this)">
+        <div class="card-check" id="check-MPP"></div>
+        <div class="card-icon" style="background:#E6EDF7">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#1A3F6B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+        </div>
+        <span class="card-tag" style="background:#1A3F6B">MPP</span>
+        <h3>Manufacturing Productivity Program</h3>
+        <p>For manufacturing firms and MSMEs looking to improve production processes, quality systems, and market reach.</p>
+        <div class="card-meta">
+          <span>🏭 Firm-based</span>
+          <span>📊 Financial data needed</span>
+        </div>
       </div>
-      <div class="fg c2">
-        <div class="f"><label>Sex</label><div class="cg" style="margin-top:6px"><label class="ci"><input type="radio" name="fs-owner-sex"> Male</label><label class="ci"><input type="radio" name="fs-owner-sex"> Female</label></div></div>
-        <div class="f"><label>E-mail Address</label><input type="email" id="fs-email" placeholder="email@example.com"></div>
+
+      <!-- EMP -->
+      <div class="prog-card" id="card-EMP"
+        style="--card-color:#1A5C4A;--card-bg:#E6F4F0;--card-rgb:26,92,74"
+        onclick="toggleProgram('EMP',this)">
+        <div class="card-check" id="check-EMP"></div>
+        <div class="card-icon" style="background:#E6F4F0">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#1A5C4A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+          </svg>
+        </div>
+        <span class="card-tag" style="background:#1A5C4A">EMP</span>
+        <h3>Energy Management Program</h3>
+        <p>For businesses aiming to reduce energy consumption and utility costs through energy audit and efficiency interventions.</p>
+        <div class="card-meta">
+          <span>⚡ Energy audit</span>
+          <span>📈 12-month data needed</span>
+        </div>
       </div>
-      <div class="fg c2">
-        <div class="f"><label>Contact No.</label><input type="tel" id="fs-contact-num" placeholder="Telephone / Mobile"></div>
-        <div class="f"><label>Contact Person</label><input type="text" id="fs-contact-person" placeholder="Full name"></div>
+
+      <!-- FS -->
+      <div class="prog-card" id="card-FS"
+        style="--card-color:#1B7A6E;--card-bg:#E6F4F2;--card-rgb:27,122,110"
+        onclick="toggleProgram('FS',this)">
+        <div class="card-check" id="check-FS"></div>
+        <div class="card-icon" style="background:#E6F4F2">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#1B7A6E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        <span class="card-tag" style="background:#1B7A6E">FS</span>
+        <h3>Food Safety Program</h3>
+        <p>For food enterprises seeking compliance guidance, Good Manufacturing Practices certification, and HACCP consultancy.</p>
+        <div class="card-meta">
+          <span>🥗 Food sector</span>
+          <span>📑 Company profile required</span>
+        </div>
       </div>
-    </div>
-    <div id="fs-owner-shared-msg" class="hidden" style="background:var(--blue-light);border:1px solid var(--blue-mid);border-radius:4px;padding:8px 14px;font-size:12px;color:var(--gray-700);margin:6px 0;">
-      &#x2139;&#xFE0F; Owner name, age, sex, email, and contact already filled above.
-    </div>
 
-    <!-- FS-EXCLUSIVE: Contact Person No. and Products — always show -->
-    <div class="fg c1">
-    </div>
-    <div class="fg c3">
-      <div class="f"><label>Product / Service 1 <span style="font-size:10px;background:#e8f5e9;color:#2e7d32;padding:1px 6px;border-radius:10px;font-weight:700">FS Only</span></label><input type="text" id="fs-prod-1" placeholder="e.g. Processed meat"></div>
-      <div class="f"><label>Product / Service 2</label><input type="text" id="fs-prod-2"></div>
-      <div class="f"><label>Product / Service 3</label><input type="text" id="fs-prod-3"></div>
-    </div>
+    </div><!-- /programs-grid -->
 
-    <!-- GROUP 3: Firm background — hide if any other program selected -->
-    <div id="fs-background-fields">
-      <div class="stitle">Brief Firm Background</div>
-      <div class="fg c1"><div class="f"><input type="text" id="fs-background" placeholder="Brief background of the firm"></div></div>
-    </div>
-    <div id="fs-background-shared-msg" class="hidden" style="background:var(--blue-light);border:1px solid var(--blue-mid);border-radius:4px;padding:8px 14px;font-size:12px;color:var(--gray-700);margin:6px 0;">
-      &#x2139;&#xFE0F; Brief background already filled above.
-    </div>
-
-    <!-- GROUP 4: Org type, capital, employment, employees — hide if MPP or EMP selected -->
-    <div id="fs-classification-fields">
-      <div class="stitle">Type of Organization</div>
-      <div class="cg">
-        <label class="ci"><input type="radio" name="fs-org"> Single Proprietorship</label>
-        <label class="ci"><input type="radio" name="fs-org"> Partnership</label>
-        <label class="ci"><input type="radio" name="fs-org"> Corporation</label>
-        <label class="ci"><input type="radio" name="fs-org"> Cooperative</label>
-        <label class="ci"><input type="radio" name="fs-org"> Profit</label>
-        <label class="ci"><input type="radio" name="fs-org"> Non-profit</label>
+    <!-- Proceed Bar -->
+    <div class="proceed-section">
+      <div class="selection-display">
+        <div class="label">Selected programs</div>
+        <div class="selected-tags" id="selected-tags">
+          <span class="empty-state" id="empty-msg">No programs selected yet — choose above</span>
+        </div>
       </div>
-      <div class="stitle">Classification According to Capital</div>
-      <div class="cg">
-        <label class="ci"><input type="radio" name="fs-cap"> Micro — less than P 3 M</label>
-        <label class="ci"><input type="radio" name="fs-cap"> Small — P 3–15 M</label>
-        <label class="ci"><input type="radio" name="fs-cap"> Medium — P 15–100 M</label>
-      </div>
-      <div class="stitle">Classification According to Employment</div>
-      <div class="cg">
-        <label class="ci"><input type="radio" name="fs-empcl"> Micro (1–9)</label>
-        <label class="ci"><input type="radio" name="fs-empcl"> Small (10–99)</label>
-        <label class="ci"><input type="radio" name="fs-empcl"> Medium (100–199)</label>
-      </div>
-      <div class="stitle">Number of Employees</div>
-      <div class="fg c2">
-        <div class="f"><label>Male</label><input type="number" id="fs-emp-m" placeholder="0" min="0"></div>
-        <div class="f"><label>Female</label><input type="number" id="fs-emp-f" placeholder="0" min="0"></div>
-      </div>
-    </div>
-    <div id="fs-classification-shared-msg" class="hidden" style="background:var(--blue-light);border:1px solid var(--blue-mid);border-radius:4px;padding:8px 14px;font-size:12px;color:var(--gray-700);margin:6px 0;">
-      &#x2139;&#xFE0F; Organization type, capital classification, employment classification, and employee count already filled above.
-    </div>
-
-    <!-- FS LEVEL TABLES — always show (FS-exclusive) -->
-    <div class="fs-lvl" style="margin-top:18px">Level 1 — Food Safety Awareness Training</div>
-    <table class="ftbl"><thead><tr><th style="width:38%">Training</th><th style="width:10%">Yes/No</th><th style="width:16%">Date</th><th style="width:20%">Provider</th><th>Remarks</th></tr></thead><tbody>
-      <tr><td>5S of Good Housekeeping</td><td><select><option value=""></option><option>Yes</option><option>No</option></select></td><td><input type="date"></td><td><input type="text"></td><td><input type="text"></td></tr>
-      <tr><td>Basic Food Hygiene (5 Keys)</td><td><select><option value=""></option><option>Yes</option><option>No</option></select></td><td><input type="date"></td><td><input type="text"></td><td><input type="text"></td></tr>
-      <tr><td>Food Hazards</td><td><select><option value=""></option><option>Yes</option><option>No</option></select></td><td><input type="date"></td><td><input type="text"></td><td><input type="text"></td></tr>
-      <tr><td>Food Laws</td><td><select><option value=""></option><option>Yes</option><option>No</option></select></td><td><input type="date"></td><td><input type="text"></td><td><input type="text"></td></tr>
-      <tr><td>Principles of GMP / Sanitation Code of the Philippines</td><td><select><option value=""></option><option>Yes</option><option>No</option></select></td><td><input type="date"></td><td><input type="text"></td><td><input type="text"></td></tr>
-    </tbody></table>
-    <div class="fs-lvl" style="margin-top:12px">Level 2 — Food Safety Manuals</div>
-    <table class="ftbl"><thead><tr><th style="width:38%">Manual</th><th style="width:12%">Yes/None</th><th style="width:16%">Date</th><th style="width:20%">Provider</th><th>Updated Records?</th></tr></thead><tbody>
-      <tr><td>Good Manufacturing Practices (GMP) Manual</td><td><select><option value=""></option><option>Yes</option><option>None</option></select></td><td><input type="date"></td><td><input type="text"></td><td><select><option value=""></option><option>Yes</option><option>No</option></select></td></tr>
-      <tr><td>Sanitation Standard Operating Procedures (SSOPs)</td><td><select><option value=""></option><option>Yes</option><option>None</option></select></td><td><input type="date"></td><td><input type="text"></td><td><select><option value=""></option><option>Yes</option><option>No</option></select></td></tr>
-      <tr><td>Product Standard Operating Procedures (PSOPs)</td><td><select><option value=""></option><option>Yes</option><option>None</option></select></td><td><input type="date"></td><td><input type="text"></td><td><select><option value=""></option><option>Yes</option><option>No</option></select></td></tr>
-      <tr><td>Quality Standard Operating Procedures (QSOPs)</td><td><select><option value=""></option><option>Yes</option><option>None</option></select></td><td><input type="date"></td><td><input type="text"></td><td><select><option value=""></option><option>Yes</option><option>No</option></select></td></tr>
-    </tbody></table>
-    <div class="fs-lvl" style="margin-top:12px">Level 3 — FDA Licensing &amp; Registration</div>
-    <table class="ftbl"><thead><tr><th style="width:70%">Question</th><th style="width:12%">Yes/No</th><th>Remarks</th></tr></thead><tbody>
-      <tr><td>Do you need assistance in acquiring FDA License to Operate (LTO) / Certificate of Product Registration (CPR)?</td><td><select><option value=""></option><option>Yes</option><option>No</option></select></td><td><input type="text"></td></tr>
-      <tr><td>If yes, is the company willing to shoulder expenses? (Application Fee, Facility Improvement, Lab Analysis, etc.)</td><td><select><option value=""></option><option>Yes</option><option>No</option></select></td><td><input type="text"></td></tr>
-    </tbody></table>
-    <div class="fg c1" style="margin-top:10px"><div class="f"><label>Remarks</label><input type="text" id="fs-remarks" placeholder="Remarks"></div></div>
-
-  </div>
-</div>
-</div><!-- /fbody -->
-
-<div class="form-actions">
-  <button class="btn btn-outline" onclick="window.print()">Print</button>
-  <button class="btn btn-gold" onclick="openReview(false)">Review Answers</button>
-  <button class="btn btn-navy" onclick="openReview(true)">Submit Form</button>
-</div>
-</div></div><!-- /paper /paper-wrap -->
-
-<!-- REVIEW MODAL -->
-<div class="overlay" id="review-modal">
-  <div class="modal">
-    <div class="modal-head"><h2 id="modal-title">Review Your Answers</h2><button class="modal-x" onclick="closeReview()">✕</button></div>
-    <div class="modal-body" id="review-body"></div>
-    <div class="modal-foot">
-      <button class="btn btn-outline" onclick="closeReview()">Go Back &amp; Edit</button>
-      <button class="btn btn-green" id="submit-btn" onclick="submitForm()" style="display:none">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-        Confirm &amp; Submit
+      <button class="proceed-btn" id="proceed-btn" disabled onclick="proceedToForm()">
+        Continue to Form
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+        </svg>
       </button>
     </div>
   </div>
-</div>
 
-<!-- SPINNER -->
-<div class="spin-overlay" id="spin-overlay">
-  <div class="spinner"></div>
-  <div class="spin-txt">Submitting your application to DOST-3...</div>
-</div>
-
-<!-- SUCCESS PAGE -->
-<div class="suc-pg" id="suc-pg">
-  <div class="suc-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-  <div class="suc-title">Submission Received!</div>
-  <div class="suc-sub">Your DOST-3 application has been successfully submitted. An email notification has been sent to DOST staff who will review your application and contact you.</div>
-  <div class="suc-ref">
-    <div class="suc-ref-lbl">Your Reference Number</div>
-    <div class="suc-ref-num" id="suc-ref-num">—</div>
+  <!-- Track Section -->
+  <div id="track">
+    <div class="section-label">Already applied?</div>
+    <h2 class="section-title">Track your application</h2>
+    <div class="track-card">
+      <div class="track-info">
+        <h3>Check Application Status</h3>
+        <p>Enter your reference number to view the current status of your submission.</p>
+      </div>
+      <div class="track-form">
+        <input type="text" id="track-ref" placeholder="e.g. DOST3-2025-00001" maxlength="30">
+        <button onclick="trackApplication()">Track →</button>
+      </div>
+    </div>
   </div>
-  <div class="suc-note">Please keep this reference number for your records.</div>
-</div>
+
+  <!-- Info Section -->
+  <div id="help">
+    <div class="section-label">Before you apply</div>
+    <h2 class="section-title">What to prepare</h2>
+    <p class="section-desc">Have these ready before filling out the form to make the process faster.</p>
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="info-icon" style="background:#E6EDF7">🏢</div>
+        <h4>Business Registration</h4>
+        <p>DTI, SEC, or CDA registration number and year. Also prepare your company registration date.</p>
+      </div>
+      <div class="info-card">
+        <div class="info-icon" style="background:#EAF4EC">👤</div>
+        <h4>Owner Information</h4>
+        <p>Owner or authorized representative's full name, birthdate, sex, contact details, and valid email address.</p>
+      </div>
+      <div class="info-card">
+        <div class="info-icon" style="background:#E6F4F0">📊</div>
+        <h4>Financial Data</h4>
+        <p>Initial capital, annual production volume, estimated production value, and employment count by category.</p>
+      </div>
+      <div class="info-card">
+        <div class="info-icon" style="background:#FFF8E6">⚡</div>
+        <h4>Energy Records (EMP)</h4>
+        <p>Past 12 months of electricity bills (kWh &amp; PHP) and fuel consumption logs if applying for EMP.</p>
+      </div>
+      <div class="info-card">
+        <div class="info-icon" style="background:#FEF0F0">📋</div>
+        <h4>Farm Data (APP)</h4>
+        <p>Commodity list, varieties/breeds, farm area per crop, average yield, income per cropping season.</p>
+      </div>
+      <div class="info-card">
+        <div class="info-icon" style="background:#E6F4F2">📧</div>
+        <h4>Valid Email Address</h4>
+        <p>You will receive a confirmation email with your reference number and a PDF copy of your submitted form.</p>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <strong style="color:white">DOST-III PORMS</strong> &mdash; Department of Science and Technology, Region III<br>
+      DOST-III Compound, Maimpis, City of San Fernando, Pampanga
+    </div>
+    <div style="text-align:right">
+      <a href="#">Privacy Policy</a> &nbsp;·&nbsp;
+      <a href="#">Terms of Use</a> &nbsp;·&nbsp;
+      <a href="#">Contact Us</a><br>
+      <span style="font-size:12px">&copy; 2025 DOST-III. All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
 
 <script>
-// ─── IMPORTANT: Replace with your Google Apps Script deployment URL ────────────
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzvnRbHMCZMKMhsoVs0M0zba2Q1Pvlru6ulPbFbD9wXYRQ_d3wCfbRwctTc6PgU9s5x/exec';
+// ── WEBAPP URL ─────────────────────────────────────────────
+// Replace this with your deployed Apps Script Web App URL
+const WEBAPP_URL = 'YOUR_GOOGLE_APPS_SCRIPT_WEBAPP_URL_HERE';
 
-// ─── PROGRAM TOGGLE ────────────────────────────────────────────────────────────
-const progs = {app:false, mpp:false, emp:false, fs:false};
+// ── STATE ──────────────────────────────────────────────────
+const selected = new Set();
 
-function toggleProg(p) {
-  progs[p] = !progs[p];
-  document.getElementById('card-'+p).classList.toggle('sel', progs[p]);
-  document.getElementById('badge-'+p).classList.toggle('on', progs[p]);
-  const any = Object.values(progs).some(v=>v);
-  document.getElementById('badge-none').style.display = any ? 'none' : 'inline';
-  updateVisibility();
-}
-
-function show(id){const e=document.getElementById(id);if(e)e.classList.remove('hidden');}
-function hide(id){const e=document.getElementById(id);if(e)e.classList.add('hidden');}
-function showEl(id){const e=document.getElementById(id);if(e)e.style.display='';}
-function hideEl(id){const e=document.getElementById(id);if(e)e.style.display='none';}
-function toRoman(n){return['I','II','III','IV','V','VI','VII','VIII','IX','X'][n-1]||n;}
-
-function updateVisibility() {
-  const {app,mpp,emp,fs} = progs;
-
-  // ── SHOW / HIDE SECTIONS ───────────────────────────────────
-  app ? show('sec-app') : hide('sec-app');
-  mpp ? show('sec-mpp') : hide('sec-mpp');
-  emp ? show('sec-emp') : hide('sec-emp');
-  fs  ? show('sec-fs')  : hide('sec-fs');
-
-  // ── RENUMBER ───────────────────────────────────────────────
-  let n=1;
-  if(app) document.getElementById('app-sec-num').textContent=toRoman(n++);
-  if(mpp) document.getElementById('mpp-sec-num').textContent=toRoman(n++);
-  if(emp) document.getElementById('emp-sec-num').textContent=toRoman(n++);
-  if(fs)  document.getElementById('fs-sec-num').textContent=toRoman(n++);
-
-  // ── PRIORITY RULES ─────────────────────────────────────────
-  // Firm/Owner/Consult: APP owns first, then MPP, then EMP
-  // Classification (org/capital/emp): MPP owns first, then EMP
-  // FS: hides shared groups when any other program selected
-
-  const anyBeforeFs = app||mpp||emp;
-  const classOwner  = mpp||emp; // org type, capital, emp class
-
-  // ── APP ────────────────────────────────────────────────────
-  if(app) {
-    (mpp||emp||fs) ? show('app-owner-shared-note')   : hide('app-owner-shared-note');
-    (mpp||emp)     ? show('app-consult-shared-note') : hide('app-consult-shared-note');
+// ── TOGGLE PROGRAM ─────────────────────────────────────────
+function toggleProgram(code, card) {
+  if (selected.has(code)) {
+    selected.delete(code);
+    card.classList.remove('selected');
+  } else {
+    selected.add(code);
+    card.classList.add('selected');
   }
+  renderTags();
+  document.getElementById('proceed-btn').disabled = selected.size === 0;
+}
 
-  // ── MPP ────────────────────────────────────────────────────
-  if(mpp) {
-    // Firm name/province/address: hide if APP already has it (Name of Firm = Name of Firm)
-    if(app){ hide('mpp-firm-fields'); show('mpp-firm-shared-msg'); }
-    else   { show('mpp-firm-fields'); hide('mpp-firm-shared-msg'); }
-    // Brief background: hide if APP already has it
-    if(app){ hide('mpp-background-fields'); show('mpp-background-shared-msg'); }
-    else   { show('mpp-background-fields'); hide('mpp-background-shared-msg'); }
-    // Owner: hide if APP already has it
-    if(app){ hide('mpp-owner-fields'); show('mpp-owner-shared-msg'); }
-    else   { show('mpp-owner-fields'); hide('mpp-owner-shared-msg'); }
-    // Consultations: hide if APP already has it
-    if(app){ show('mpp-consult-shared-note'); hideEl('mpp-consult-block'); showEl('mpp-consult-shared-msg'); }
-    else   { hide('mpp-consult-shared-note'); showEl('mpp-consult-block'); hideEl('mpp-consult-shared-msg'); }
+// ── RENDER TAGS ────────────────────────────────────────────
+function renderTags() {
+  const container = document.getElementById('selected-tags');
+  const empty = document.getElementById('empty-msg');
+  if (selected.size === 0) {
+    container.innerHTML = '';
+    container.appendChild(empty);
+    return;
   }
-
-  // ── EMP ────────────────────────────────────────────────────
-  if(emp) {
-    // Firm name/address/province/background: hide if APP or MPP already has it
-    if(app||mpp){ hide('emp-firm-fields'); show('emp-firm-shared-msg'); }
-    else        { show('emp-firm-fields'); hide('emp-firm-shared-msg'); }
-    // Owner: hide if APP or MPP already has it
-    if(app||mpp){ hide('emp-owner-fields'); }
-    else        { show('emp-owner-fields'); }
-    // Pre-assessment (Year/Capital/Reg): hide only if MPP already has it
-    if(mpp){ hide('emp-preassess-fields'); show('emp-preassess-shared-msg'); }
-    else   { show('emp-preassess-fields'); hide('emp-preassess-shared-msg'); }
-    // Consultations: hide if APP or MPP already has it
-    if(app||mpp){ show('emp-consult-shared-note'); hideEl('emp-consult-question'); showEl('emp-consult-shared-msg'); }
-    else        { hide('emp-consult-shared-note'); showEl('emp-consult-question'); hideEl('emp-consult-shared-msg'); }
-  }
-
-  // ── FS ─────────────────────────────────────────────────────
-  if(fs) {
-    // Show reference note if any other program selected
-    anyBeforeFs ? show('fs-firm-ref-note') : hide('fs-firm-ref-note');
-
-    // GROUP 1 — Firm name/province/address: hide if any other program selected
-    if(anyBeforeFs){ hide('fs-firm-fields'); show('fs-firm-shared-msg'); }
-    else           { show('fs-firm-fields'); hide('fs-firm-shared-msg'); }
-
-    // GROUP 2 — Owner name/age/sex/email/contact: hide if any other program selected
-    if(anyBeforeFs){ hide('fs-owner-fields'); show('fs-owner-shared-msg'); }
-    else           { show('fs-owner-fields'); hide('fs-owner-shared-msg'); }
-
-    // GROUP 3 — Background: hide if any other program selected
-    if(anyBeforeFs){ hide('fs-background-fields'); show('fs-background-shared-msg'); }
-    else           { show('fs-background-fields'); hide('fs-background-shared-msg'); }
-
-    // GROUP 4 — Org type/capital/emp class/num employees: hide if MPP or EMP selected
-    // (they collect more detailed employee breakdown)
-    if(mpp||emp){ hide('fs-classification-fields'); show('fs-classification-shared-msg'); }
-    else        { show('fs-classification-fields'); hide('fs-classification-shared-msg'); }
-  }
-}
-
-
-function showConsult(yes){yes?show('blk-consult-yes'):hide('blk-consult-yes');yes?hide('blk-consult-no'):show('blk-consult-no');}
-function showMppConsult(yes){yes?show('blk-mpp-consult-yes'):hide('blk-mpp-consult-yes');yes?hide('blk-mpp-consult-no'):show('blk-mpp-consult-no');}
-function showEmpConsult(yes){yes?show('blk-emp-consult-yes'):hide('blk-emp-consult-yes');yes?hide('blk-emp-consult-no'):show('blk-emp-consult-no');}
-
-function addRow(tbodyId, cols) {
-  const tb=document.getElementById(tbodyId); if(!tb)return;
-  const tr=document.createElement('tr');
-  let h=''; for(let i=0;i<cols;i++) h+='<td><input type="text"></td>';
-  tr.innerHTML=h; tb.appendChild(tr);
-}
-
-// ─── DATA COLLECTION HELPERS ───────────────────────────────────────────────────
-function gv(id){const e=document.getElementById(id);return e?e.value.trim():'';}
-function gc(id){const e=document.getElementById(id);return e&&e.checked?'Yes':'';}
-function gr(name){const e=document.querySelector('input[name="'+name+'"]:checked');if(!e)return'';return(e.value&&e.value!=='on')?e.value:e.parentElement.textContent.trim();}
-
-// Serialize a table's tbody rows as "cell1||cell2||...;;row2..."
-function getTableRows(tbodyId) {
-  const tb=document.getElementById(tbodyId); if(!tb)return'';
-  const rows=[];
-  tb.querySelectorAll('tr').forEach(tr=>{
-    const inputs=tr.querySelectorAll('input,select');
-    const row=[]; let hasData=false;
-    inputs.forEach(i=>{if((i.value||'').trim())hasData=true; row.push(i.value||'');});
-    if(hasData) rows.push(row.join('||'));
-  });
-  return rows.join(';;');
-}
-
-function getMppConcerns() {
-  const items=[];
-  document.querySelectorAll('#sec-mpp .ctbl tbody tr').forEach(tr=>{
-    const chk=tr.querySelector('td:first-child input[type="checkbox"]');
-    const area=tr.querySelector('td.area');
-    const subs=[];
-    tr.querySelectorAll('.sub-ci input[type="checkbox"]:checked').forEach(cb=>subs.push(cb.parentElement.textContent.trim()));
-    if((chk&&chk.checked)||subs.length)
-      items.push((area?area.textContent.trim():'')+(subs.length?' ['+subs.join(', ')+']':''));
-  });
-  return items.join(' | ');
-}
-
-function getEmpQual() {
-  const map=[['emp-qual-a','(A) 18,000 kWh min'],['emp-qual-b1','(B-a) LPG 2,500kg min'],
-             ['emp-qual-b2','(B-b) Diesel 5,000L min'],['emp-qual-b3','(B-c) PHP 220k combination'],
-             ['emp-qual-c','(C) Grand Total PHP 220k min']];
-  return map.filter(([id])=>{const e=document.getElementById(id);return e&&e.checked;}).map(([,l])=>l).join(' | ');
-}
-
-// ─── COLLECT ALL FORM DATA ─────────────────────────────────────────────────────
-function collectAllData(ref, editLink) {
-  return {
-    referenceNumber: ref,
-    submissionDate: new Date().toISOString(),
-    programs: Object.entries(progs).filter(([k,v])=>v).map(([k])=>k.toUpperCase()).join(','),
-    editLink: editLink,
-    // APP
-    appFarmName:gv('app-farm-name'), appFarmAddress:gv('app-farm-address'),
-    appArea:gv('app-area'), appYearEst:gv('app-year-est'),
-    appWorkers:gv('app-workers'), appProvince:gv('app-province'),
-    appBackground:gv('app-background'),
-    appC1:gv('app-commodity-1'), appC2:gv('app-commodity-2'), appC3:gv('app-commodity-3'),
-    appFarmRows:getTableRows('app-farm-tbody'),
-    appPreAssessRows:getTableRows('app-preassess-tbody'),
-    // Shared owner (from APP fields)
-    ownerName:gv('owner-name'), contactPerson:gv('contact-person'),
-    ownerSex:gv('owner-sex'), ownerAge:gv('owner-age'),
-    ownerPosition:gv('owner-position'), contactSex:gv('contact-sex'),
-    ownerPwd:gc('owner-pwd'), ownerSenior:gc('owner-senior'),
-    ownerEmail:gv('owner-email'),
-    consultAns:gr('prev-consult'), consultNoReason:gv('consult-no-reason'),
-    appConsultRows:getTableRows('consult-tbody'),
-    // MPP firm / owner
-    firmName:gv('firm-name'), firmProvince:gv('firm-province'), firmAddress:gv('firm-address'),
-    firmOwnerName:gv('firm-owner-name'), firmContactPerson:gv('firm-contact-person'),
-    firmOwnerSex:gv('firm-owner-sex'), firmOwnerAge:gv('firm-owner-age'),
-    firmOwnerPosition:gv('firm-owner-position'), firmContactSex:gv('firm-contact-sex'),
-    firmOwnerPwd:gc('firm-owner-pwd'), firmOwnerSenior:gc('firm-owner-senior'),
-    firmContactNum:gv('firm-contact-num'), firmEmail:gv('firm-email'),
-    mppBackground:gv('mpp-background'),
-    mppConsultAns:gr('mpp-consult'), mppConsultNoReason:gv('mpp-consult-no-reason'),
-    mppConsultRows:getTableRows('mpp-consult-tbody'),
-    mppPaYear:gv('mpp-pa-year'), mppPaCapital:gv('mpp-pa-capital'),
-    mppPaRegnum:gv('mpp-pa-regnum'), mppPaRegyear:gv('mpp-pa-regyear'),
-    mppOrg:gr('mpp-org'), mppCap:gr('mpp-cap'), mppEmp:gr('mpp-emp'),
-    mppEmpProd:gv('mpp-emp-prod'), mppEmpNonprod:gv('mpp-emp-nonprod'),
-    mppEmpIndirect:gv('mpp-emp-indirect'), mppEmpTotal:gv('mpp-emp-total'),
-    mppProdVol:gv('mpp-prod-vol'), mppProdVal:gv('mpp-prod-val'),
-    mppBizOthers:gv('mpp-biz-others'), mppProducts:gv('mpp-products'),
-    mppOrgchart:gr('mpp-orgchart'), mppConcerns:getMppConcerns(),
-    // EMP
-    empFirmName:gv('emp-firm-name'), empFirmProvince:gv('emp-firm-province'),
-    empFirmAddress:gv('emp-firm-address'), empOwnerName:gv('emp-owner-name'),
-    empContactPerson:gv('emp-contact-person'), empOwnerSex:gv('emp-owner-sex'),
-    empOwnerAge:gv('emp-owner-age'), empOwnerPosition:gv('emp-owner-position'),
-    empContactSex:gv('emp-contact-sex'), empOwnerPwd:gc('emp-owner-pwd'),
-    empOwnerSenior:gc('emp-owner-senior'), empContactNum:gv('emp-contact-num'),
-    empEmail:gv('emp-email'), empBackground:gv('emp-background'),
-    empConsultAns:gr('emp-consult'), empConsultNoReason:gv('emp-consult-no-reason'),
-    empConsultRows:getTableRows('emp-consult-tbody'),
-    empPaYear:gv('emp-pa-year'), empPaCapital:gv('emp-pa-capital'),
-    empPaRegnum:gv('emp-pa-regnum'), empPaRegyear:gv('emp-pa-regyear'),
-    empOrg:gr('emp-org'), empCap:gr('emp-cap'), empEmpcl:gr('emp-empcl'),
-    empEmpProd:gv('emp-emp-prod'), empEmpNonprod:gv('emp-emp-nonprod'),
-    empEmpIndirect:gv('emp-emp-indirect'), empEmpTotal:gv('emp-emp-total'),
-    empProdVol:gv('emp-prod-vol'), empProdVal:gv('emp-prod-val'),
-    empProducts:gv('emp-products'),
-    empElecRows:getTableRows('emp-elec-tbody'),
-    empElecTotalKwh:gv('emp-elec-total-kwh'), empElecTotalPhp:gv('emp-elec-total-php'),
-    empLpgRows:getTableRows('emp-lpg-tbody'),
-    empLpgTotalKg:gv('emp-lpg-total-kg'), empLpgTotalPhp:gv('emp-lpg-total-php'),
-    empDieselRows:getTableRows('emp-diesel-tbody'),
-    empDieselTotalLiters:gv('emp-diesel-total-liters'), empDieselTotalPhp:gv('emp-diesel-total-php'),
-    empFuelTotal:gv('emp-fuel-total'), empCombinedElec:gv('emp-combined-elec'),
-    empCombinedFuel:gv('emp-combined-fuel'), empGrandTotal:gv('emp-grand-total'),
-    empEquipRows:getTableRows('emp-equip-tbody'), empQual:getEmpQual(),
-    // FS
-    fsProvince:gv('fs-province'), fsFirmName:gv('fs-firm-name'),
-    fsFirmAddress:gv('fs-firm-address'), fsOwnerName:gv('fs-owner-name'),
-    fsOwnerAge:gv('fs-owner-age'), fsOwnerBirthdate:gv('fs-owner-birthdate'),
-    fsOwnerSex:gr('fs-owner-sex'), fsContactNum:gv('fs-contact-num'),
-    fsEmail:gv('fs-email'), fsContactPerson:gv('fs-contact-person'),
-    fsContactPersonNum:gv('fs-contact-person-num'),
-    fsProd1:gv('fs-prod-1'), fsProd2:gv('fs-prod-2'), fsProd3:gv('fs-prod-3'),
-    fsBackground:gv('fs-background'), fsOrg:gr('fs-org'), fsCap:gr('fs-cap'),
-    fsEmpcl:gr('fs-empcl'), fsEmpM:gv('fs-emp-m'), fsEmpF:gv('fs-emp-f'),
-    fsRemarks:gv('fs-remarks'),
-  };
-}
-
-// ─── REVIEW & SUBMIT ───────────────────────────────────────────────────────────
-function openReview(doSubmit) {
-  if(!Object.values(progs).some(v=>v)){alert('Please select at least one program.');return;}
-  document.getElementById('modal-title').textContent = doSubmit ? 'Confirm & Submit' : 'Review Your Answers';
-  document.getElementById('submit-btn').style.display = doSubmit ? 'inline-flex' : 'none';
-  document.getElementById('review-body').innerHTML = buildReviewHtml();
-  document.getElementById('review-modal').classList.add('open');
-}
-function closeReview(){document.getElementById('review-modal').classList.remove('open');}
-
-function submitForm() {
-  if(!Object.values(progs).some(v=>v)){alert('Please select at least one program.');return;}
-  closeReview();
-
-  // Generate reference number
-  const ref = 'DOST-3-' + new Date().getFullYear() + '-' + String(Date.now()).slice(-6);
-
-  // Build the edit.html URL with all form data as query parameters
-  // edit.html must be in the same folder as index.html on GitHub Pages
-  const baseUrl = window.location.href.replace(/\/[^\/]*(\?.*)?$/, '/');
-  const data = collectAllData(ref, '');
-
-  // Encode all data as URL params — edit.html will read these
-  const params = new URLSearchParams();
-  Object.entries(data).forEach(([k,v]) => params.set(k, v || ''));
-  const editLink = baseUrl + 'edit.html?' + params.toString();
-  data.editLink = editLink;
-
-  // Show spinner
-  document.getElementById('spin-overlay').classList.add('open');
-
-  // POST to Google Apps Script — this triggers the email to DOST and saves to Sheets
-  fetch(APPS_SCRIPT_URL, {
-    method: 'POST',
-    mode: 'no-cors', // Required for GAS; we won't get a response body back
-    headers: {'Content-Type': 'text/plain'},
-    body: JSON.stringify(data)
-  }).catch(() => {
-    // no-cors always "fails" silently — that's expected
-  }).finally(() => {
-    document.getElementById('spin-overlay').classList.remove('open');
-    document.getElementById('suc-ref-num').textContent = ref;
-    document.getElementById('suc-pg').classList.add('open');
+  empty.remove();
+  container.innerHTML = '';
+  const colors = { APP:'#2D6A35', MPP:'#1A3F6B', EMP:'#1A5C4A', FS:'#1B7A6E' };
+  selected.forEach(code => {
+    const tag = document.createElement('span');
+    tag.className = 'sel-tag';
+    tag.style.background = colors[code] || '#333';
+    tag.innerHTML = `${code} <button onclick="removeProgram('${code}')" title="Remove">×</button>`;
+    container.appendChild(tag);
   });
 }
 
-// ─── REVIEW HTML BUILDER ───────────────────────────────────────────────────────
-function buildReviewHtml() {
-  const sel = Object.entries(progs).filter(([k,v])=>v).map(([k])=>k.toUpperCase()).join(', ') || 'None';
-
-  // ── HELPERS ──────────────────────────────────────────────
-  function rv(lbl,v){
-    return '<div><div class="rv-label">'+lbl+'</div><div class="rv-val">'+(v&&v.trim()?v:'—')+'</div></div>';
-  }
-  function rv2(lbl,v){ // full width
-    return '<div style="grid-column:span 2"><div class="rv-label">'+lbl+'</div><div class="rv-val">'+(v&&v.trim()?v:'—')+'</div></div>';
-  }
-  function sec(title,fields){
-    return '<div class="rev-sec"><div class="rev-sec-title">'+title+'</div><div class="rev-grid">'+fields+'</div></div>';
-  }
-  function tblHdr(cols,color){
-    color=color||'#1a2d4f';
-    return '<thead><tr>'+cols.map(c=>'<th style="background:'+color+';color:white;padding:5px 8px;font-size:11px;text-align:left">'+c+'</th>').join('')+'</tr></thead>';
-  }
-  function tblWrap(headers,rows,color){
-    return '<table style="width:100%;border-collapse:collapse;margin:6px 0 10px;font-size:12px">'+tblHdr(headers,color)+'<tbody>'+rows+'</tbody></table>';
-  }
-  function tblRow(cells){
-    return '<tr>'+cells.map(c=>'<td style="padding:4px 8px;border:1px solid #ccd6e8">'+(c||'—')+'</td>').join('')+'</tr>';
-  }
-  // Read all rows from a tbody (including empty ones up to minRows)
-  function readTbody(tbodyId, minRows){
-    var tb=document.getElementById(tbodyId); if(!tb)return[];
-    var rows=[];
-    tb.querySelectorAll('tr').forEach(function(tr){
-      var inputs=tr.querySelectorAll('input,select');
-      var row=[];
-      inputs.forEach(function(i){row.push(i.value||'');});
-      rows.push(row);
-    });
-    while(minRows && rows.length<minRows) rows.push([]);
-    return rows;
-  }
-  // Read 12-month energy table (skips month-label col, reads 2 input cols)
-  function readEnergyTbody(tbodyId){
-    var tb=document.getElementById(tbodyId); if(!tb)return[];
-    var rows=[];
-    tb.querySelectorAll('tr').forEach(function(tr){
-      var inputs=tr.querySelectorAll('input');
-      rows.push([inputs[0]?inputs[0].value:'', inputs[1]?inputs[1].value:'']);
-    });
-    return rows;
-  }
-  // Render checked checkboxes in a container
-  function getCheckedLabels(selector){
-    var items=[];
-    document.querySelectorAll(selector+' input[type="checkbox"]:checked').forEach(function(cb){
-      var lbl=cb.parentElement.textContent.trim();
-      if(lbl) items.push(lbl);
-    });
-    return items.length?items.join(', '):'—';
-  }
-
-  var h='';
-  h+='<div class="rev-sec"><div class="rev-sec-title">Selected Programs</div>';
-  h+='<div style="padding:8px 0"><strong style="color:var(--navy);font-size:14px">'+sel+'</strong></div></div>';
-
-  // ══ APP ══════════════════════════════════════════════════
-  if(progs.app){
-    h+=sec('APP — Firm / Farm Details',
-      rv('Name of Firm',gv('app-farm-name'))+rv('Province',gv('app-province'))+
-      rv2('Complete Address',gv('app-farm-address'))+
-      rv('Area of Farm',gv('app-area'))+rv('Year Established',gv('app-year-est'))+
-      rv('No. of Workers',gv('app-workers'))+rv('Brief Background',gv('app-background'))
-    );
-    h+=sec('APP — Owner / Representative',
-      rv('Owner Name',gv('owner-name'))+rv('Contact Person',gv('contact-person'))+
-      rv('Sex (Owner)',gv('owner-sex'))+rv('Age',gv('owner-age'))+
-      rv('Position',gv('owner-position'))+rv('Mobile No.',gv('owner-mobile'))+
-      rv('PWD',gc('owner-pwd')?'Yes':'No')+rv('Senior Citizen',gc('owner-senior')?'Yes':'No')+
-      rv2('E-mail',gv('owner-email'))
-    );
-    // Commodities
-    h+=sec('APP — Commodities',
-      rv('Commodity 1',gv('app-commodity-1'))+rv('Commodity 2',gv('app-commodity-2'))+
-      rv2('Commodity 3',gv('app-commodity-3'))
-    );
-    // Consultations
-    var cAns=gr('prev-consult');
-    h+='<div class="rev-sec"><div class="rev-sec-title">APP — Previous Consultations</div><div class="rev-grid">';
-    h+=rv2('Consulted DOST / Other Organization?',cAns||'—');
-    if(cAns==='no') h+=rv2('Why not?',gv('consult-no-reason'));
-    h+='</div>';
-    if(cAns==='yes'){
-      var cRows=readTbody('consult-tbody',3);
-      h+=tblWrap(['Agency / Company','Date of Assistance','Type of Assistance'],
-        cRows.map(function(r){return tblRow(r);}).join(''));
-    }
-    h+='</div>';
-    // Farm Data table
-    var farmRows=readTbody('app-farm-tbody',4);
-    h+='<div class="rev-sec"><div class="rev-sec-title">APP — Farm Data</div>';
-    h+=tblWrap(['Commodity','Variety/Breed','Area','Avg Yield/Cropping','Avg Income/Cropping','No. of Croppings/Yr','Other Info'],
-      farmRows.map(function(r){return tblRow(r);}).join(''));
-    h+='</div>';
-    // Pre-Assessment table
-    var preRows=readTbody('app-preassess-tbody',5);
-    h+='<div class="rev-sec"><div class="rev-sec-title">APP — Pre-Assessment (DOST Staff)</div>';
-    h+=tblWrap(['Possible Areas of Interventions','Technical Needs / Problems','Initial Recommendations / Remarks'],
-      preRows.map(function(r){return tblRow(r);}).join(''));
-    h+='</div>';
-  }
-
-  // ══ MPP ══════════════════════════════════════════════════
-  if(progs.mpp){
-    var oName=progs.app?gv('owner-name'):gv('firm-owner-name');
-    var oSex=progs.app?gv('owner-sex'):gv('firm-owner-sex');
-    var oAge=progs.app?gv('owner-age'):gv('firm-owner-age');
-    var oPos=progs.app?gv('owner-position'):gv('firm-owner-position');
-    var oEmail=progs.app?gv('owner-email'):gv('firm-email');
-    var cpName=progs.app?gv('contact-person'):gv('firm-contact-person');
-    var cpSex=progs.app?gv('contact-sex'):gv('firm-contact-sex');
-    var fName=progs.app?gv('app-farm-name'):gv('firm-name');
-    var fProv=progs.app?gv('app-province'):gv('firm-province');
-    var fAddr=progs.app?gv('app-farm-address'):gv('firm-address');
-    var fBg=progs.app?gv('app-background'):gv('mpp-background');
-    h+=sec('MPP — Firm Information',
-      rv('Name of Firm',fName)+rv('Province',fProv)+
-      rv2('Complete Address',fAddr)+
-      rv('Owner Name',oName)+rv('Contact Person',cpName)+
-      rv('Sex (Owner)',oSex)+rv('Age',oAge)+
-      rv('Position',oPos)+
-      rv('Contact Number',gv('firm-contact-num'))+rv2('E-mail',oEmail)+
-      rv2('Brief Firm Background',fBg)
-    );
-    h+=sec('MPP — Pre-Assessment Checklist',
-      rv('Year Established',gv('mpp-pa-year'))+rv('Initial Capital (PHP)',gv('mpp-pa-capital'))+
-      rv('Company Reg. No.',gv('mpp-pa-regnum'))+rv('Year Registered',gv('mpp-pa-regyear'))+
-      rv('Type of Organization',gr('mpp-org'))+rv('Capital Classification',gr('mpp-cap'))+
-      rv('Employment Classification',gr('mpp-emp'))+rv('Direct Workers — Production',gv('mpp-emp-prod'))+
-      rv('Direct Workers — Non-production',gv('mpp-emp-nonprod'))+rv('Indirect / On-call',gv('mpp-emp-indirect'))+
-      rv('Total Employees',gv('mpp-emp-total'))+rv('Annual Volume of Production',gv('mpp-prod-vol'))+
-      rv('Estimated Value (PHP)',gv('mpp-prod-val'))+rv2('Products / Services',gv('mpp-products'))+
-      rv('Organizational Chart',gr('mpp-orgchart'))+rv2('Other Business Activity',gv('mpp-biz-others'))
-    );
-    // Consultations
-    var mConsultAns=progs.app?'(See APP above)':gr('mpp-consult');
-    h+='<div class="rev-sec"><div class="rev-sec-title">MPP — Consultations</div><div class="rev-grid">';
-    h+=rv2('Consulted DOST?',mConsultAns);
-    if(!progs.app && mConsultAns==='no') h+=rv2('Why not?',gv('mpp-consult-no-reason'));
-    h+='</div>';
-    if(!progs.app && mConsultAns==='yes'){
-      var mCRows=readTbody('mpp-consult-tbody',3);
-      h+=tblWrap(['Agency / Company','Date','Type of Assistance'],
-        mCRows.map(function(r){return tblRow(r);}).join(''),'#1a3f6b');
-    }
-    h+='</div>';
-    // Concerns
-    var mppConcernRows='';
-    document.querySelectorAll('#sec-mpp .ctbl tbody tr').forEach(function(tr){
-      var chk=tr.querySelector('td:first-child input[type="checkbox"]');
-      var area=tr.querySelector('td.area');
-      if(!chk||!area)return;
-      var subs=[];
-      tr.querySelectorAll('.sub-ci input[type="checkbox"]:checked').forEach(function(cb){subs.push(cb.parentElement.textContent.trim());});
-      mppConcernRows+=tblRow([area.textContent.trim(), chk.checked?'✓':'', subs.join(', ')]);
-    });
-    h+='<div class="rev-sec"><div class="rev-sec-title">MPP — Technical Assistance Concerns</div>';
-    h+=tblWrap(['Area of Concern','Selected','Sub-Areas'],mppConcernRows,'#1a3f6b');
-    h+='</div>';
-  }
-
-  // ══ EMP ══════════════════════════════════════════════════
-  if(progs.emp){
-    var eFirmName=progs.mpp?gv('firm-name'):(progs.app?gv('app-farm-name'):gv('emp-firm-name'));
-    var eFirmProv=progs.mpp?gv('firm-province'):(progs.app?gv('app-province'):gv('emp-firm-province'));
-    var eFirmAddr=progs.mpp?gv('firm-address'):(progs.app?gv('app-farm-address'):gv('emp-firm-address'));
-    var eOwner=progs.app?gv('owner-name'):(progs.mpp?gv('firm-owner-name'):gv('emp-owner-name'));
-    var eBg=progs.app?gv('app-background'):(progs.mpp?gv('mpp-background'):gv('emp-background'));
-    h+=sec('EMP — Firm Information',
-      rv('Name of Firm',eFirmName)+rv('Province',eFirmProv)+
-      rv2('Complete Address',eFirmAddr)+
-      rv('Owner',eOwner)+rv('Contact Person',progs.app?gv('contact-person'):(progs.mpp?gv('firm-contact-person'):gv('emp-contact-person')))+
-      rv('Contact Number',progs.mpp?gv('firm-contact-num'):gv('emp-contact-num'))+rv2('E-mail',progs.mpp?gv('firm-email'):gv('emp-email'))+
-      rv2('Brief Background',eBg)
-    );
-    h+=sec('EMP — Pre-Assessment Checklist',
-      rv('Year Established',gv('emp-pa-year'))+rv('Initial Capital (PHP)',gv('emp-pa-capital'))+
-      rv('Company Reg. No.',gv('emp-pa-regnum'))+rv('Year Registered',gv('emp-pa-regyear'))+
-      rv('Type of Organization',gr('emp-org'))+rv('Capital Classification',gr('emp-cap'))+
-      rv('Employment Classification',gr('emp-empcl'))+rv('Direct Workers — Production',gv('emp-emp-prod'))+
-      rv('Direct Workers — Non-production',gv('emp-emp-nonprod'))+rv('Indirect / On-call',gv('emp-emp-indirect'))+
-      rv('Total Employees',gv('emp-emp-total'))+rv('Annual Volume of Production',gv('emp-prod-vol'))+
-      rv('Estimated Value (PHP)',gv('emp-prod-val'))+rv2('Products / Services',gv('emp-products'))
-    );
-    // Electricity table — all 12 months + total row
-    var months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','TOTAL'];
-    var elecRows=readEnergyTbody('emp-elec-tbody');
-    var elecHtml=elecRows.map(function(r,i){
-      var isTotal=i===elecRows.length-1;
-      var style=isTotal?'background:#e8f0fa;font-weight:700':'';
-      return '<tr><td style="padding:4px 8px;border:1px solid #ccd6e8;text-align:center;font-weight:600;'+style+'">'+(months[i]||i+1)+'</td><td style="padding:4px 8px;border:1px solid #ccd6e8;'+style+'">'+(r[0]||'—')+'</td><td style="padding:4px 8px;border:1px solid #ccd6e8;'+style+'">'+(r[1]||'—')+'</td></tr>';
-    }).join('');
-    h+='<div class="rev-sec"><div class="rev-sec-title">EMP — Electricity Consumption (Past 12 Months)</div>';
-    h+=tblWrap(['Month','Consumption (kWh)','Electric Bill (PHP)'],elecHtml,'#1a5c4a');
-    h+='</div>';
-    // LPG + Diesel side by side
-    var lpgRows=readEnergyTbody('emp-lpg-tbody');
-    var dieselRows=readEnergyTbody('emp-diesel-tbody');
-    var lpgHtml=lpgRows.map(function(r,i){
-      var isTotal=i===lpgRows.length-1;
-      var style=isTotal?'background:#e8f0fa;font-weight:700':'';
-      return '<tr><td style="padding:4px 8px;border:1px solid #ccd6e8;text-align:center;font-weight:600;'+style+'">'+(months[i]||i+1)+'</td><td style="padding:4px 8px;border:1px solid #ccd6e8;'+style+'">'+(r[0]||'—')+'</td><td style="padding:4px 8px;border:1px solid #ccd6e8;'+style+'">'+(r[1]||'—')+'</td></tr>';
-    }).join('');
-    var dieselHtml=dieselRows.map(function(r,i){
-      var isTotal=i===dieselRows.length-1;
-      var style=isTotal?'background:#e8f0fa;font-weight:700':'';
-      return '<tr><td style="padding:4px 8px;border:1px solid #ccd6e8;text-align:center;font-weight:600;'+style+'">'+(months[i]||i+1)+'</td><td style="padding:4px 8px;border:1px solid #ccd6e8;'+style+'">'+(r[0]||'—')+'</td><td style="padding:4px 8px;border:1px solid #ccd6e8;'+style+'">'+(r[1]||'—')+'</td></tr>';
-    }).join('');
-    h+='<div class="rev-sec"><div class="rev-sec-title">EMP — Fuel Consumption (Past 12 Months)</div>';
-    h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">';
-    h+='<div><strong style="font-size:11px;color:#1a5c4a">LPG (kg)</strong>'+tblWrap(['Month','LPG (kg)','Bill (PHP)'],lpgHtml,'#1a5c4a')+'</div>';
-    h+='<div><strong style="font-size:11px;color:#1a5c4a">Diesel / Bunker (liters)</strong>'+tblWrap(['Month','Diesel (L)','Bill (PHP)'],dieselHtml,'#1a5c4a')+'</div>';
-    h+='</div></div>';
-    h+=sec('EMP — Fuel Totals & Grand Total',
-      rv('Total Production Fuel Bill (PHP)',gv('emp-fuel-total'))+rv('1 Year Electric Bill (PHP)',gv('emp-combined-elec'))+
-      rv('1 Year Fuel Bill (PHP)',gv('emp-combined-fuel'))+rv('GRAND TOTAL (PHP)',gv('emp-grand-total'))
-    );
-    // Equipment table
-    var equipRows=readTbody('emp-equip-tbody',4);
-    h+='<div class="rev-sec"><div class="rev-sec-title">EMP — Energy Consuming Equipment</div>';
-    h+=tblWrap(['Equipment & Description','Qty','Rated HP','Rated kW','Hours/Day'],
-      equipRows.map(function(r){return tblRow(r);}).join(''),'#1a5c4a');
-    h+='</div>';
-    // Qualification
-    var empQualItems=[];
-    document.querySelectorAll('#sec-emp .qual-box input[type="checkbox"]').forEach(function(cb){
-      empQualItems.push('<span style="margin-right:8px">'+(cb.checked?'☑':'☐')+' '+cb.parentElement.textContent.trim()+'</span>');
-    });
-    h+='<div class="rev-sec"><div class="rev-sec-title">EMP — Qualification Criteria</div>';
-    h+='<div style="padding:8px 0;font-size:12px;line-height:2">'+empQualItems.join('<br>')+'</div></div>';
-  }
-
-  // ══ FS ═══════════════════════════════════════════════════
-  if(progs.fs){
-    var fsFirm=progs.app?gv('app-farm-name'):(progs.mpp?gv('firm-name'):(progs.emp?gv('emp-firm-name'):gv('fs-firm-name')));
-    var fsProv=progs.app?gv('app-province'):(progs.mpp?gv('firm-province'):(progs.emp?gv('emp-firm-province'):gv('fs-province')));
-    var fsAddr=progs.app?gv('app-farm-address'):(progs.mpp?gv('firm-address'):(progs.emp?gv('emp-firm-address'):gv('fs-firm-address')));
-    var fsOwner=progs.app?gv('owner-name'):(progs.mpp?gv('firm-owner-name'):(progs.emp?gv('emp-owner-name'):gv('fs-owner-name')));
-    var fsAge=progs.app?gv('owner-age'):(progs.mpp?gv('firm-owner-age'):(progs.emp?gv('emp-owner-age'):gv('fs-owner-age')));
-    var fsEmail=progs.app?gv('owner-email'):(progs.mpp?gv('firm-email'):(progs.emp?gv('emp-email'):gv('fs-email')));
-    var fsContact=progs.app?gv('contact-person'):(progs.mpp?gv('firm-contact-person'):(progs.emp?gv('emp-contact-person'):gv('fs-contact-person')));
-    var fsContactNum=progs.mpp?gv('firm-contact-num'):(progs.emp?gv('emp-contact-num'):gv('fs-contact-num'));
-    var fsBg=progs.app?gv('app-background'):(progs.mpp?gv('mpp-background'):(progs.emp?gv('emp-background'):gv('fs-background')));
-    var fsOrg=progs.mpp?gr('mpp-org'):(progs.emp?gr('emp-org'):gr('fs-org'));
-    var fsCap=progs.mpp?gr('mpp-cap'):(progs.emp?gr('emp-cap'):gr('fs-cap'));
-    var fsEmpcl=progs.mpp?gr('mpp-emp'):(progs.emp?gr('emp-empcl'):gr('fs-empcl'));
-    h+=sec('FS — Company Profile',
-      rv('Name of Firm',fsFirm)+rv('Province',fsProv)+
-      rv2('Company Address',fsAddr)+
-      rv('Owner / Chairman',fsOwner)+rv('Age',fsAge)+
-      rv('Sex',gr('fs-owner-sex'))+rv2('E-mail',fsEmail)+
-      rv('Contact No.',fsContactNum)+rv('Contact Person',fsContact)+
-      rv('Product / Service 1',gv('fs-prod-1'))+rv('Product / Service 2',gv('fs-prod-2'))+
-      rv2('Product / Service 3',gv('fs-prod-3'))+
-      rv2('Brief Background',fsBg)+
-      rv('Type of Organization',fsOrg)+rv('Capital Classification',fsCap)+
-      rv('Employment Classification',fsEmpcl)+
-      rv('Male Employees',gv('fs-emp-m'))+rv('Female Employees',gv('fs-emp-f'))
-    );
-    // FS Level tables
-    function readFsTable(selector,headers,color){
-      var rows='';
-      document.querySelectorAll(selector+' tbody tr').forEach(function(tr){
-        var label=tr.cells[0]?tr.cells[0].textContent.trim():'';
-        if(!label)return;
-        var vals=[label];
-        tr.querySelectorAll('select,input[type=text],input[type=date]').forEach(function(el){vals.push(el.value||'—');});
-        rows+=tblRow(vals);
-      });
-      return rows?'<div class="rev-sec"><div class="rev-sec-title">'+headers[0]+'</div>'+tblWrap(headers.slice(1),rows,color||'#1b7a6e')+'</div>':'';
-    }
-    var fsTbls=document.querySelectorAll('#sec-fs .ftbl');
-    var fsTitles=[
-      ['FS — Level 1: Food Safety Awareness Training','Training','Yes/No','Date','Provider','Remarks'],
-      ['FS — Level 2: Food Safety Manuals','Manual','Yes/None','Date','Provider','Updated Records?'],
-      ['FS — Level 3: FDA Licensing & Registration','Question','Yes/No','Remarks'],
-      ['FS — Specialized Trainings / Consultancy','Training / Consultancy','Yes/No','Remarks'],
-    ];
-    fsTbls.forEach(function(tbl,i){
-      if(!fsTitles[i])return;
-      var rows='';
-      tbl.querySelectorAll('tbody tr').forEach(function(tr){
-        var label=tr.cells[0]?tr.cells[0].textContent.trim():'';
-        if(!label)return;
-        var vals=[label];
-        tr.querySelectorAll('select,input[type=text],input[type=date]').forEach(function(el){vals.push(el.value||'—');});
-        rows+=tblRow(vals);
-      });
-      if(rows){
-        h+='<div class="rev-sec"><div class="rev-sec-title">'+fsTitles[i][0]+'</div>';
-        h+=tblWrap(fsTitles[i].slice(1),rows,'#1b7a6e');
-        h+='</div>';
-      }
-    });
-    h+=sec('FS — Remarks',rv2('Remarks',gv('fs-remarks')));
-  }
-
-  return h;
+function removeProgram(code) {
+  selected.delete(code);
+  const card = document.getElementById('card-' + code);
+  if (card) card.classList.remove('selected');
+  renderTags();
+  document.getElementById('proceed-btn').disabled = selected.size === 0;
 }
 
+// ── PROCEED TO FORM ────────────────────────────────────────
+function proceedToForm() {
+  if (selected.size === 0) return;
+  const programs = Array.from(selected).join(',');
+  // Navigate to the unified form page with query params
+  window.location.href = `form.html?programs=${encodeURIComponent(programs)}`;
+}
 
-updateVisibility();
+// ── TRACK APPLICATION ──────────────────────────────────────
+async function trackApplication() {
+  const ref = document.getElementById('track-ref').value.trim();
+  if (!ref) { showToast('Please enter a reference number.', 'error'); return; }
+
+  showToast('Looking up your application…');
+  try {
+    const res = await fetch(`${WEBAPP_URL}?ref=${encodeURIComponent(ref)}`);
+    const data = await res.json();
+    if (!data.success) throw new Error(data.error || 'Not found');
+
+    const d = data.data;
+    const status = d['Status'] || 'Pending';
+    const firm = d['Firm / Farm Name'] || 'N/A';
+    const submitted = d['Submission Date'] ? new Date(d['Submission Date']).toLocaleDateString('en-PH') : '—';
+
+    const statusColors = { Pending:'#E8A020', Reviewed:'#2D6A35', Approved:'#1A3F6B', Declined:'#C0392B' };
+    const color = statusColors[status] || '#637083';
+
+    showAlert(`
+      <strong>Reference:</strong> ${ref}<br>
+      <strong>Firm / Farm:</strong> ${firm}<br>
+      <strong>Submitted:</strong> ${submitted}<br>
+      <strong>Status:</strong> <span style="color:${color};font-weight:600">${status}</span>
+    `);
+  } catch(err) {
+    showToast('Application not found. Check the reference number and try again.', 'error');
+  }
+}
+
+// ── UI HELPERS ─────────────────────────────────────────────
+let toastTimer;
+function showToast(msg, type = '') {
+  clearTimeout(toastTimer);
+  const t = document.getElementById('toast');
+  t.innerHTML = msg;
+  t.className = `toast${type ? ' ' + type : ''} show`;
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+function showAlert(html) {
+  const existing = document.getElementById('status-alert');
+  if (existing) existing.remove();
+  const div = document.createElement('div');
+  div.id = 'status-alert';
+  div.style.cssText = `
+    background:white;border:1.5px solid #DDE4EE;border-radius:12px;
+    padding:20px 24px;margin-top:16px;font-size:14px;line-height:2;
+    box-shadow:0 4px 16px rgba(0,0,0,.08);
+  `;
+  div.innerHTML = html;
+  document.getElementById('track').appendChild(div);
+  div.scrollIntoView({ behavior:'smooth', block:'nearest' });
+}
 </script>
 </body>
 </html>
