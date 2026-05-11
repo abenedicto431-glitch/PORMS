@@ -196,35 +196,6 @@ body{font-family:'Source Sans 3',sans-serif;background:#dde4ef;color:var(--gray-
   </div>
 </div>
 
-<!-- STAFF ASSESSMENT PANEL -->
-<div class="staff-panel">
-  <div class="staff-panel-title">⚙ Staff Assessment Notes</div>
-  <div class="fg c1">
-    <div class="f">
-      <label>Assessment Status</label>
-      <div class="status-btns">
-        <button class="sbtn sbtn-pending active" id="sbtn-pending" onclick="setStatus('pending')">Pending</button>
-        <button class="sbtn sbtn-reviewed" id="sbtn-reviewed" onclick="setStatus('reviewed')">Reviewed</button>
-        <button class="sbtn sbtn-approved" id="sbtn-approved" onclick="setStatus('approved')">Approved</button>
-        <button class="sbtn sbtn-declined" id="sbtn-declined" onclick="setStatus('declined')">Declined</button>
-      </div>
-    </div>
-  </div>
-  <div class="fg c2" style="margin-top:10px">
-    <div class="f"><label>Assigned PSTO Staff</label><input type="text" id="staff-assigned" placeholder="Name of assigned staff"></div>
-    <div class="f"><label>Date of Assessment</label><input type="date" id="staff-date"></div>
-  </div>
-  <div class="fg c1">
-    <div class="f"><label>Internal Remarks / Observations</label><textarea id="staff-remarks" rows="3" placeholder="Internal notes for DOST staff only — not visible to applicant..."></textarea></div>
-  </div>
-  <div class="fg c1">
-    <div class="f"><label>Reason for Decline (if applicable)</label><input type="text" id="staff-decline" placeholder="Reason for declining this application"></div>
-  </div>
-  <div class="fg c2">
-    <div class="f"><label>Assisted by (DOST-III PSTO Staff)</label><input type="text" id="sig-assisted" placeholder="Name"></div>
-    <div class="f"><label>Noted by (Provincial S&amp;T Director)</label><input type="text" id="sig-noted" placeholder="Name"></div>
-  </div>
-</div>
 
 <!-- FORM BODY — injected by JS -->
 <div class="fbody" id="form-body"></div>
