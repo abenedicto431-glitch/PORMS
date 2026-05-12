@@ -372,6 +372,7 @@ fetch(APPS_SCRIPT_URL + '?ref=' + ref)
         fsMktTarget:          d['Target Additional Market']  || '',
         fsHandler:            d['FS Handler']                || '',
         fsRemarks:            d['FS Remarks']                || '',
+        fsMobileNum:          d['FS Mobile']                 || '',
         // Staff fields
         staffStatus:          d['Staff Status']              || '',
         staffAssigned:        d['Staff Assigned']            || '',
@@ -424,13 +425,12 @@ fetch(APPS_SCRIPT_URL + '?ref=' + ref)
 let currentStatus='pending';
 function setStatus(s){
   currentStatus=s;
-  ['pending','reviewed','approved','declined'].forEach(x=>document.getElementById('sbtn-'+x).classList.toggle('active',x===s));
   const chip=document.getElementById('status-chip');
+  if(!chip) return;
   const labels={pending:'● PENDING REVIEW',reviewed:'● REVIEWED',approved:'● APPROVED',declined:'● DECLINED'};
   const cls={pending:'s-pending',reviewed:'s-reviewed',approved:'s-approved',declined:'s-declined'};
   chip.textContent=labels[s]; chip.className='status-chip '+cls[s];
 }
-
 // ─── HELPERS ────────────────────────────────────────────────────────────────────
 function esc(v){return String(v||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function toRoman(n){return['I','II','III','IV','V','VI','VII','VIII','IX','X'][n-1]||n;}
