@@ -1031,6 +1031,18 @@ function collectAllData(ref, editLink) {
     fsBackground:gv('fs-background'), fsOrg:gr('fs-org'), fsCap:gr('fs-cap'),
     fsEmpcl:gr('fs-empcl'), fsEmpM:gv('fs-emp-m'), fsEmpF:gv('fs-emp-f'),
     fsRemarks:gv('fs-remarks'),
+    fsMobileNum:   gv('fs-mobile'),
+    fsL1_5S:       document.querySelector('#sec-fs .ftbl:nth-of-type(1) tbody tr:nth-child(1) select')?.value||'',
+    fsL1_hygiene:  document.querySelector('#sec-fs .ftbl:nth-of-type(1) tbody tr:nth-child(2) select')?.value||'',
+    fsL1_hazards:  document.querySelector('#sec-fs .ftbl:nth-of-type(1) tbody tr:nth-child(3) select')?.value||'',
+    fsL1_laws:     document.querySelector('#sec-fs .ftbl:nth-of-type(1) tbody tr:nth-child(4) select')?.value||'',
+    fsL1_gmp:      document.querySelector('#sec-fs .ftbl:nth-of-type(1) tbody tr:nth-child(5) select')?.value||'',
+    fsL2_gmp:      document.querySelector('#sec-fs .ftbl:nth-of-type(2) tbody tr:nth-child(1) select')?.value||'',
+    fsL2_ssop:     document.querySelector('#sec-fs .ftbl:nth-of-type(2) tbody tr:nth-child(2) select')?.value||'',
+    fsL2_psop:     document.querySelector('#sec-fs .ftbl:nth-of-type(2) tbody tr:nth-child(3) select')?.value||'',
+    fsL2_qsop:     document.querySelector('#sec-fs .ftbl:nth-of-type(2) tbody tr:nth-child(4) select')?.value||'',
+    fsL3_fda:      document.querySelector('#sec-fs .ftbl:nth-of-type(3) tbody tr:nth-child(1) select')?.value||'',
+    fsL3_expenses: document.querySelector('#sec-fs .ftbl:nth-of-type(3) tbody tr:nth-child(2) select')?.value||'',
   };
 }
 
