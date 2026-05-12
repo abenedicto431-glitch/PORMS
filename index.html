@@ -1256,7 +1256,7 @@ function buildReviewHtml() {
       rv('Name of Firm',eFirmName)+rv('Province',eFirmProv)+
       rv2('Complete Address',eFirmAddr)+
       rv('Owner',eOwner)+rv('Contact Person',progs.app?gv('contact-person'):(progs.mpp?gv('firm-contact-person'):gv('emp-contact-person')))+
-     +rv2('E-mail',progs.mpp?gv('firm-email'):gv('emp-email'))+
+      rv('Mobile No.',progs.mpp?gv('firm-owner-mobile'):gv('emp-mobile'))+rv2('E-mail',progs.mpp?gv('firm-email'):gv('emp-email'))+
       rv2('Brief Background',eBg)
     );
     h+=sec('EMP — Pre-Assessment Checklist',
