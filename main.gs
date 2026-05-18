@@ -1,5 +1,5 @@
 /**
- * DOST-3 2025 Unified Form — Google Apps Script Backend
+ * DOST-3 Unified Form — Google Apps Script Backend
  * =====================================================
  * SETUP INSTRUCTIONS:
  * 1. Go to script.google.com and create a new project
@@ -528,7 +528,7 @@ function formatHeaderRow(sheet) {
 // ============================================================
 function testSubmit() {
   const testData = {
-    referenceNumber: 'DOST3-2025-TEST01',
+    referenceNumber: 'DOST3-TEST01',
     submissionDate: new Date().toISOString(),
     programs: 'MPP, EMP',
     firmName: 'Test Manufacturing Corp',
@@ -554,7 +554,7 @@ function testSubmit() {
     mppEmpIndirect: '3',
     mppEmpTotal: '28',
     mppProducts: 'Metal fabricated parts',
-    editLink: 'https://abenedicto431-glitch.github.io/PORMS/edit.html?ref=DOST3-2025-TEST01',
+    editLink: 'https://abenedicto431-glitch.github.io/PORMS/edit.html?ref=DOST3-TEST01',
   };
 
   handleSubmit(testData);
